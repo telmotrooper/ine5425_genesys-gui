@@ -1,0 +1,18 @@
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
+win = Gtk.Window()
+win.connect("destroy", Gtk.main_quit)
+win.show_all()
+Gtk.main()
+
+def main():
+    builder = Gtk.Builder()
+    builder.add_from_file("user_interface.glade")
+
+    window = builder.get_object("main_window")
+    window.show_all()
+
+if __name__ == "__main__":
+    main()
