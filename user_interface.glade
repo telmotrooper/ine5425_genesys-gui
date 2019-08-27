@@ -343,6 +343,8 @@
                       <object class="GtkTextView" id="log">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
                       </object>
                     </child>
                   </object>
