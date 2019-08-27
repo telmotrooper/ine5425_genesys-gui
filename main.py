@@ -10,6 +10,7 @@ def main():
     builder.connect_signals(Handler(builder))
 
     window = builder.get_object("main_window")
+    window.set_icon_from_file("icon.png")
     window.maximize()
     window.show_all()
 
