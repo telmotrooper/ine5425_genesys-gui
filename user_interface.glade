@@ -181,7 +181,7 @@
               <object class="GtkToolButton" id="new_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_11</property>
+                <property name="label" translatable="yes">save_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-new</property>
               </object>
@@ -194,7 +194,7 @@
               <object class="GtkToolButton" id="open_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_12</property>
+                <property name="label" translatable="yes">open_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-open</property>
               </object>
@@ -207,9 +207,19 @@
               <object class="GtkToolButton" id="save_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_13</property>
+                <property name="label" translatable="yes">save_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -220,22 +230,9 @@
               <object class="GtkToolButton" id="play_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_11</property>
+                <property name="label" translatable="yes">play_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-play</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="next_button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_12</property>
-                <property name="use_underline">True</property>
-                <property name="stock_id">gtk-media-next</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -246,9 +243,22 @@
               <object class="GtkToolButton" id="forward_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_13</property>
+                <property name="label" translatable="yes">forward_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-forward</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolButton" id="next_button">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">next_button</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-media-next</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -259,7 +269,7 @@
               <object class="GtkToolButton" id="pause_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_14</property>
+                <property name="label" translatable="yes">pause_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-pause</property>
               </object>
@@ -272,7 +282,7 @@
               <object class="GtkToolButton" id="stop_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">__glade_unnamed_16</property>
+                <property name="label" translatable="yes">stop_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-stop</property>
               </object>
