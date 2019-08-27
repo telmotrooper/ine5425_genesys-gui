@@ -18,3 +18,7 @@ class Handler:
       "[" + str(datetime.datetime.now().strftime("%H:%M:%S")) + "] " + text + end
     )
     text_view.scroll_to_mark(buffer.get_insert(), 0, 0, 0, 0)
+  
+  def show_about_dialog(self, button):
+    self.builder.get_object("about_dialog").show_all()
+    self.builder.get_object("about_dialog").connect("delete-event", lambda w, e: w.hide() or True)
