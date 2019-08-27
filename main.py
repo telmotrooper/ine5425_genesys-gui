@@ -7,6 +7,7 @@ def main():
     builder.add_from_file("user_interface.glade")
 
     window = builder.get_object("main_window")
+    window.maximize()
     window.show_all()
 
     Gtk.main()
