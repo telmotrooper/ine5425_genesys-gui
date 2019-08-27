@@ -7,7 +7,7 @@ from handler import Handler
 def main():
     builder = Gtk.Builder()
     builder.add_from_file("user_interface.glade")
-    builder.connect_signals(Handler())
+    builder.connect_signals(Handler(builder))
 
     window = builder.get_object("main_window")
     window.maximize()
