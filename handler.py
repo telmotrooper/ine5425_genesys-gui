@@ -1,4 +1,5 @@
 from gi.repository import Gtk
+import datetime
 
 class Handler:
   def __init__(self, builder):
@@ -13,5 +14,7 @@ class Handler:
 
   def print(self, text, end = "\n"):
     text_view, buffer = self.log, self.log.get_buffer()
-    buffer.insert_at_cursor(text + end)
+    buffer.insert_at_cursor(
+      "[" + str(datetime.datetime.now().time()) + "] " + text + end
+    )
     text_view.scroll_to_mark(buffer.get_insert(), 0, 0, 0, 0)
