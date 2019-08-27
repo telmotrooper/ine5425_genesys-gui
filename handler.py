@@ -15,6 +15,6 @@ class Handler:
   def print(self, text, end = "\n"):
     text_view, buffer = self.log, self.log.get_buffer()
     buffer.insert_at_cursor(
-      "[" + str(datetime.datetime.now().time()) + "] " + text + end
+      "[" + str(datetime.datetime.now().strftime("%H:%M:%S")) + "] " + text + end
     )
     text_view.scroll_to_mark(buffer.get_insert(), 0, 0, 0, 0)
