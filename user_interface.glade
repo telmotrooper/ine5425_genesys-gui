@@ -469,7 +469,8 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_top">8</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">9</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkScrolledWindow">
@@ -484,6 +485,7 @@
                           <object class="GtkDrawingArea" id="drawing_area">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="vexpand">True</property>
                           </object>
                         </child>
                       </object>
@@ -499,6 +501,8 @@
                   <object class="GtkScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
                     <property name="shadow_type">in</property>
                     <child>
                       <object class="GtkTextView" id="log">
