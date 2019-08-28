@@ -2,7 +2,7 @@
 
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 
 from handler import Handler
 
@@ -12,7 +12,15 @@ def main():
     builder.connect_signals(Handler(builder))
 
     window = builder.get_object("main_window")
-    window.set_icon_from_file("icon.png")
+    window.set_icon_list([
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-16.png"),
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-24.png"),
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-32.png"),
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-64.png"),
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-128.png"),
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-256.png"),
+        GdkPixbuf.Pixbuf.new_from_file("icons/icon-512.png")
+    ])
     window.maximize()
     window.show_all()
 
