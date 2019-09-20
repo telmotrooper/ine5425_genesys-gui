@@ -3,10 +3,14 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
+from ctypes import *
 
 from handler import Handler
 
 def main():
+    libgenesys = CDLL("./genesys/dist/Debug/GNU-Linux/libgenesys.so")
+    libgenesys.getSimulatorInstance()
+    
     builder = Gtk.Builder()
     builder.add_from_file("user_interface.glade")
     builder.connect_signals(Handler(builder))

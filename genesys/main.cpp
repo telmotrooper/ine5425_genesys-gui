@@ -15,6 +15,9 @@
 #include <thread>
 #include "Traits.h"
 
+// GEnSyS Simulator
+#include "Simulator.h"
+
 /*
  * This is the MAIN application of GenESyS. It just calls the Application specificied on the configuration file.
  */
@@ -29,3 +32,6 @@ int main(int argc, char** argv) {
     return res;
 }
 
+extern "C" Simulator* getSimulatorInstance() {
+    return new Simulator();
+}
