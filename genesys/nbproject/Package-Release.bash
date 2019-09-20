@@ -13,9 +13,9 @@ CND_BUILDDIR=build
 CND_DLIB_EXT=so
 NBTMPDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/20182-ongoing_regenesys_genericexpansiblesystemsimulator
-OUTPUT_BASENAME=20182-ongoing_regenesys_genericexpansiblesystemsimulator
-PACKAGE_TOP_DIR=20182-ongoingregenesysgenericexpansiblesystemsimulator/
+OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/genesys
+OUTPUT_BASENAME=genesys
+PACKAGE_TOP_DIR=genesys/
 
 # Functions
 function checkReturnCode
@@ -60,15 +60,15 @@ mkdir -p ${NBTMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory "${NBTMPDIR}/20182-ongoingregenesysgenericexpansiblesystemsimulator/bin"
+makeDirectory "${NBTMPDIR}/genesys/bin"
 copyFileToTmpDir "${OUTPUT_PATH}" "${NBTMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/20182-ongoingregenesysgenericexpansiblesystemsimulator.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/genesys.tar
 cd ${NBTMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/20182-ongoingregenesysgenericexpansiblesystemsimulator.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/package/genesys.tar *
 checkReturnCode
 
 # Cleanup

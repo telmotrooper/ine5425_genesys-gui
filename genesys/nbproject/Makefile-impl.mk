@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=20182-ongoing_ReGenESYs_GenericExpansibleSystemSimulator
+PROJECTNAME=genesys
 
 # Active Configuration
 DEFAULTCONF=Debug

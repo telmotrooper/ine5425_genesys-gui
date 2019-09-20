@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=20182-ongoing_regenesys_genericexpansiblesystemsimulator
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/20182-ongoing_regenesys_genericexpansiblesystemsimulator
+CND_ARTIFACT_NAME_Debug=libgenesys.so
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/libgenesys.so
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=20182-ongoingregenesysgenericexpansiblesystemsimulator.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/20182-ongoingregenesysgenericexpansiblesystemsimulator.tar
+CND_PACKAGE_NAME_Debug=libgenesys.so.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/libgenesys.so.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=20182-ongoing_regenesys_genericexpansiblesystemsimulator
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/20182-ongoing_regenesys_genericexpansiblesystemsimulator
+CND_ARTIFACT_NAME_Release=genesys
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/genesys
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=20182-ongoingregenesysgenericexpansiblesystemsimulator.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/20182-ongoingregenesysgenericexpansiblesystemsimulator.tar
+CND_PACKAGE_NAME_Release=genesys.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/genesys.tar
 #
 # include compiler specific variables
 #
