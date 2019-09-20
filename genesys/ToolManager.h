@@ -16,6 +16,7 @@
 
 #include "Sampler_if.h"
 #include "Fitter_if.h"
+#include "ProcessAnalyser_if.h"
 
 class Simulator;
 
@@ -26,11 +27,13 @@ public:
     virtual ~ToolManager();
 public:
     Sampler_if* getSampler() const; ///< Returns the Sampler, used to generate samples accordingly to a probability distribution
-    Fitter_if* getFitter() const; ///< Returns the fitter, responsible for carrying out tests of adherence of theoretical distributions of probability with sampled data.
+    Fitter_if* getFitter() const;
+    ProcessAnalyser_if* getExperimentDesigner() const; ///< Returns the fitter, responsible for carrying out tests of adherence of theoretical distributions of probability with sampled data.
 public: // event handlers
 private:
     Fitter_if* _fitter; // = new Traits<Fitter_if>::Implementation();
     Sampler_if* _sampler; // = new Traits<Sampler_if>::Implementation();
+    ProcessAnalyser_if* _processAnalyser;
 private:
     Simulator* _simulator;
 };

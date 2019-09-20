@@ -26,6 +26,8 @@ public:
     SimulationResponse(const SimulationResponse& orig);
     virtual ~SimulationResponse();
 public:
+    std::string show();
+public:
     double getValue();
     std::string getName() const;
     std::string getType() const;

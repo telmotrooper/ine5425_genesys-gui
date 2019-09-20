@@ -16,6 +16,7 @@
 
 #include "ModelChecker_if.h"
 #include "Model.h"
+#include "PluginManager.h"
 
 class ModelCheckerDefaultImpl1 : public ModelChecker_if {
 public:
@@ -27,9 +28,10 @@ public:
     virtual bool checkConnected();
     virtual bool checkSymbols();
     virtual bool checkActivationCode();
+    virtual bool checkLimits();
     //virtual bool verifySymbol(std::string componentName, std::string expressionName, std::string expression, std::string expressionResult, bool mandatory);
 private:
-    bool _recursiveConnectedTo(ModelComponent* comp, List<ModelComponent*>* visited, List<ModelComponent*>* unconnected, bool* drenoFound);
+    bool _recursiveConnectedTo(PluginManager* pluginManager, ModelComponent* comp, List<ModelComponent*>* visited, List<ModelComponent*>* unconnected, bool* drenoFound);
 private:
     Model* _model;
 };

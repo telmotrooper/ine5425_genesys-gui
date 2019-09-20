@@ -36,8 +36,11 @@ List<Assign::Assignment*>* Assign::getAssignments() const {
     return _assignments;
 }
 
-PluginInformation* Assign::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Assign>(), &Assign::LoadInstance);
+PluginInformation* Assign::GetPluginInformation() {
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Assign>(), &Assign::LoadInstance);
+    info->insertDynamicLibFileDependence("attribute.so");
+    info->insertDynamicLibFileDependence("variable.so");
+    return info;
 }
 
 ModelComponent* Assign::LoadInstance(Model* model, std::map<std::string, std::string>* fields) {
@@ -66,7 +69,7 @@ void Assign::_execute(Entity* entity) {
 	}
     }
 
-    this->_model->sendEntityToComponent(entity, this->getNextComponents()->front(), 0.0);
+    this->_model->sendEntityToComponent(entity, this->getNextComponents()->frontConnection(), 0.0);
 }
 
 void Assign::_initBetweenReplications() {
@@ -76,17 +79,16 @@ bool Assign::_loadInstance(std::map<std::string, std::string>* fields) {
     bool res = ModelComponent::_loadInstance(fields);
     if (res) {
 	unsigned int nv = std::stoi((*(fields->find("assignments"))).second);
-	for (unsigned int i=0; i<nv; i++){
-	    DestinationType dt = static_cast<DestinationType>(std::stoi((*(fields->find("destinationType"+std::to_string(i)))).second));
-	    std::string dest = ((*(fields->find("destination"+std::to_string(i)))).second);
-	    std::string exp = ((*(fields->find("expression"+std::to_string(i)))).second);
+	for (unsigned int i = 0; i < nv; i++) {
+	    DestinationType dt = static_cast<DestinationType> (std::stoi((*(fields->find("destinationType" + std::to_string(i)))).second));
+	    std::string dest = ((*(fields->find("destination" + std::to_string(i)))).second);
+	    std::string exp = ((*(fields->find("expression" + std::to_string(i)))).second);
 	    Assignment* assmt = new Assignment(dt, dest, exp);
 	    this->_assignments->insert(assmt);
 	}
     }
     return res;
 }
-
 
 std::map<std::string, std::string>* Assign::_saveInstance() {
     std::map<std::string, std::string>* fields = ModelComponent::_saveInstance(); //Util::TypeOf<Assign>());

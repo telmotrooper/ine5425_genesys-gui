@@ -26,11 +26,11 @@ Resource::Resource(ElementManager* elems, std::string name) : ModelElement(Util:
 }
 
 void Resource::_initCStats() {
-    _cstatTimeSeized = new StatisticsCollector("Time Seized", this);
+    _cstatTimeSeized = new StatisticsCollector(_elems, "Time Seized", this);
     _elems->insert(Util::TypeOf<StatisticsCollector>(), _cstatTimeSeized);
-    _numSeizes = new Counter("Seizes", this);
+    _numSeizes = new Counter(_elems, "Seizes", this);
     _elems->insert(Util::TypeOf<Counter>(), _numSeizes);
-    _numReleases = new Counter("Releases", this);
+    _numReleases = new Counter(_elems, "Releases", this);
     _elems->insert(Util::TypeOf<Counter>(), _numReleases);
 
 }
@@ -139,7 +139,7 @@ void Resource::_notifyEventHandlers() {
 }
 
 PluginInformation* Resource::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Resource>(), &Resource::LoadInstance);
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Resource>(), &Resource::LoadInstance); return info;
 }
 
 ModelElement* Resource::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {

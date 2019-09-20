@@ -39,12 +39,13 @@ ModelComponent* Dummy::LoadInstance(Model* model, std::map<std::string, std::str
 
 void Dummy::_execute(Entity* entity) {
     _model->getTraceManager()->trace(Util::TraceLevel::blockInternal, "I'm just a dummy model and I'll just send the entity forward");
-    this->_model->sendEntityToComponent(entity, this->getNextComponents()->front(), 0.0);
+    this->_model->sendEntityToComponent(entity, this->getNextComponents()->frontConnection(), 0.0);
 }
 
 bool Dummy::_loadInstance(std::map<std::string, std::string>* fields) {
     bool res = ModelComponent::_loadInstance(fields);
     if (res) {
+	//...
     }
     return res;
 }
@@ -53,14 +54,19 @@ void Dummy::_initBetweenReplications() {
 }
 
 std::map<std::string, std::string>* Dummy::_saveInstance() {
-    std::map<std::string, std::string>* fields = ModelComponent::_saveInstance(); 
+    std::map<std::string, std::string>* fields = ModelComponent::_saveInstance();
+    //...
     return fields;
 }
 
 bool Dummy::_check(std::string* errorMessage) {
-    return true;
+    bool resultAll = true;
+    //...
+    return resultAll;
 }
 
 PluginInformation* Dummy::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Dummy>(), &Dummy::LoadInstance);
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Dummy>(), &Dummy::LoadInstance);
+    // ...
+    return info;
 }

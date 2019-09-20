@@ -49,6 +49,19 @@ SetterMember DefineSetterMember(Class * object, void (Class::*function)(unsigned
     return std::bind(function, object, std::placeholders::_1);
 }
 
+
+// unsigned long
+
+template<typename Class>
+GetterMember DefineGetterMember(Class * object, unsigned long (Class::*function)() const) {
+    return std::bind(function, object);
+}
+
+template<typename Class>
+SetterMember DefineSetterMember(Class * object, void (Class::*function)(unsigned long)) {
+    return std::bind(function, object, std::placeholders::_1);
+}
+
 // bool
 
 template<typename Class>

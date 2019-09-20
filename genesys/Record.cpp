@@ -18,7 +18,7 @@
 #include <iostream>
 
 Record::Record(Model* model) : ModelComponent(model, Util::TypeOf<Record>()) {
-    _cstatExpression = new StatisticsCollector(_expressionName, this);
+    _cstatExpression = new StatisticsCollector(_model->getElementManager(), _expressionName, this);
     _model->getElementManager()->insert(Util::TypeOf<StatisticsCollector>(), _cstatExpression);
 }
 
@@ -73,7 +73,7 @@ void Record::_execute(Entity* entity) {
     file << value << std::endl;
     file.close(); // TODO: open and close for every data is not a good idea. Should open when replication starts and close when it finishes.    
     _model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, _model->getSimulation()->getSimulatedTime(), entity, this, "Recording value " + std::to_string(value));
-    _model->sendEntityToComponent(entity, this->getNextComponents()->front(), 0.0);
+    _model->sendEntityToComponent(entity, this->getNextComponents()->frontConnection(), 0.0);
 
 }
 
@@ -105,7 +105,7 @@ bool Record::_check(std::string* errorMessage) {
 }
 
 PluginInformation* Record::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Record>(), &Record::LoadInstance);
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Record>(), &Record::LoadInstance); return info;
 }
 
 

@@ -15,11 +15,8 @@
 #include "Model.h"
 
 Dispose::Dispose(Model* model) : SinkModelComponent(model, Util::TypeOf<Dispose>()) {
-    _numberOut = new Counter("Count number out", this);
+    _numberOut = new Counter(_model->getElementManager(), "Count number out", this);
     _model->getElementManager()->insert(Util::TypeOf<Counter>(), _numberOut);
-    //model->getResponses()->insert(new SimulationResponse(Util::TypeOf<Dispose>(), "Number Out",
-    //        DefineGetterMember<Dispose>(this, &Dispose::getNumberOut))
-    //        );
 }
 
 Dispose::Dispose(const Dispose& orig) : SinkModelComponent(orig) {
@@ -35,6 +32,11 @@ std::string Dispose::show() {
 
 void Dispose::_execute(Entity* entity) {
     _numberOut->incCountValue();
+    if (_collectStatistics) {
+	double timeInSystem = _model->getSimulation()->getSimulatedTime() - entity->getAttributeValue("Entity.ArrivalTime");
+	entity->getEntityType()->getStatisticsCollector("Total Time")->getStatistics()->getCollector()->addValue(timeInSystem);
+    }
+
     _model->removeEntity(entity, this->isCollectStatistics());
 }
 
@@ -47,17 +49,25 @@ void Dispose::_initBetweenReplications() {
 }
 
 std::map<std::string, std::string>* Dispose::_saveInstance() {
-    std::map<std::string, std::string>* fields = ModelComponent::_saveInstance(); //Util::TypeOf<Dispose>());
+    std::map<std::string, std::string>* fields = ModelComponent::_saveInstance();
     return fields;
 
 }
 
 bool Dispose::_check(std::string* errorMessage) {
+    // include StatisticsCollector needed in EntityType
+    std::list<ModelElement*>* enttypes = _model->getElementManager()->getElements(Util::TypeOf<EntityType>())->getList();
+    for (std::list<ModelElement*>::iterator it = enttypes->begin(); it != enttypes->end(); it++) {
+	static_cast<EntityType*> ((*it))->getStatisticsCollector("Total Time"); // force create this CStat before simulation starts
+    }
+    //
     return true;
 }
 
-PluginInformation* Dispose::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Dispose>(), &Dispose::LoadInstance);
+PluginInformation* Dispose::GetPluginInformation() {
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Dispose>(), &Dispose::LoadInstance);
+    info->setSink(true);
+    return info;
 }
 
 ModelComponent* Dispose::LoadInstance(Model* model, std::map<std::string, std::string>* fields) {
@@ -65,7 +75,7 @@ ModelComponent* Dispose::LoadInstance(Model* model, std::map<std::string, std::s
     try {
 	newComponent->_loadInstance(fields);
     } catch (const std::exception& e) {
-	
+
     }
     return newComponent;
 

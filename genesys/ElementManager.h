@@ -41,6 +41,7 @@ public:
     ModelElement* getElement(std::string infraTypename, Util::identitifcation id);
     ModelElement* getElement(std::string infraTypename, std::string name);
     unsigned int getNumberOfElements(std::string infraTypename);
+    unsigned int getNumberOfElements();
     int getRankOf(std::string infraTypename, std::string name); ///< returns the position (1st position=0) of the element if found, or negative value if not found
     std::list<std::string>* getElementTypenames() const;
 
@@ -50,7 +51,7 @@ public:
     List<ModelElement*>* getElements(std::string infraTypename) const;
 public:
     void show();
-    Model* getModel() const;
+    Model* getParentModel() const;
 private:
     std::map<std::string, List<ModelElement*>*>* _elements;
     Model* _model;

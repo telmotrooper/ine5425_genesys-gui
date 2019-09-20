@@ -21,17 +21,17 @@
 
 class ParserDefaultImpl2 : public Parser_if {
 public:
-	ParserDefaultImpl2(Model* model);
-	ParserDefaultImpl2(Model* model, bool throws);
-	ParserDefaultImpl2(const ParserDefaultImpl2& orig);
-	virtual ~ParserDefaultImpl2();
+    ParserDefaultImpl2(Model* model);
+    ParserDefaultImpl2(Model* model, bool throws);
+    ParserDefaultImpl2(const ParserDefaultImpl2& orig);
+    virtual ~ParserDefaultImpl2();
 public:
-	virtual double parse(const std::string expression); // may throw exception
-	virtual double parse(const std::string expression, bool* success, std::string* errorMessage);
-	virtual std::string* getErrorMessage();
+    virtual double parse(const std::string expression); // may throw exception
+    virtual double parse(const std::string expression, bool* success, std::string* errorMessage);
+    virtual std::string* getErrorMessage();
 private:
-	Model* _model;
-	genesyspp_driver _wrapper;
+    Model* _model;
+    genesyspp_driver _wrapper;
 };
 
 #endif /* PARSERDEFAULTIMPL2_H */

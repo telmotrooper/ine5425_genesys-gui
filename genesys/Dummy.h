@@ -16,24 +16,28 @@
 
 #include "ModelComponent.h"
 
+/*!
+ This component ...
+ */
 class Dummy : public ModelComponent {
-public:
+public: // constructors
     Dummy(Model* model);
     Dummy(const Dummy& orig);
     virtual ~Dummy();
-public:
+public:  // virtual
     virtual std::string show();
-public:
+public:  // static
     static PluginInformation* GetPluginInformation();
     static ModelComponent* LoadInstance(Model* model, std::map<std::string, std::string>* fields);
-protected:
+protected:  // virtual
     virtual void _execute(Entity* entity);
     virtual void _initBetweenReplications();
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
     virtual std::map<std::string, std::string>* _saveInstance();
     virtual bool _check(std::string* errorMessage);
-private:
-
+private: // methods
+private: // attributes 1:1
+private: // attributes 1:n
 };
 
 #endif /* DUMMY_H */

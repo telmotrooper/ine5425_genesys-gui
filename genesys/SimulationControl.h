@@ -26,6 +26,8 @@ public:
     SimulationControl(const SimulationControl& orig);
     virtual ~SimulationControl();
 public:
+    std::string show();
+public:
     void setValue(double value);
 private:
     SetterMember _setMemberFunction;

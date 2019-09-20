@@ -27,8 +27,8 @@ Queue::Queue(ElementManager* elems, std::string name) : ModelElement(Util::TypeO
 }
 
 void Queue::_initCStats() {
-    _cstatNumberInQueue = new StatisticsCollector("Number In Queue", this); /* TODO: ++ WHY THIS INSERT "DISPOSE" AND "10ENTITYTYPE" STATCOLL ?? */
-    _cstatTimeInQueue = new StatisticsCollector("Time In Queue", this);
+    _cstatNumberInQueue = new StatisticsCollector(_elems, "Number In Queue", this); /* TODO: ++ WHY THIS INSERT "DISPOSE" AND "10ENTITYTYPE" STATCOLL ?? */
+    _cstatTimeInQueue = new StatisticsCollector(_elems, "Time In Queue", this);
     _elems->insert(Util::TypeOf<StatisticsCollector>(), _cstatNumberInQueue);
     _elems->insert(Util::TypeOf<StatisticsCollector>(), _cstatTimeInQueue);
 
@@ -52,14 +52,15 @@ void Queue::insertElement(Waiting* element) {
     this->_cstatNumberInQueue->getStatistics()->getCollector()->addValue(_list->size());
 }
 
-void Queue::removeElement(Waiting* element, double tnow) {
+void Queue::removeElement(Waiting* element) {
+    double tnow = this->_elems->getParentModel()->getSimulation()->getSimulatedTime();
     _list->remove(element);
     this->_cstatNumberInQueue->getStatistics()->getCollector()->addValue(_list->size());
     double timeInQueue = tnow - element->getTimeStartedWaiting();
     this->_cstatTimeInQueue->getStatistics()->getCollector()->addValue(timeInQueue);
 }
 
-void Queue::initBetweenReplication() {
+void Queue::initBetweenReplications() {
     this->_list->clear();
 }
 
@@ -69,6 +70,10 @@ unsigned int Queue::size() {
 
 Waiting* Queue::first() {
     return _list->front();
+}
+
+Waiting* Queue::getAtRank(unsigned int rank){
+    return _list->getAtRank(rank);
 }
 
 void Queue::setAttributeName(std::string _attributeName) {
@@ -94,7 +99,7 @@ Queue::OrderRule Queue::getOrderRule() const {
 //}
 
 PluginInformation* Queue::GetPluginInformation() {
-    return new PluginInformation(Util::TypeOf<Queue>(), &Queue::LoadInstance);
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Queue>(), &Queue::LoadInstance); return info;
 }
 
 ModelElement* Queue::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
@@ -128,4 +133,11 @@ std::map<std::string, std::string>* Queue::_saveInstance() {
 
 bool Queue::_check(std::string* errorMessage) {
     return _elems->check(Util::TypeOf<Attribute>(), _attributeName, "AttributeName", false, errorMessage);
+}
+
+ParserChangesInformation* Queue::_getParserChangesInformation() {
+    ParserChangesInformation* changes = new ParserChangesInformation();
+    //changes->getProductionToAdd()->insert(...);
+    //changes->getTokensToAdd()->insert(...);
+    return changes;
 }

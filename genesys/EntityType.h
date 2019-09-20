@@ -45,12 +45,13 @@ public: //get & set
     void setInitialPicture(std::string _initialPicture);
     std::string getInitialPicture() const;
 public: //get
-    StatisticsCollector* getCstatTotalTime() const;
-    StatisticsCollector* getCstatNVATime() const;
-    StatisticsCollector* getCstatVATime() const;
-    StatisticsCollector* getCstatOtherTime() const;
-    StatisticsCollector* getCstatTransferTime() const;
-    StatisticsCollector* getCstatWaitingTime() const;
+    //StatisticsCollector* getCstatTotalTime() const;
+    //StatisticsCollector* getCstatNVATime() const;
+    //StatisticsCollector* getCstatVATime() const;
+    //StatisticsCollector* getCstatOtherTime() const;
+    //StatisticsCollector* getCstatTransferTime() const;
+    //StatisticsCollector* getCstatWaitingTime() const;
+    StatisticsCollector* getStatisticsCollector(std::string name);
 
 protected: // must be overriden by derived classes
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
@@ -67,12 +68,14 @@ private:
     double _initialWaitingCost = 0.0;
 private:
     ElementManager* _elemManager;
-    StatisticsCollector* _cstatWaitingTime; //  = new StatisticsCollector("Waiting Time");
-    StatisticsCollector* _cstatTransferTime; //  = new StatisticsCollector("Transfer Time");
-    StatisticsCollector* _cstatOtherTime; //  = new StatisticsCollector("Other Time");
-    StatisticsCollector* _cstatVATime; //  = new StatisticsCollector("Value Added Time");
-    StatisticsCollector* _cstatNVATime; //  = new StatisticsCollector("Non Value Added Time");
-    StatisticsCollector* _cstatTotalTime; //  = new StatisticsCollector("Time In System");
+    private: //1:n
+    List<StatisticsCollector*>* _statisticsCollectors = new List<StatisticsCollector*>(); 
+    //StatisticsCollector* _cstatWaitingTime; //  = new StatisticsCollector("Waiting Time");
+    //StatisticsCollector* _cstatTransferTime; //  = new StatisticsCollector("Transfer Time");
+    //StatisticsCollector* _cstatOtherTime; //  = new StatisticsCollector("Other Time");
+    //StatisticsCollector* _cstatVATime; //  = new StatisticsCollector("Value Added Time");
+    //StatisticsCollector* _cstatNVATime; //  = new StatisticsCollector("Non Value Added Time");
+    //StatisticsCollector* _cstatTotalTime; //  = new StatisticsCollector("Time In System");
 };
 
 #endif /* ENTITYTYPE_H */

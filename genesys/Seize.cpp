@@ -101,9 +101,9 @@ void Seize::_handlerForResourceEvent(Resource* resource) {
 	if ((resource->getCapacity() - resource->getNumberBusy()) >= quantity) { //enought quantity to seize
 	    double tnow = _model->getSimulation()->getSimulatedTime();
 	    resource->seize(quantity, tnow);
-	    _model->getEvents()->insert(new Event(tnow, first->getEntity(), this->getNextComponents()->front()));
-	    _queue->removeElement(first, tnow);
-	    _model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, tnow, first->getEntity(), this, "Waiting entity " + std::to_string(first->getEntity()->getId()) + " now seizes " + std::to_string(quantity) + " elements of resource \"" + resource->getName() + "\"");
+	    _model->getEvents()->insert(new Event(tnow, first->getEntity(), this->getNextComponents()->frontConnection()));
+	    _queue->removeElement(first);
+	    _model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, tnow, first->getEntity(), this, "Waiting entity " + std::to_string(first->getEntity()->getEntityNumber()) + " now seizes " + std::to_string(quantity) + " elements of resource \"" + resource->getName() + "\"");
 
 	}
     }
@@ -163,13 +163,13 @@ void Seize::_execute(Entity* entity) {
     } else { // alocate the resource
 	_model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, _model->getSimulation()->getSimulatedTime(), entity, this, "Entity seizes " + std::to_string(quantity) + " elements of resource \"" + resource->getName() + "\"");
 	resource->seize(quantity, _model->getSimulation()->getSimulatedTime());
-	_model->sendEntityToComponent(entity, this->getNextComponents()->front(), 0.0);
+	_model->sendEntityToComponent(entity, this->getNextComponents()->frontConnection(), 0.0);
     }
 }
 
 void Seize::_initBetweenReplications() {
     this->_lastMemberSeized = 0;
-    this->_queue->initBetweenReplication();
+    this->_queue->initBetweenReplications();
     this->_resource->initBetweenReplications();
 }
 
@@ -223,7 +223,10 @@ bool Seize::_check(std::string* errorMessage) {
 }
 
 PluginInformation* Seize::GetPluginInformation() {
-    return new PluginInformation(Util::TypeOf<Seize>(), &Seize::LoadInstance);
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Seize>(), &Seize::LoadInstance);
+    info->insertDynamicLibFileDependence("queue.so");
+    info->insertDynamicLibFileDependence("resource.so");
+    return info;
 }
 
 ModelComponent* Seize::LoadInstance(Model* model, std::map<std::string, std::string>* fields) {

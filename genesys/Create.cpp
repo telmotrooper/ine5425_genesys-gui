@@ -19,12 +19,11 @@
 #include "Assign.h"
 
 Create::Create(Model* model) : SourceModelComponent(model, Util::TypeOf<Create>()) {
-    _numberOut = new Counter("Count number Out", this);
+    _numberOut = new Counter(_model->getElementManager(), "Count number in", this);
     _model->getElementManager()->insert(Util::TypeOf<Counter>(), _numberOut);
-    model->getControls()->insert(new SimulationControl(Util::TypeOf<Create>(), "Entities Per Creation",
-	    DefineGetterMember<SourceModelComponent>(this, &Create::getEntitiesPerCreation),
-	    DefineSetterMember<SourceModelComponent>(this, &Create::setEntitiesPerCreation))
-	    );
+    GetterMember getter = DefineGetterMember<SourceModelComponent>(this, &Create::getEntitiesPerCreation);
+    SetterMember setter = DefineSetterMember<SourceModelComponent>(this, &Create::setEntitiesPerCreation);
+    model->getControls()->insert(new SimulationControl(Util::TypeOf<Create>(), "Entities Per Creation", getter,setter));
     /*
     model->getControls()->insert(new SimulationControl(Util::TypeOf<Create>(), "Time Between Creations",
 	    DefineGetterMember<SourceModelComponent>(this, &Create::getTimeBetweenCreationsExpression),
@@ -60,16 +59,21 @@ void Create::_execute(Entity* entity) {
 	    newArrivalTime = tnow + timeBetweenCreations*timeScale;
 	    Event* newEvent = new Event(newArrivalTime, newEntity, this);
 	    _model->getEvents()->insert(newEvent);
-	    _model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, tnow, entity, this, "Arrival of entity " + std::to_string(newEntity->getId()) + " schedule for time " + std::to_string(newArrivalTime));
+	    _model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, tnow, entity, this, "Arrival of entity " + std::to_string(newEntity->getEntityNumber()) + " schedule for time " + std::to_string(newArrivalTime));
 	    //_model->getTrace()->trace(Util::TraceLevel::blockInternal, "Arrival of entity "+std::to_string(entity->getId()) + " schedule for time " +std::to_string(newArrivalTime));
 	}
     }
     _numberOut->incCountValue();
-    _model->sendEntityToComponent(entity, this->getNextComponents()->front(), 0.0);
+    _model->sendEntityToComponent(entity, this->getNextComponents()->frontConnection(), 0.0);
 }
 
-PluginInformation* Create::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Create>(), &Create::LoadInstance);
+PluginInformation* Create::GetPluginInformation() {
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Create>(), &Create::LoadInstance);
+    info->setSource(true);
+    info->insertDynamicLibFileDependence("attribute.so");
+    info->insertDynamicLibFileDependence("entitytype.so");
+    info->insertDynamicLibFileDependence("statisticscollector.so");
+    return info;
 }
 
 ModelComponent* Create::LoadInstance(Model* model, std::map<std::string, std::string>* fields) {
@@ -77,7 +81,7 @@ ModelComponent* Create::LoadInstance(Model* model, std::map<std::string, std::st
     try {
 	newComponent->_loadInstance(fields);
     } catch (const std::exception& e) {
-	
+
     }
     return newComponent;
 }
@@ -91,7 +95,7 @@ void Create::_initBetweenReplications() {
 }
 
 std::map<std::string, std::string>* Create::_saveInstance() {
-    std::map<std::string, std::string>* fields = SourceModelComponent::_saveInstance(); //Util::TypeOf<Create>());
+    std::map<std::string, std::string>* fields = SourceModelComponent::_saveInstance();
     return fields;
 }
 

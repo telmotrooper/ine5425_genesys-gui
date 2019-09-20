@@ -59,12 +59,12 @@ Util::TimeUnit Delay::getDelayTimeUnit() const {
 
 void Delay::_execute(Entity* entity) {
     double waitTime = _model->parseExpression(_delayExpression) * Util::TimeUnitConvert(_delayTimeUnit, _model->getInfos()->getReplicationLengthTimeUnit());
-    entity->getEntityType()->getCstatWaitingTime()->getStatistics()->getCollector()->addValue(waitTime);
+    entity->getEntityType()->getStatisticsCollector("Waiting Time")->getStatistics()->getCollector()->addValue(waitTime);
     entity->setAttributeValue("Entity.WaitTime", entity->getAttributeValue("Entity.WaitTime") + waitTime);
     double delayEndTime = _model->getSimulation()->getSimulatedTime() + waitTime;
-    Event* newEvent = new Event(delayEndTime, entity, this->getNextComponents()->front());
+    Event* newEvent = new Event(delayEndTime, entity, this->getNextComponents()->frontConnection());
     _model->getEvents()->insert(newEvent);
-    _model->getTraceManager()->trace(Util::TraceLevel::blockInternal, "End of delay of entity " + std::to_string(entity->getId()) + " scheduled to time " + std::to_string(delayEndTime));
+    _model->getTraceManager()->trace(Util::TraceLevel::blockInternal, "End of delay of entity " + std::to_string(entity->getEntityNumber()) + " scheduled to time " + std::to_string(delayEndTime));
 }
 
 bool Delay::_loadInstance(std::map<std::string, std::string>* fields) {
@@ -98,9 +98,15 @@ bool Delay::_check(std::string* errorMessage) {
 	    elements->insert(Util::TypeOf<Attribute>(), attr1);
 	}
     }
+    // include StatisticsCollector needed in EntityType
+    std::list<ModelElement*>* enttypes = elements->getElements(Util::TypeOf<EntityType>())->getList();
+    for (std::list<ModelElement*>::iterator it= enttypes->begin(); it!= enttypes->end(); it++) {
+	static_cast<EntityType*>((*it))->getStatisticsCollector("Waiting Time"); // force create this CStat before simulation starts
+    }
+    //
     return _model->checkExpression(_delayExpression, "Delay expression", errorMessage);
 }
 
 PluginInformation* Delay::GetPluginInformation(){
-    return new PluginInformation(Util::TypeOf<Delay>(), &Delay::LoadInstance);
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Delay>(), &Delay::LoadInstance); return info;
 }

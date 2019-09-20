@@ -18,12 +18,11 @@
 #include "ElementManager.h"
 #include "Plugin.h"
 
-
 class Counter : public ModelElement {
 public:
-    Counter();
-    Counter(std::string name);
-    Counter(std::string name, ModelElement* parent);
+    Counter(ElementManager* elems);
+    Counter(ElementManager* elems, std::string name);
+    Counter(ElementManager* elems, std::string name, ModelElement* parent);
     Counter(const Counter& orig);
     virtual ~Counter();
 public:
@@ -34,13 +33,15 @@ public:
 public:
     void clear();
     void incCountValue(int value = 1);
-    unsigned long getCountValue();
+    unsigned long getCountValue() const;
     ModelElement* getParent() const;
 protected: // from ModelElement
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
     virtual std::map<std::string, std::string>* _saveInstance();
     //virtual std::list<std::map<std::string,std::string>*>* _saveInstance(std::string type);
     virtual bool _check(std::string* errorMessage);
+protected:
+    void _addSimulationResponse(ElementManager* elems);
 private:
     ModelElement* _parent;
     unsigned long _count = 0;

@@ -35,6 +35,8 @@ public:
     unsigned int getHostsLimit();
     unsigned int getThreadsLimit();
 private:
+    void setDefaultLicenceAndLimits();
+private:
     Simulator* _simulator;
     std::string _licence;
     std::string _activationCode;

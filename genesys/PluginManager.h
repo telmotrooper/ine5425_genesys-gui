@@ -16,6 +16,7 @@
 
 #include "List.h"
 #include "Plugin.h"
+#include "PluginConnector_if.h"
 
 class Simulator;
 
@@ -25,16 +26,21 @@ public:
     PluginManager(const PluginManager& orig);
     virtual ~PluginManager();
 public:
-    bool insert(Plugin* plugin);
-    void remove(Plugin* plugin);
+    bool check(const std::string dynamicLibraryFilename);
+    Plugin* insert(const std::string dynamicLibraryFilename);
+    bool remove(const std::string dynamicLibraryFilename);
+    bool remove(Plugin* plugin);
     Plugin* find(std::string pluginTypeName);
 public:
     Plugin* front();
     Plugin* next();
     Plugin* last();
 private:
+    bool _insert(Plugin* plugin);
+private:
     List<Plugin*>* _plugins = new List<Plugin*>();
     Simulator* _simulator;
+    PluginConnector_if* _pluginConnector;
 };
 
 #endif /* PLUGINMANAGER_H */
