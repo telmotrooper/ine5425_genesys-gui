@@ -21,5 +21,5 @@ class Integration:
     with stdout_redirector(f):
       Integration.simulator = get_simulator_instance()
       Integration.model = get_model_instance(Integration.simulator)
-      # Integration.tm = 
+      Integration.tm = Integration.model.getTraceManager()
     handler.print(f.getvalue().decode('utf-8'))
