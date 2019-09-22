@@ -20,6 +20,10 @@ class Integration:
     f = BytesIO()
     with stdout_redirector(f):
       Integration.simulator = get_simulator_instance()
-      Integration.model = get_model_instance(Integration.simulator)
-      Integration.tm = Integration.model.getTraceManager()
+      Integration.model     = get_model_instance(Integration.simulator)
+      # Integration.tm        = Integration.model.getTraceManager()
+      # # this->setDefaultTraceHandlers(tm);
+      # Integration.components = Integration.model.getComponentManager()
+      # Integration.elements   = Integration.model.getElementManager()
+      
     handler.print(f.getvalue().decode('utf-8'))

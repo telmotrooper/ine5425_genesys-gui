@@ -33,10 +33,7 @@ int main(int argc, char** argv) {
     return res;
 }
 
-extern "C" Simulator* getSimulatorInstance() {
-    return new Simulator();
-}
-
-extern "C" Model* getModelInstance(Simulator* simulator) {
-    Model* model = new Model(simulator);
+extern "C" {
+    Simulator* getSimulatorInstance() { return new Simulator(); }
+    Model* getModelInstance(Simulator* simulator) { return new Model(simulator); }
 }
