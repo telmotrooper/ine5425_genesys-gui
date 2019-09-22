@@ -5,9 +5,6 @@ class Handler:
   def __init__(self, builder):
     self.builder = builder
     self.log = builder.get_object("log")
-
-    self.print("Application started.")
-
   
   def on_destroy(self, *args):
     Gtk.main_quit()

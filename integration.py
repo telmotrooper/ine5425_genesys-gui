@@ -7,12 +7,19 @@ class Integration:
   libgenesys = CDLL("./genesys/dist/Debug/GNU-Linux/libgenesys.so") 
 
   def __init__(self, handler):
-    Integration.handler = handler  
+    Integration.handler = handler
+
+    # Functions
     get_simulator_instance = Integration.libgenesys.getSimulatorInstance
+    get_model_instance     = Integration.libgenesys.getModelInstance
+    
+    # Response types
     get_simulator_instance.restype = c_char_p
+    get_model_instance.restype     = c_char_p
 
     f = BytesIO()
     with stdout_redirector(f):
-      simulator = get_simulator_instance()
-      model = Integration.libgenesys.getModelInstance(simulator)
+      Integration.simulator = get_simulator_instance()
+      Integration.model = get_model_instance(Integration.simulator)
+      # Integration.tm = 
     handler.print(f.getvalue().decode('utf-8'))
