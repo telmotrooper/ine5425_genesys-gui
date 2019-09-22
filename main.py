@@ -1,33 +1,21 @@
 #!/usr/bin/env python3
 
 import gi
-import io
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 from ctypes import CDLL, c_char_p
-import ctypes
 
-from stdout_redirector import stdout_redirector
 from handler import Handler
-
+from integration import Integration
 
 def main():
-    libgenesys = CDLL("./genesys/dist/Debug/GNU-Linux/libgenesys.so")
-    get_simulator_instance = libgenesys.getSimulatorInstance
-    get_simulator_instance.restype = c_char_p
-
     builder = Gtk.Builder()
     builder.add_from_file("user_interface.glade")
     handler = Handler(builder)
     builder.connect_signals(handler)
 
-    f = io.BytesIO()
-
-    with stdout_redirector(f):
-        simulator = get_simulator_instance()
-        model = libgenesys.getModelInstance(simulator)
-    handler.print(f.getvalue().decode('utf-8'))
+    integration = Integration(handler)
 
     window = builder.get_object("main_window")
     window.set_icon_list([
