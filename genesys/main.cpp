@@ -15,8 +15,9 @@
 #include <thread>
 #include "Traits.h"
 
-// GEnSyS Simulator
+// Imports needed by Genesys GUI
 #include "Simulator.h"
+#include "Model.h"
 
 /*
  * This is the MAIN application of GenESyS. It just calls the Application specificied on the configuration file.
@@ -34,4 +35,8 @@ int main(int argc, char** argv) {
 
 extern "C" Simulator* getSimulatorInstance() {
     return new Simulator();
+}
+
+extern "C" Model* getModelInstance(Simulator* simulator) {
+    Model* model = new Model(simulator);
 }
