@@ -26,13 +26,14 @@
 #include "Route.h"
 #include "Enter.h"
 #include "Leave.h"
+#include "Write.h"
 
 // Model elements
 #include "EntityType.h"
 #include "Attribute.h"
 #include "Variable.h"
 #include "ProbDistrib.h"
-#include "Group.h"
+#include "EntityGroup.h"
 #include "Station.h"
 #include "Formula.h"
 #include "ODE.h"
@@ -56,7 +57,7 @@ Plugin* PluginConnectorDummyImpl1::connect(const std::string dynamicLibraryFilen
     std::string fn = getFileName(dynamicLibraryFilename);
     StaticGetPluginInformation GetInfo = nullptr;
     Plugin* pluginResult = nullptr;
-    // model 
+    // model elements
     if (fn == "attribute.so")
 	GetInfo = &Attribute::GetPluginInformation;
     else if (fn == "counter.so")
@@ -71,8 +72,8 @@ Plugin* PluginConnectorDummyImpl1::connect(const std::string dynamicLibraryFilen
 	GetInfo = &StatisticsCollector::GetPluginInformation;
     else if (fn == "variable.so")
 	GetInfo = &Variable::GetPluginInformation;
-    else if (fn == "group.so")
-	GetInfo = &Group::GetPluginInformation;
+    else if (fn == "entitygroup.so")
+	GetInfo = &EntityGroup::GetPluginInformation;
     else if (fn == "station.so")
 	GetInfo = &Station::GetPluginInformation;
     else if (fn == "formula.so")
@@ -84,6 +85,8 @@ Plugin* PluginConnectorDummyImpl1::connect(const std::string dynamicLibraryFilen
 	GetInfo = &Assign::GetPluginInformation;
     else if (fn == "create.so")
 	GetInfo = &Create::GetPluginInformation;
+    else if (fn == "write.so")
+	GetInfo = &Write::GetPluginInformation;
     else if (fn == "decide.so")
 	GetInfo = &Decide::GetPluginInformation;
     else if (fn == "delay.so")

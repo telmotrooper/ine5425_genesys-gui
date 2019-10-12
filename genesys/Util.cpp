@@ -16,9 +16,9 @@
 #include <map>
 
 
-Util::identitifcation Util::_S_lastId = 0;
+Util::identification Util::_S_lastId = 0;
 unsigned int Util::_S_indentation;
-std::map<std::string, Util::identitifcation> Util::_S_lastIdOfType = std::map<std::string, Util::identitifcation>();
+std::map<std::string, Util::identification> Util::_S_lastIdOfType = std::map<std::string, Util::identification>();
 std::map<std::string, std::string> Util::_S_TypeOf = std::map<std::string, std::string>();
 
 void Util::IncIndent() {
@@ -83,32 +83,32 @@ std::string Util::StrTimeUnit(Util::TimeUnit timeUnit) {
     return "UNKNOWN!";
 }
 
-Util::identitifcation Util::GenerateNewId() {
+Util::identification Util::GenerateNewId() {
     Util::_S_lastId++;
     return Util::_S_lastId;
 }
 
-Util::identitifcation Util::GenerateNewIdOfType(std::string objtype) {
-    std::map<std::string, Util::identitifcation>::iterator it = Util::_S_lastIdOfType.find(objtype);
+Util::identification Util::GenerateNewIdOfType(std::string objtype) {
+    std::map<std::string, Util::identification>::iterator it = Util::_S_lastIdOfType.find(objtype);
     if (it == Util::_S_lastIdOfType.end()) {
 	// a new one. create the pair
-	Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identitifcation>(objtype, 0));
+	Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identification>(objtype, 0));
 	it = Util::_S_lastIdOfType.find(objtype);
     }
-    Util::identitifcation next = (*it).second;
+    Util::identification next = (*it).second;
     next++;
     (*it).second = next;
     return (*it).second;
 }
 
-Util::identitifcation Util::GetLastIdOfType(std::string objtype) {
-    std::map<std::string, Util::identitifcation>::iterator it = Util::_S_lastIdOfType.find(objtype);
+Util::identification Util::GetLastIdOfType(std::string objtype) {
+    std::map<std::string, Util::identification>::iterator it = Util::_S_lastIdOfType.find(objtype);
     if (it == Util::_S_lastIdOfType.end()) {
 	// a new one. create the pair
-	Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identitifcation>(objtype, 0));
+	Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identification>(objtype, 0));
 	it = Util::_S_lastIdOfType.find(objtype);
     }
-    Util::identitifcation next = (*it).second;
+    Util::identification next = (*it).second;
     //next++;
     //(*it).second = next;
     return (*it).second;
@@ -116,10 +116,10 @@ Util::identitifcation Util::GetLastIdOfType(std::string objtype) {
 }
 
 void Util::ResetIdOfType(std::string objtype) {
-    std::map<std::string, Util::identitifcation>::iterator it = Util::_S_lastIdOfType.find(objtype);
+    std::map<std::string, Util::identification>::iterator it = Util::_S_lastIdOfType.find(objtype);
     if (it == Util::_S_lastIdOfType.end()) {
 	// a new one. create the pair
-	Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identitifcation>(objtype, 0));
+	Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identification>(objtype, 0));
 	it = Util::_S_lastIdOfType.find(objtype);
     }
     (*it).second = 0;

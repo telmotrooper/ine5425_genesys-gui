@@ -5,35 +5,32 @@
  */
 
 /* 
- * File:   Set.h
+ * File:   File.h
  * Author: rlcancian
  *
- * Created on 03 de Junho de 2019, 15:11
+ * Created on 20 de Fileembro de 2019, 20:07
  */
 
-#ifndef SET_H
-#define SET_H
+#ifndef FILE_H
+#define FILE_H
+
 
 #include "ModelElement.h"
 #include "ElementManager.h"
 #include "ParserChangesInformation.h"
 #include "PluginInformation.h"
 
-class Set: public ModelElement {
+class File: public ModelElement {
 public:
-    Set(ElementManager* elems);
-    Set(ElementManager* elems, std::string name);
-    Set(const Set& orig);
-    virtual ~Set();
+    File(ElementManager* elems);
+    File(ElementManager* elems, std::string name);
+    File(const File& orig);
+    virtual ~File();
 public: // static
     static ModelElement* LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields); 
     static PluginInformation* GetPluginInformation();
 public:
     virtual std::string show();
-public:
-    void setSetOfType(std::string _setOfType);
-    std::string getSetOfType() const;
-    List<ModelElement*>* getElementSet() const;
 
 protected: // must be overriden by derived classes
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
@@ -43,9 +40,7 @@ protected: // could be overriden by derived classes
     virtual ParserChangesInformation* _getParserChangesInformation();
 private:
     ElementManager* _elems;
-    List<ModelElement*>* _elementSet = new List<ModelElement*>();
-    std::string _setOfType;
 };
 
-#endif /* SET_H */
+#endif /* FILE_H */
 

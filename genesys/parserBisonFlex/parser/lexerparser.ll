@@ -12,8 +12,10 @@
 # include "../List.h"
 # include "../Variable.h"
 # include "../Queue.h"
-# include "../Formula.h" 
+# include "../Formula.h"
 # include "../Resource.h"
+# include "../StatisticsCollector.h"
+# include "../Set.h"
 # include "../ModelElement.h"
 # include "../Attribute.h"
 
@@ -49,13 +51,13 @@ L      [A-Za-z0-9_.]+
 
 
 [0][xX][aA-fF0-9]+  {
-						//Hexadecimal number
-            //Will not fail because of regex
-            //std::string text("Found Hexadecimal: ");
-            //text += yytext;
-            //driver.getModel()->getTraceManager()->trace(Util::TraceLevel::mostDetailed, text);
-            return yy::genesyspp_parser::make_NUMH(obj_t(atof(yytext), std::string("Hexadecimal")),loc);
-					}
+	//Hexadecimal number
+	//Will not fail because of regex
+	//std::string text("Found Hexadecimal: ");
+	//text += yytext;
+	//driver.getModel()->getTraceManager()->trace(Util::TraceLevel::mostDetailed, text);
+	return yy::genesyspp_parser::make_NUMH(obj_t(atof(yytext), std::string("Hexadecimal")),loc);
+      }
 
 {RR}  {
        //Float number
@@ -75,32 +77,49 @@ L      [A-Za-z0-9_.]+
        return yy::genesyspp_parser::make_NUMD(obj_t(atof(yytext),std::string("Decimal")), loc);
       }
 
+%{// special symbols %}
 [<][=]   { return (yy::genesyspp_parser::make_oLE(obj_t(0, std::string(yytext)), loc));}
 [>][=]   { return (yy::genesyspp_parser::make_oGE(obj_t(0, std::string(yytext)), loc));}
 [=][=]   { return (yy::genesyspp_parser::make_oEQ(obj_t(0, std::string(yytext)), loc));}
 [<][>]   { return (yy::genesyspp_parser::make_oNE(obj_t(0, std::string(yytext)), loc));}
+[<] {return yy::genesyspp_parser::make_LESS(loc);}
+[>] {return yy::genesyspp_parser::make_GREATER(loc);}
+[(] {return yy::genesyspp_parser::make_LPAREN(loc);}
+[)] {return yy::genesyspp_parser::make_RPAREN(loc);}
+[+] {return yy::genesyspp_parser::make_PLUS(loc);}
+[-] {return yy::genesyspp_parser::make_MINUS(loc);}
+[*] {return yy::genesyspp_parser::make_STAR(loc);}
+[/] {return yy::genesyspp_parser::make_SLASH(loc);}
+[=] {return yy::genesyspp_parser::make_ASSIGN(loc);}
+[,] {return yy::genesyspp_parser::make_COMMA(loc);}
 
+%{// boolean values %}
 [tT][rR][uU][eE]      {return yy::genesyspp_parser::make_NUMD(obj_t(1, std::string(yytext)), loc);}
 [fF][aA][lL][sS][eE]  {return yy::genesyspp_parser::make_NUMD(obj_t(0, std::string(yytext)), loc);}
 
+%{// algorithmic functions %}
 [iI][fF]              {return yy::genesyspp_parser::make_cIF(obj_t(0, std::string(yytext)), loc);}
 [eE][lL][sS][eE]      {return yy::genesyspp_parser::make_cELSE(obj_t(0, std::string(yytext)), loc);}
 [fF][oO][rR]          {return yy::genesyspp_parser::make_cFOR(obj_t(0, std::string(yytext)), loc);}
 [tT][oO]              {return yy::genesyspp_parser::make_cTO(obj_t(0, std::string(yytext)), loc);}
 [dD][oO]              {return yy::genesyspp_parser::make_cDO(obj_t(0, std::string(yytext)), loc);}
 
+%{// logic funcions %}
 [aA][nN][dD]    {return yy::genesyspp_parser::make_oAND(obj_t(0, std::string(yytext)), loc);}
 [oO][rR]        {return yy::genesyspp_parser::make_oOR(obj_t(0, std::string(yytext)), loc);}
 [nN][oO][tT]    {return yy::genesyspp_parser::make_oNOT(obj_t(0, std::string(yytext)), loc);}
 
+%{// trigonometric functions %}
 [sS][iI][nN]      {return yy::genesyspp_parser::make_fSIN(obj_t(0, std::string(yytext)), loc);}
 [cC][oO][sS]      {return yy::genesyspp_parser::make_fCOS(obj_t(0, std::string(yytext)), loc);}
 
-[aA][iI][nN][tT]  {return yy::genesyspp_parser::make_fAINT(obj_t(0, std::string(yytext)), loc);}
-[fF][rR][aA][cC]  {return yy::genesyspp_parser::make_fFRAC(obj_t(0, std::string(yytext)), loc);}
-[mM][oO][dD]      {return yy::genesyspp_parser::make_fMOD(obj_t(0, std::string(yytext)), loc);}
-[iI][nN][tT]      {return yy::genesyspp_parser::make_fINT(obj_t(0, std::string(yytext)), loc);}
+%{// aritmetic funcions %}
+[rR][oO][uU][nN][dD]  {return yy::genesyspp_parser::make_fROUND(obj_t(0, std::string(yytext)), loc);}
+[mM][oO][dD]          {return yy::genesyspp_parser::make_fMOD(obj_t(0, std::string(yytext)), loc);}
+[tT][rR][uU][nN][cC]  {return yy::genesyspp_parser::make_fTRUNC(obj_t(0, std::string(yytext)), loc);}
+[fF][rR][aA][cC]      {return yy::genesyspp_parser::make_fFRAC(obj_t(0, std::string(yytext)), loc);}
 
+%{// probability distributions %}
 [eE][xX][pP][oO]  {return yy::genesyspp_parser::make_fEXPO(obj_t(0, std::string(yytext)), loc);}
 [nN][oO][rR][mM]  {return yy::genesyspp_parser::make_fNORM(obj_t(0, std::string(yytext)), loc);}
 [uU][nN][iI][fF]  {return yy::genesyspp_parser::make_fUNIF(obj_t(0, std::string(yytext)), loc);}
@@ -112,58 +131,57 @@ L      [A-Za-z0-9_.]+
 [bB][eE][tT][aA]  {return yy::genesyspp_parser::make_fBETA(obj_t(0, std::string(yytext)), loc);}
 [dD][iI][sS][cC]  {return yy::genesyspp_parser::make_fDISC(obj_t(0, std::string(yytext)), loc);}
 
+%{// simulation infos %}
 [tT][nN][oO][wW]  {return yy::genesyspp_parser::make_fTNOW(obj_t(0, std::string(yytext)), loc);}
 [tT][fF][iI][nN]  {return yy::genesyspp_parser::make_fTFIN(obj_t(0, std::string(yytext)), loc);}
 
+%{//
+  // to be defined by the RESOURCE plugin
+  //%}
 [nN][rR]                             {return yy::genesyspp_parser::make_fNR(obj_t(0, std::string(yytext)), loc);}
 [mM][rR]                             {return yy::genesyspp_parser::make_fMR(obj_t(0, std::string(yytext)), loc);}
 [iI][rR][fF]                         {return yy::genesyspp_parser::make_fIRF(obj_t(0, std::string(yytext)), loc);}
 [sS][tT][aA][tT][eE]                 {return yy::genesyspp_parser::make_fSTATE(obj_t(0, std::string(yytext)), loc);}
+[sS][eE][tT][sS][uU][mM]             {return yy::genesyspp_parser::make_fSETSUM(obj_t(0, std::string(yytext)), loc);}
 [rR][eE][sS][sS][eE][iI][zZ][eE][sS] {return yy::genesyspp_parser::make_fRESSEIZES(obj_t(0, std::string(yytext)), loc);}
-
 [iI][dD][lL][eE][_][rR][eE][sS]                 {return yy::genesyspp_parser::make_NUMD(obj_t(-1, std::string(yytext)), loc);}
 [bB][uU][sS][yY][_][rR][eE][sS]                 {return yy::genesyspp_parser::make_NUMD(obj_t(-2, std::string(yytext)), loc);}
 [iI][nN][aA][cC][tT][iI][vV][eE][_][rR][eE][sS] {return yy::genesyspp_parser::make_NUMD(obj_t(-3, std::string(yytext)), loc);}
 [fF][aA][iI][lL][eE][dD][_][rR][eE][sS]         {return yy::genesyspp_parser::make_NUMD(obj_t(-4, std::string(yytext)), loc);}
 
+%{//
+  // to be defined by the QUEUE plugin
+  //%}
 [nN][qQ]                             {return yy::genesyspp_parser::make_fNQ(obj_t(0, std::string(yytext)), loc);}
 [lL][aA][sS][tT][iI][nN][qQ]         {return yy::genesyspp_parser::make_fLASTINQ(obj_t(0, std::string(yytext)), loc);}
 [fF][iI][rR][sS][tT][iI][nN][qQ]     {return yy::genesyspp_parser::make_fFIRSTINQ(obj_t(0, std::string(yytext)), loc);}
+[sS][aA][qQ][uU][eE]                 {return yy::genesyspp_parser::make_fSAQUE(obj_t(0, std::string(yytext)), loc);}
+[aA][qQ][uU][eE]                     {return yy::genesyspp_parser::make_fAQUE(obj_t(0, std::string(yytext)), loc);}
 
-[(] {return yy::genesyspp_parser::make_LPAREN(loc);}
-[)] {return yy::genesyspp_parser::make_RPAREN(loc);}
+%{//
+  // to be defined by the SET plugin
+  //%}
+[nN][uU][mM][sS][eE][tT]             {return yy::genesyspp_parser::make_fNUMSET(obj_t(0, std::string(yytext)), loc);}
 
-[+] {return yy::genesyspp_parser::make_PLUS(loc);}
-[-] {return yy::genesyspp_parser::make_MINUS(loc);}
-[*] {return yy::genesyspp_parser::make_STAR(loc);}
-[/] {return yy::genesyspp_parser::make_SLASH(loc);}
 
-[<] {return yy::genesyspp_parser::make_LESS(loc);}
-[>] {return yy::genesyspp_parser::make_GREATER(loc);}
+%{//
+  // to be defined by the CSTAT plugin
+  //%}
+[tT][aA][vV][gG]  {return yy::genesyspp_parser::make_fTAVG(obj_t(0, std::string(yytext)), loc);}
 
-[=] {return yy::genesyspp_parser::make_ASSIGN(loc);}
-
-[,] {return yy::genesyspp_parser::make_COMMA(loc);}
 
 [ \t\n]        ;
 
 
 {L}   {
-        // check if it is an ATTRIBUTE
-        int rank = driver.getModel()->getElementManager()->getRankOf(Util::TypeOf<Attribute>(), std::string(yytext));
-        if (rank>=0) {
-            double attributeValue = 0.0;
-            if (driver.getModel()->getSimulation()->getCurrentEntity() != nullptr) {
-                try {
-                    // it could crach because there may be no current entity, if the parse is running before simulation and therefore there is no CurrentEntity
-                    attributeValue = driver.getModel()->getSimulation()->getCurrentEntity()->getAttributeValue(std::string(yytext));
-                } catch(...) {
-                }
-            }
-            return yy::genesyspp_parser::make_ATRIB(obj_t(attributeValue, Util::TypeOf<Attribute>(), -1),loc);
-        }
-        
         ModelElement* element; 
+
+        // check if it is an ATTRIBUTE (and return the attribute ID (and not the value!)
+        element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<Attribute>(), std::string(yytext));
+        if (element != nullptr) { 
+            return yy::genesyspp_parser::make_ATRIB(obj_t(0, Util::TypeOf<Attribute>(), element->getId()),loc);
+        }
+
         // check VARIABLE
         element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<Variable>(), std::string(yytext));
         if (element != nullptr) { // it is a variable
@@ -171,7 +189,8 @@ L      [A-Za-z0-9_.]+
             double variableValue = var->getValue();
             return yy::genesyspp_parser::make_VARI(obj_t(variableValue, Util::TypeOf<Variable>(), var->getId()),loc);
         }
-        
+
+        // Should be definied by plugin FORMULA
         // check FORMULA
         element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<Formula>(), std::string(yytext));
         if (element != nullptr) { // it is a FORMULA
@@ -179,39 +198,36 @@ L      [A-Za-z0-9_.]+
             double formulaValue = form->getValue();
             return yy::genesyspp_parser::make_FORM(obj_t(formulaValue, Util::TypeOf<Formula>(), form->getId()),loc);
         }
-        
+
+        // Should be definied by plugin QUEUE
         // check QUEUE
         element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), std::string(yytext));
         if (element != nullptr) { 
-            return yy::genesyspp_parser::make_QUEUE(obj_t(0, Util::TypeOf<Variable>(), element->getId()),loc);
+            return yy::genesyspp_parser::make_QUEUE(obj_t(0, Util::TypeOf<Queue>(), element->getId()),loc);
         }
-        
+
+	// Should be definied by plugin RESOURCE
         // check RESOURCE
         element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), std::string(yytext));
         if (element != nullptr) { 
-            return yy::genesyspp_parser::make_RES(obj_t(0, Util::TypeOf<Resource>(), element->getId()),loc);
+            return yy::genesyspp_parser::make_RESOURCE(obj_t(0, Util::TypeOf<Resource>(), element->getId()),loc);
         }
 
-        /*
-        //iterates through the model Elements and returns its id and the matching token
-        std::list<std::string>* listaDisponiveis = driver.getModel()->getElementManager()->getElementTypenames();
-        for(std::list<std::string>::iterator it = listaDisponiveis->begin(); it != listaDisponiveis->end(); ++it){
-	    List<ModelElement*>* listaAtual = driver.getModel()->getElementManager()->getElements(*it);
-	    for(std::list<ModelElement*>::iterator it2 = listaAtual->getList()->begin(); it2 != listaAtual->getList()->end(); ++it2){
-		if((*it2)->getName() == std::string(yytext)){//case sensitive names
-		    if (*it == Util::TypeOf<Variable>()){
-			return yy::genesyspp_parser::make_VARI(obj_t(0, Util::TypeOf<Variable>(), (*it2)->getId()),loc);
-		    }
-		    if (*it == Util::TypeOf<Queue>()){
-			return yy::genesyspp_parser::make_QUEUE(obj_t(0, Util::TypeOf<Queue>(), (*it2)->getId()),loc);
-		    }
-		    if (*it == Util::TypeOf<Resource>()){
-			return yy::genesyspp_parser::make_RES(obj_t(0, Util::TypeOf<Resource>(), (*it2)->getId()),loc);
-		    }
-		}
-	    }
+        // Should be definied by plugin SET
+        //check SET
+        element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<Set>(), std::string(yytext));
+        if (element != nullptr) { 
+            return yy::genesyspp_parser::make_SET(obj_t(0, Util::TypeOf<Set>(), element->getId()),loc);
         }
-        */
+
+        // Should be definied by plugin STATISTICSCOLLECTOR
+        //check CSTAT
+        element = driver.getModel()->getElementManager()->getElement(Util::TypeOf<StatisticsCollector>(), std::string(yytext));
+        if (element != nullptr) { 
+            return yy::genesyspp_parser::make_CSTAT(obj_t(0, Util::TypeOf<StatisticsCollector>(), element->getId()),loc);
+        }
+
+	// If no one before has identified this literal, then it is an ILLEGAL (not found) literal 
         //Case not found retturns a illegal token
         return yy::genesyspp_parser::make_ILLEGAL(obj_t(0, std::string("Illegal")), loc);
       }

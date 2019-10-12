@@ -154,8 +154,8 @@ private:
     Util::TraceLevel _traceLevel; // = Util::TraceLevel::mostDetailed;
     bool _debugged;
     double _lastTimeTraceSimulation = -1.0;
-    Util::identitifcation _lastEntityTraceSimulation = 0;
-    Util::identitifcation _lastModuleTraceSimulation = 0;
+    Util::identification _lastEntityTraceSimulation = 0;
+    Util::identification _lastModuleTraceSimulation = 0;
     List<std::string>* _errorMessages; /* todo: 18/08/24 this is a new one. several methods should use it */
 
 };

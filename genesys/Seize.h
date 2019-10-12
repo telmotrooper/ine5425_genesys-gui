@@ -21,6 +21,32 @@
 #include "Queue.h"
 #include "Plugin.h"
 
+class WaitingResource : public Waiting {
+public:
+
+    WaitingResource(Entity* entity, ModelComponent* component, double timeStartedWaiting, unsigned int quantity) : Waiting(entity, component, timeStartedWaiting) {
+	_quantity = quantity;
+    }
+
+    WaitingResource(const WaitingResource& orig) : Waiting(orig) {
+    }
+
+    virtual ~WaitingResource() {
+    }
+public:
+
+    virtual std::string show() {
+	return Waiting::show() +
+		",quantity=" + std::to_string(this->_quantity);
+    }
+public:
+
+    unsigned int getQuantity() const {
+	return _quantity;
+    }
+private:
+    unsigned int _quantity;
+};
 
 /*!
  * Seize tries to allocate a certain amount of a resource

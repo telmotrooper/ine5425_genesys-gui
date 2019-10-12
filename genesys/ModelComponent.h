@@ -41,12 +41,13 @@ public:
 public:
     static void Execute(Entity* entity, ModelComponent* component, unsigned int inputNumber); ///< This method triggers the simulation of the behavior of the component. It is invoked when an event (corresponding to this component) is taken from the list of future events or when an entity arrives at this component by connection.
     static void InitBetweenReplications(ModelComponent* component);
+    static void CreateInternalElements(ModelComponent* component);
     static bool Check(ModelComponent* component);
     static ModelComponent* LoadInstance(Model* model, std::map<std::string, std::string>* fields);
     static std::map<std::string, std::string>* SaveInstance(ModelComponent* component);
 private:
     ConnectionManager* _nextComponents = new ConnectionManager();
-    List<Util::identitifcation>* _tempLoadNextComponentsIDs; // initialize only when loading 
+    List<Util::identification>* _tempLoadNextComponentsIDs; // initialize only when loading 
 protected:
     virtual void _execute(Entity* entity) = 0;
     virtual void _initBetweenReplications() = 0;
@@ -54,7 +55,7 @@ protected:
 protected:
     virtual std::map<std::string, std::string>* _saveInstance();
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
-    //virtual std::list<std::map<std::string,std::string>*>* _saveInstance(std::string type);
+    virtual void _createInternalElements(); ///< This method is necessary only for those components that instantiate internal elements that must exist before simulation starts and even before model checking. That's the case of components that have internal StatisticsCollectors, since others components may refer to them as expressions (as in "TVAG(ThisCSTAT)") and therefore the element must exist when checking such expression 
 
 protected:
     Model* _model;

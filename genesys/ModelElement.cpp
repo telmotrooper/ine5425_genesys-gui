@@ -18,7 +18,7 @@
 ModelElement::ModelElement(std::string thistypename) {
     // ID is UNIQUE FOR EVERY ELEMENT AND COMPONENT in the entire simulator
     _id = Util::GenerateNewId(); //GenerateNewIdOfType(thistypename);
-    _name = thistypename + " " + std::to_string(Util::GenerateNewIdOfType(thistypename)); //std::to_string(_id);
+    _name = thistypename + "_" + std::to_string(Util::GenerateNewIdOfType(thistypename)); //std::to_string(_id);
     _typename = thistypename;
 }
 
@@ -73,7 +73,7 @@ std::string ModelElement::show() {
 }
 
 
-Util::identitifcation ModelElement::getId() const {
+Util::identification ModelElement::getId() const {
     return _id;
 }
 
@@ -130,4 +130,16 @@ bool ModelElement::Check(ModelElement* element, std::string* errorMessage) {
     }
     Util::DecIndent();
     return res;
+}
+
+void ModelElement::CreateInternalElements(ModelElement* element) {
+    try {
+	element->_createInternalElements();
+    } catch (const std::exception& e) {
+	//element->...->_model->getTraceManager()->traceError(e, "Error creating elements of element " + element->show());
+    };    
+}
+
+void ModelElement::_createInternalElements() {
+    
 }

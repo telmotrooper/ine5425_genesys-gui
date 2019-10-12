@@ -131,7 +131,7 @@ List<ModelElement*>* ElementManager::getElements(std::string infraTypename) cons
     return infras;
 }
 
-ModelElement* ElementManager::getElement(std::string infraTypename, Util::identitifcation id) {
+ModelElement* ElementManager::getElement(std::string infraTypename, Util::identification id) {
     List<ModelElement*>* list = getElements(infraTypename);
     for (std::list<ModelElement*>::iterator it = list->getList()->begin(); it != list->getList()->end(); it++) {
 	if ((*it)->getId() == id) { // found

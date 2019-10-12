@@ -40,7 +40,7 @@ void ComponentManager::clear(){
     this->_components->clear();
 }
 
-ModelComponent* ComponentManager::getComponent(Util::identitifcation id) {
+ModelComponent* ComponentManager::getComponent(Util::identification id) {
 }
 
 ModelComponent* ComponentManager::getComponent(std::string name) {

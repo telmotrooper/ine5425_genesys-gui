@@ -146,20 +146,20 @@ void ModelSimulation::_actualizeSimulationStatistics() {
 	    }
 	    /*
 	    if ((*itSim)->getTypename() == UtilTypeOfCounter) {
-	    	if ((*itSim)->getName() == _cte_stCountSimulNamePrefix + cnt->getName() && dynamic_cast<Counter*> (*itSim)->getParent() == cnt->getParent()) {
-	    	    // found
-	    	    cntSim = dynamic_cast<Counter*> (*itSim);
-	    	    break;
-	    	}
+		if ((*itSim)->getName() == _cte_stCountSimulNamePrefix + cnt->getName() && dynamic_cast<Counter*> (*itSim)->getParent() == cnt->getParent()) {
+		    // found
+		    cntSim = dynamic_cast<Counter*> (*itSim);
+		    break;
+		}
 	    }
-	    */ 
+	     */
 	}
 	/*
 	assert(cntSim != nullptr);
 	cntSim->incCountValue(cnt->getCountValue());
-	*/
+	 */
 	assert(scSim != nullptr);
-	scSim->getStatistics()->getCollector()->addValue(cnt->getCountValue()); 
+	scSim->getStatistics()->getCollector()->addValue(cnt->getCountValue());
     }
 }
 
@@ -174,19 +174,19 @@ void ModelSimulation::_showSimulationHeader() {
     tm->traceReport(Util::TraceLevel::simulation, "Analyst Name: " + _info->getAnalystName());
     tm->traceReport(Util::TraceLevel::simulation, "Project Title: " + _info->getProjectTitle());
     tm->traceReport(Util::TraceLevel::simulation, "Number of Replications: " + std::to_string(_info->getNumberOfReplications()));
-    tm->traceReport(Util::TraceLevel::simulation, "Replication Length: " + std::to_string(_info->getReplicationLength())+ " " + Util::StrTimeUnit(_info->getReplicationLengthTimeUnit()));
+    tm->traceReport(Util::TraceLevel::simulation, "Replication Length: " + std::to_string(_info->getReplicationLength()) + " " + Util::StrTimeUnit(_info->getReplicationLengthTimeUnit()));
     //tm->traceReport(Util::TraceLevel::simulation, "");
     // model controls and responses
     std::string controls;
-    for(std::list<SimulationControl*>::iterator it = _model->getControls()->getList()->begin(); it!= _model->getControls()->getList()->end(); it++) {
-	controls+=(*it)->getName()+"("+(*it)->getType()+"), ";
+    for (std::list<SimulationControl*>::iterator it = _model->getControls()->getList()->begin(); it != _model->getControls()->getList()->end(); it++) {
+	controls += (*it)->getName() + "(" + (*it)->getType() + "), ";
     }
-    tm->traceReport(Util::TraceLevel::simulation, "Simulation controls: "+controls);
+    tm->traceReport(Util::TraceLevel::simulation, "Simulation controls: " + controls);
     std::string responses;
-    for(std::list<SimulationResponse*>::iterator it = _model->getResponses()->getList()->begin(); it!= _model->getResponses()->getList()->end(); it++) {
-	responses+=(*it)->getName()+"("+(*it)->getType()+"), ";
+    for (std::list<SimulationResponse*>::iterator it = _model->getResponses()->getList()->begin(); it != _model->getResponses()->getList()->end(); it++) {
+	responses += (*it)->getName() + "(" + (*it)->getType() + "), ";
     }
-    tm->traceReport(Util::TraceLevel::simulation, "Simulation responses: "+responses);
+    tm->traceReport(Util::TraceLevel::simulation, "Simulation responses: " + responses);
 }
 
 /*!
@@ -215,10 +215,10 @@ void ModelSimulation::_initSimulation() {
 	/*
 	Counter* newCountSimul = new Counter(_cte_stCountSimulNamePrefix + counter->getName(), counter->getParent());
 	this->_statsCountersSimulation->insert(newCountSimul);
-	*/
+	 */
 	// addin a cstat (to stat the counts)
 	StatisticsCollector* newCStatSimul = new StatisticsCollector(_model->getElementManager(), _cte_stCountSimulNamePrefix + counter->getName(), counter->getParent());
-    	this->_statsCountersSimulation->insert(newCStatSimul);
+	this->_statsCountersSimulation->insert(newCStatSimul);
     }
 }
 
@@ -281,16 +281,20 @@ void ModelSimulation::_initStatistics() {
 
 }
 
+void ModelSimulation::_checkWarmUpTime(Event* nextEvent) {
+    double warmupTime = Util::TimeUnitConvert(_model->getInfos()->getWarmUpPeriodTimeUnit(), _model->getInfos()->getReplicationLengthTimeUnit());
+    warmupTime *= _model->getInfos()->getWarmUpPeriod();
+    if (warmupTime > 0.0 && _model->getSimulation()->getSimulatedTime() <= warmupTime && nextEvent->getTime() > warmupTime) {// warmuTime. Time to initStats
+	_model->getTraceManager()->trace(Util::TraceLevel::simulation, "Warmup time reached. Statistics are being reseted.");
+	_initStatistics();
+    }
+}
+
 void ModelSimulation::_stepSimulation() {
     // process one single event
     Event* nextEvent;
     nextEvent = _model->getEvents()->front();
-    double warmupTime = Util::TimeUnitConvert(_model->getInfos()->getWarmUpPeriodTimeUnit(), _model->getInfos()->getReplicationLengthTimeUnit());
-    warmupTime *= _model->getInfos()->getWarmUpPeriod();
-    if (warmupTime>0.0 && _model->getSimulation()->getSimulatedTime() <= warmupTime && nextEvent->getTime() > warmupTime) {// warmuTime. Time to initStats
-	_model->getTraceManager()->trace(Util::TraceLevel::simulation, "Warmup time reached. Statistics are being reseted.");
-	_initStatistics();
-    }
+    _checkWarmUpTime(nextEvent);
     if (nextEvent->getTime() <= _info->getReplicationLength()) {
 	_model->getEvents()->pop_front();
 	_model->getOnEventManager()->NotifyReplicationStepHandlers(new SimulationEvent(_currentReplicationNumber, nullptr));

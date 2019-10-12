@@ -12,7 +12,6 @@
  */
 
 #include "Seize.h"
-#include "WaitingResource.h"
 #include "Resource.h"
 #include "Attribute.h"
 
@@ -161,7 +160,7 @@ void Seize::_execute(Entity* entity) {
 	_model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, _model->getSimulation()->getSimulatedTime(), entity, this, "Entity starts to wait for resource in queue \"" + _queue->getName() + "\" with " + std::to_string(_queue->size()) + " elements");
 
     } else { // alocate the resource
-	_model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, _model->getSimulation()->getSimulatedTime(), entity, this, "Entity seizes " + std::to_string(quantity) + " elements of resource \"" + resource->getName() + "\"");
+	_model->getTraceManager()->traceSimulation(Util::TraceLevel::blockInternal, _model->getSimulation()->getSimulatedTime(), entity, this, "Entity seizes " + std::to_string(quantity) + " elements of resource \"" + resource->getName() + "\" (capacity:"+std::to_string(resource->getCapacity()) +", numberbusy:"+std::to_string(resource->getNumberBusy())+")");
 	resource->seize(quantity, _model->getSimulation()->getSimulatedTime());
 	_model->sendEntityToComponent(entity, this->getNextComponents()->frontConnection(), 0.0);
     }

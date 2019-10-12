@@ -35,6 +35,7 @@ protected:
     virtual void _initBetweenReplications();
     virtual std::map<std::string, std::string>* _saveInstance();
     virtual bool _check(std::string* errorMessage);
+    virtual void _createInternalElements();
 private:
     bool _collectStatistics = true;
 private:

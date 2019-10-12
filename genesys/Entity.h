@@ -37,8 +37,10 @@ public: // g & s
     EntityType* getEntityType() const;
 public:
     double getAttributeValue(std::string attributeName);
+    double getAttributeValue(Util::identification attributeID);
     void setAttributeValue(std::string attributeName, double value);
-    Util::identitifcation getEntityNumber() const;
+    //void setAttributeValue(Util::identitifcation attributeID, double value);
+    Util::identification getEntityNumber() const;
 protected:
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
     virtual std::map<std::string, std::string>* _saveInstance();
@@ -47,7 +49,7 @@ protected:
 private:
     ElementManager* _elements;    
 private: 
-    Util::identitifcation _entityNumber;
+    Util::identification _entityNumber;
     EntityType* _entityType = nullptr;
     List<double>* _attributeValues = new List<double>();
 };

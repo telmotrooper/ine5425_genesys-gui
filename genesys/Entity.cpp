@@ -74,6 +74,14 @@ double Entity::getAttributeValue(std::string attributeName) {
 	return 0.0; /* TODO: Never should happen. check how to report */
 }
 
+double Entity::getAttributeValue(Util::identification attributeID) {
+    ModelElement* element = this->_elements->getElement(Util::TypeOf<Attribute>(), attributeID);
+    if (element != nullptr) {
+	return getAttributeValue(element->getName());
+    }
+    return 0.0; // attribute not found
+}
+
 void Entity::setAttributeValue(std::string attributeName, double value) {
     int rank = this->_elements->getRankOf(Util::TypeOf<Attribute>(), attributeName);
     if (rank >= 0) {
@@ -87,7 +95,7 @@ void Entity::setAttributeValue(std::string attributeName, double value) {
      */
 }
 
-Util::identitifcation Entity::getEntityNumber() const {
+Util::identification Entity::getEntityNumber() const {
     return _entityNumber;
 }
 

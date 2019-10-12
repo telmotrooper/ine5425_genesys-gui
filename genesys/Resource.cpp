@@ -26,11 +26,11 @@ Resource::Resource(ElementManager* elems, std::string name) : ModelElement(Util:
 }
 
 void Resource::_initCStats() {
-    _cstatTimeSeized = new StatisticsCollector(_elems, "Time Seized", this);
+    _cstatTimeSeized = new StatisticsCollector(_elems, _name+"."+"Time_Seized", this);
     _elems->insert(Util::TypeOf<StatisticsCollector>(), _cstatTimeSeized);
-    _numSeizes = new Counter(_elems, "Seizes", this);
+    _numSeizes = new Counter(_elems, _name+"."+"Seizes", this);
     _elems->insert(Util::TypeOf<Counter>(), _numSeizes);
-    _numReleases = new Counter(_elems, "Releases", this);
+    _numReleases = new Counter(_elems, _name+"."+"Releases", this);
     _elems->insert(Util::TypeOf<Counter>(), _numReleases);
 
 }
@@ -56,6 +56,7 @@ void Resource::seize(unsigned int quantity, double tnow) {
     _numberBusy += quantity;
     _numSeizes->incCountValue(quantity);
     _lastTimeSeized = tnow;
+    _resourceState = Resource::ResourceState::BUSY;
 }
 
 void Resource::release(unsigned int quantity, double tnow) {
@@ -63,6 +64,9 @@ void Resource::release(unsigned int quantity, double tnow) {
 	_numberBusy -= quantity;
     } else {
 	_numberBusy = 0;
+    }
+    if (_numberBusy==0) {
+	_resourceState = Resource::ResourceState::IDLE;
     }
     _numReleases->incCountValue(quantity);
     double timeSeized = tnow - _lastTimeSeized;
@@ -174,4 +178,8 @@ std::map<std::string, std::string>* Resource::_saveInstance() {
 
 bool Resource::_check(std::string* errorMessage) {
     return true;
+}
+
+void Resource::_createInternalElements() {
+    //_initCStats();
 }

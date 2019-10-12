@@ -11,58 +11,58 @@
  * Created on 12 de Junho de 2019, 19:00
  */
 
-#include "Group.h"
+#include "EntityGroup.h"
 #include "Model.h"
 #include "Attribute.h"
 
-Group::Group(ElementManager* elems) : ModelElement(Util::TypeOf<Group>()) {
+EntityGroup::EntityGroup(ElementManager* elems) : ModelElement(Util::TypeOf<EntityGroup>()) {
     _elements = elems;
     _initCStats(); 
 }
 
-Group::Group(ElementManager* elems, std::string name) : ModelElement(Util::TypeOf<Group>()) {
+EntityGroup::EntityGroup(ElementManager* elems, std::string name) : ModelElement(Util::TypeOf<EntityGroup>()) {
     _name = name;
     _elements = elems;
     _initCStats();
 }
 
-void Group::_initCStats() {
+void EntityGroup::_initCStats() {
     _cstatNumberInGroup = new StatisticsCollector(_elements, "Number In Group", this);
     _elements->insert(Util::TypeOf<StatisticsCollector>(), _cstatNumberInGroup);
 }
 
-Group::Group(const Group& orig) : ModelElement(orig) {
+EntityGroup::EntityGroup(const EntityGroup& orig) : ModelElement(orig) {
 }
 
-Group::~Group() {
+EntityGroup::~EntityGroup() {
     _elements->remove(Util::TypeOf<StatisticsCollector>(), _cstatNumberInGroup);
 }
 
-std::string Group::show() {
+std::string EntityGroup::show() {
     return ModelElement::show() +
 	    ",entities=" + this->_list->show();
 }
 
-void Group::insertElement(Entity* element) {
+void EntityGroup::insertElement(Entity* element) {
     _list->insert(element);
     this->_cstatNumberInGroup->getStatistics()->getCollector()->addValue(_list->size());
 }
 
-void Group::removeElement(Entity* element) {
+void EntityGroup::removeElement(Entity* element) {
     double tnow = this->_elements->getParentModel()->getSimulation()->getSimulatedTime();
     _list->remove(element);
     this->_cstatNumberInGroup->getStatistics()->getCollector()->addValue(_list->size());
 }
 
-void Group::initBetweenReplications() {
+void EntityGroup::initBetweenReplications() {
     this->_list->clear();
 }
 
-unsigned int Group::size() {
+unsigned int EntityGroup::size() {
     return _list->size();
 }
 
-Entity* Group::first() {
+Entity* EntityGroup::first() {
     return _list->front();
 }
 
@@ -70,12 +70,13 @@ Entity* Group::first() {
 //	return _list;
 //}
 
-PluginInformation* Group::GetPluginInformation() {
-    PluginInformation* info = new PluginInformation(Util::TypeOf<Group>(), &Group::LoadInstance); return info;
+PluginInformation* EntityGroup::GetPluginInformation() {
+    PluginInformation* info = new PluginInformation(Util::TypeOf<EntityGroup>(), &EntityGroup::LoadInstance); 
+    return info;
 }
 
-ModelElement* Group::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
-    Group* newElement = new Group(elems);
+ModelElement* EntityGroup::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
+    EntityGroup* newElement = new EntityGroup(elems);
     try {
 	newElement->_loadInstance(fields);
     } catch (const std::exception& e) {
@@ -84,7 +85,7 @@ ModelElement* Group::LoadInstance(ElementManager* elems, std::map<std::string, s
     return newElement;
 }
 
-bool Group::_loadInstance(std::map<std::string, std::string>* fields) {
+bool EntityGroup::_loadInstance(std::map<std::string, std::string>* fields) {
     bool res = ModelElement::_loadInstance(fields);
     if (res) {
 	try {
@@ -94,12 +95,12 @@ bool Group::_loadInstance(std::map<std::string, std::string>* fields) {
     return res;
 }
 
-std::map<std::string, std::string>* Group::_saveInstance() {
+std::map<std::string, std::string>* EntityGroup::_saveInstance() {
     std::map<std::string, std::string>* fields = ModelElement::_saveInstance(); //Util::TypeOf<Group>());
     return fields;
 }
 
-bool Group::_check(std::string* errorMessage) {
+bool EntityGroup::_check(std::string* errorMessage) {
     std::string newNeededAttributeName = "Entity.Group";
     if (_elements->getElement(Util::TypeOf<Attribute>(), newNeededAttributeName ) == nullptr) {
 	    Attribute* attr1 = new Attribute(newNeededAttributeName );

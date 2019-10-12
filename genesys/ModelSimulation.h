@@ -63,6 +63,7 @@ private: // simulation control
     void _initSimulation();
     void _initReplication(); ///< Clear the event list, restarts simulated time, initialize event list and statistics, request components to reinitialize
     void _initStatistics();
+    void _checkWarmUpTime(Event* nextEvent);
     void _stepSimulation();
     void _processEvent(Event* event);
 private:

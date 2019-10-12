@@ -5,53 +5,42 @@
  */
 
 /* 
- * File:   Set.cpp
+ * File:   File.cpp
  * Author: rlcancian
  * 
- * Created on 03 de Junho de 2019, 15:11
+ * Created on 20 de Fileembro de 2019, 20:07
  */
 
-#include "Set.h"
+#include "File.h"
 
-Set::Set(ElementManager* elems) : ModelElement(Util::TypeOf<Set>()) {
+
+File::File(ElementManager* elems) : ModelElement(Util::TypeOf<File>()) {
     _elems = elems;
 }
 
-Set::Set(ElementManager* elems, std::string name) : ModelElement(Util::TypeOf<Set>()) {
+File::File(ElementManager* elems, std::string name) : ModelElement(Util::TypeOf<File>()) {
     _name = name;
     _elems = elems;
 }
 
-Set::Set(const Set& orig) : ModelElement(orig) {
+File::File(const File& orig) : ModelElement(orig) {
 }
 
-Set::~Set() {
+File::~File() {
 }
 
-std::string Set::show() {
+std::string File::show() {
     return ModelElement::show() +
 	    "";
 }
 
-void Set::setSetOfType(std::string _setOfType) {
-    this->_setOfType = _setOfType;
-}
-
-std::string Set::getSetOfType() const {
-    return _setOfType;
-}
-
-List<ModelElement*>* Set::getElementSet() const {
-    return _elementSet;
-}
-
-PluginInformation* Set::GetPluginInformation() {
-    PluginInformation* info = new PluginInformation(Util::TypeOf<Set>(), &Set::LoadInstance); 
+PluginInformation* File::GetPluginInformation() {
+    PluginInformation* info = new PluginInformation(Util::TypeOf<File>(), &File::LoadInstance); 
     return info;
 }
 
-ModelElement* Set::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
-    Set* newElement = new Set(elems);
+ModelElement* File::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
+    File* newElement = new File(elems);
     try {
 	newElement->_loadInstance(fields);
     } catch (const std::exception& e) {
@@ -60,7 +49,7 @@ ModelElement* Set::LoadInstance(ElementManager* elems, std::map<std::string, std
     return newElement;
 }
 
-bool Set::_loadInstance(std::map<std::string, std::string>* fields) {
+bool File::_loadInstance(std::map<std::string, std::string>* fields) {
     bool res = ModelElement::_loadInstance(fields);
     if (res) {
 	try {
@@ -72,20 +61,20 @@ bool Set::_loadInstance(std::map<std::string, std::string>* fields) {
     return res;
 }
 
-std::map<std::string, std::string>* Set::_saveInstance() {
-    std::map<std::string, std::string>* fields = ModelElement::_saveInstance(); //Util::TypeOf<Set>());
+std::map<std::string, std::string>* File::_saveInstance() {
+    std::map<std::string, std::string>* fields = ModelElement::_saveInstance(); //Util::TypeOf<File>());
     //fields->emplace("orderRule", std::to_string(static_cast<int> (this->_orderRule)));
     //fields->emplace("attributeName", this->_attributeName);
     return fields;
 }
 
-bool Set::_check(std::string* errorMessage) {
+bool File::_check(std::string* errorMessage) {
     bool resultAll = true;
     // resultAll |= ...
     return resultAll;
 }
 
-ParserChangesInformation* Set::_getParserChangesInformation() {
+ParserChangesInformation* File::_getParserChangesInformation() {
     ParserChangesInformation* changes = new ParserChangesInformation();
     //changes->getProductionToAdd()->insert(...);
     //changes->getTokensToAdd()->insert(...);

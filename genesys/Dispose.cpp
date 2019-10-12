@@ -15,7 +15,7 @@
 #include "Model.h"
 
 Dispose::Dispose(Model* model) : SinkModelComponent(model, Util::TypeOf<Dispose>()) {
-    _numberOut = new Counter(_model->getElementManager(), "Count number out", this);
+    _numberOut = new Counter(_model->getElementManager(), _name + "." + "Count_number_out", this);
     _model->getElementManager()->insert(Util::TypeOf<Counter>(), _numberOut);
 }
 
@@ -34,7 +34,7 @@ void Dispose::_execute(Entity* entity) {
     _numberOut->incCountValue();
     if (_collectStatistics) {
 	double timeInSystem = _model->getSimulation()->getSimulatedTime() - entity->getAttributeValue("Entity.ArrivalTime");
-	entity->getEntityType()->getStatisticsCollector("Total Time")->getStatistics()->getCollector()->addValue(timeInSystem);
+	entity->getEntityType()->getStatisticsCollector(entity->getEntityType()->getName() + "." + "Total_Time")->getStatistics()->getCollector()->addValue(timeInSystem);
     }
 
     _model->removeEntity(entity, this->isCollectStatistics());
@@ -55,13 +55,16 @@ std::map<std::string, std::string>* Dispose::_saveInstance() {
 }
 
 bool Dispose::_check(std::string* errorMessage) {
-    // include StatisticsCollector needed in EntityType
-    std::list<ModelElement*>* enttypes = _model->getElementManager()->getElements(Util::TypeOf<EntityType>())->getList();
-    for (std::list<ModelElement*>::iterator it = enttypes->begin(); it != enttypes->end(); it++) {
-	static_cast<EntityType*> ((*it))->getStatisticsCollector("Total Time"); // force create this CStat before simulation starts
-    }
     //
     return true;
+}
+
+void Dispose::_createInternalElements() {
+    // include StatisticsCollector needed for each EntityType
+    std::list<ModelElement*>* enttypes = _model->getElementManager()->getElements(Util::TypeOf<EntityType>())->getList();
+    for (std::list<ModelElement*>::iterator it = enttypes->begin(); it != enttypes->end(); it++) {
+	static_cast<EntityType*> ((*it))->getStatisticsCollector((*it)->getName() + "." + "Total_Time"); // force create this CStat before model checking
+    }
 }
 
 PluginInformation* Dispose::GetPluginInformation() {

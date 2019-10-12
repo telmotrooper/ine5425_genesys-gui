@@ -60,7 +60,7 @@ public: // model control
     double parseExpression(const std::string expression, bool* success, std::string* errorMessage);
     bool checkExpression(const std::string expression, const std::string expressionName, std::string* errorMessage);
 public: // only gets	
-    Util::identitifcation getId() const;
+    Util::identification getId() const;
     // 1:1
     List<SimulationControl*>* getControls() const; ///< Returns a list of values that can be externally controlled (changed). They usually correspond to input parameters in the simulation model that must be changed for an experimental design.
     List<SimulationResponse*>* getResponses() const; ///< Returns a list of exits or simulation results that can be read externally. They usually correspond to statistics resulting from the simulation that must be read for an experiment design.
@@ -85,8 +85,9 @@ private:
     void _showElements() const;
     void _showSimulationControls() const;
     void _showSimulationResponses() const;
+    void _createModelInternalElements();
 private: // read only public access (gets)
-    Util::identitifcation _id;
+    Util::identification _id;
     Simulator* _parentSimulator; /*! The parente of the model */
     // 1:1 (associted classes)
     TraceManager* _traceManager;

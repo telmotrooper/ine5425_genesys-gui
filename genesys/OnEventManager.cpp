@@ -34,6 +34,10 @@ void OnEventManager::addOnProcessEventHandler(simulationEventHandler EventHandle
     this->_onProcessEventHandlers->insert(this->_onProcessEventHandlers->end(), EventHandler);
 }
 
+void OnEventManager::addOnEntityMoveHandler(simulationEventHandler EventHandler) {
+    this->_onEntityMoveHandlers->insert(this->_onEntityMoveHandlers->end(), EventHandler);
+}
+
 void OnEventManager::addOnReplicationEndHandler(simulationEventHandler EventHandler) {
     this->_onReplicationEndHandlers->insert(this->_onReplicationEndHandlers->end(), EventHandler);
 }
@@ -64,6 +68,10 @@ void OnEventManager::NotifyReplicationStepHandlers(SimulationEvent* se) {
 
 void OnEventManager::NotifyReplicationEndHandlers(SimulationEvent* se) {
     this->_NotifyHandlers(this->_onReplicationEndHandlers, se);
+}
+
+void OnEventManager::NotifyEntityMoveHandlers(SimulationEvent* se) {
+    this->_NotifyHandlers(this->_onEntityMoveHandlers, se);
 }
 
 void OnEventManager::NotifyProcessEventHandlers(SimulationEvent* se) {

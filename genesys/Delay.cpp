@@ -59,7 +59,7 @@ Util::TimeUnit Delay::getDelayTimeUnit() const {
 
 void Delay::_execute(Entity* entity) {
     double waitTime = _model->parseExpression(_delayExpression) * Util::TimeUnitConvert(_delayTimeUnit, _model->getInfos()->getReplicationLengthTimeUnit());
-    entity->getEntityType()->getStatisticsCollector("Waiting Time")->getStatistics()->getCollector()->addValue(waitTime);
+    entity->getEntityType()->getStatisticsCollector(_name+"."+"Waiting_Time")->getStatistics()->getCollector()->addValue(waitTime);
     entity->setAttributeValue("Entity.WaitTime", entity->getAttributeValue("Entity.WaitTime") + waitTime);
     double delayEndTime = _model->getSimulation()->getSimulatedTime() + waitTime;
     Event* newEvent = new Event(delayEndTime, entity, this->getNextComponents()->frontConnection());
@@ -98,13 +98,16 @@ bool Delay::_check(std::string* errorMessage) {
 	    elements->insert(Util::TypeOf<Attribute>(), attr1);
 	}
     }
+    return _model->checkExpression(_delayExpression, "Delay expression", errorMessage);
+}
+
+void Delay::_createInternalElements() {
     // include StatisticsCollector needed in EntityType
+    ElementManager* elements = _model->getElementManager();
     std::list<ModelElement*>* enttypes = elements->getElements(Util::TypeOf<EntityType>())->getList();
     for (std::list<ModelElement*>::iterator it= enttypes->begin(); it!= enttypes->end(); it++) {
-	static_cast<EntityType*>((*it))->getStatisticsCollector("Waiting Time"); // force create this CStat before simulation starts
-    }
-    //
-    return _model->checkExpression(_delayExpression, "Delay expression", errorMessage);
+	static_cast<EntityType*>((*it))->getStatisticsCollector(_name+"."+"Waiting_Time"); // force create this CStat before simulation starts
+    }    
 }
 
 PluginInformation* Delay::GetPluginInformation(){

@@ -20,7 +20,6 @@
 #include "Counter.h"
 #include "Plugin.h"
 
-
 /*!
  * Resource represents a facility that...
  */
@@ -79,10 +78,11 @@ protected:
     virtual bool _loadInstance(std::map<std::string, std::string>* fields);
     virtual std::map<std::string, std::string>* _saveInstance();
     virtual bool _check(std::string* errorMessage);
+    virtual void _createInternalElements();
 
 private:
     void _initCStats();
-    void _notifyEventHandlers();
+    void _notifyEventHandlers(); ///< Notify observer classes that some of the resource capacity has been released. It is useful for allocation components (such as Seize) to know when an entity waiting into a queue can try to seize the resource again
 private:
     ElementManager* _elems;
 private:
@@ -100,7 +100,7 @@ private: // not gets nor sets
     //unsigned int _seizes = 0;
     //double _whenSeized; // same as last? check
 private: //1:1
-    StatisticsCollector* _cstatTimeSeized; // = new StatisticsCollector("Time Seized");
+    StatisticsCollector* _cstatTimeSeized;
     Counter* _numSeizes;
     Counter* _numReleases;
 private: //1::n

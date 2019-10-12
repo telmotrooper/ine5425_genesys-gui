@@ -38,7 +38,7 @@ public:
     bool check(std::string infraTypename, std::string infraName, std::string expressionName, bool mandatory, std::string* errorMessage);
     void clear();
 public:
-    ModelElement* getElement(std::string infraTypename, Util::identitifcation id);
+    ModelElement* getElement(std::string infraTypename, Util::identification id);
     ModelElement* getElement(std::string infraTypename, std::string name);
     unsigned int getNumberOfElements(std::string infraTypename);
     unsigned int getNumberOfElements();

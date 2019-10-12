@@ -61,6 +61,7 @@ public: // event listeners (handlers)
     void addOnReplicationStepHandler(simulationEventHandler EventHandler);
     void addOnReplicationEndHandler(simulationEventHandler EventHandler);
     void addOnProcessEventHandler(simulationEventHandler EventHandler);
+    void addOnEntityMoveHandler(simulationEventHandler EventHandler);
     void addOnSimulationStartHandler(simulationEventHandler EventHandler);
     void addOnSimulationEndHandler(simulationEventHandler EventHandler);
     void addOnEntityRemoveHandler(simulationEventHandler EventHandler);
@@ -69,6 +70,7 @@ public:
     void NotifyReplicationStepHandlers(SimulationEvent* se);
     void NotifyReplicationEndHandlers(SimulationEvent* se);
     void NotifyProcessEventHandlers(SimulationEvent* se);
+    void NotifyEntityMoveHandlers(SimulationEvent* se);
     void NotifySimulationStartHandlers(SimulationEvent* se);
     void NotifySimulationEndHandlers(SimulationEvent* se);
 private:
@@ -78,6 +80,7 @@ private: // events listener
     std::list<simulationEventHandler>* _onReplicationStepHandlers = new std::list<simulationEventHandler>();
     std::list<simulationEventHandler>* _onReplicationEndHandlers = new std::list<simulationEventHandler>();
     std::list<simulationEventHandler>* _onProcessEventHandlers = new std::list<simulationEventHandler>();
+    std::list<simulationEventHandler>* _onEntityMoveHandlers = new std::list<simulationEventHandler>();
     std::list<simulationEventHandler>* _onSimulationStartHandlers = new std::list<simulationEventHandler>();
     std::list<simulationEventHandler>* _onSimulationEndHandlers = new std::list<simulationEventHandler>();
 private:

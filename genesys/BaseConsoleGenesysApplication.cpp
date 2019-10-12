@@ -98,14 +98,15 @@ void BaseConsoleGenesysApplication::insertFakePluginsByHand(Simulator* simulator
     simulator->getPluginManager()->insert("resource.so");
     simulator->getPluginManager()->insert("variable.so");
     simulator->getPluginManager()->insert("schedule.so");
-    simulator->getPluginManager()->insert("group.so");
+    simulator->getPluginManager()->insert("entitygroup.so");
     // arena advanced process
     simulator->getPluginManager()->insert("delay.so");
     simulator->getPluginManager()->insert("dropoff.so");
     simulator->getPluginManager()->insert("hold.so");
     simulator->getPluginManager()->insert("match.so");
     simulator->getPluginManager()->insert("pickup.so");
-    simulator->getPluginManager()->insert("readwrite.so");
+    simulator->getPluginManager()->insert("read.so");
+    simulator->getPluginManager()->insert("write.so");
     simulator->getPluginManager()->insert("release.so");
     simulator->getPluginManager()->insert("remove.so");
     simulator->getPluginManager()->insert("seize.so");

@@ -11,20 +11,20 @@
  * Created on 12 de Junho de 2019, 19:00
  */
 
-#ifndef GROUP_H
-#define GROUP_H
+#ifndef ENTITYGROUP_H
+#define ENTITYGROUP_H
 
 #include "ModelElement.h"
 #include "Entity.h"
 #include <map>
 #include <list>
 
-class Group : public ModelElement {
+class EntityGroup : public ModelElement {
 public:
-    Group(ElementManager* elems);
-    Group(ElementManager* elems, std::string name);
-    Group(const Group& orig);
-    virtual ~Group();
+    EntityGroup(ElementManager* elems);
+    EntityGroup(ElementManager* elems, std::string name);
+    EntityGroup(const EntityGroup& orig);
+    virtual ~EntityGroup();
 public:
     virtual std::string show();
 public:
@@ -52,5 +52,5 @@ private: //1::1
     StatisticsCollector* _cstatNumberInGroup;
 };
 
-#endif /* GROUP_H */
+#endif /* ENTITYGROUP_H */
 

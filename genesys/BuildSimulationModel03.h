@@ -21,8 +21,6 @@
 class BuildSimulationModel03 : public BaseConsoleGenesysApplication {
 public:
     BuildSimulationModel03();
-    BuildSimulationModel03(const BuildSimulationModel03& orig);
-    virtual ~BuildSimulationModel03();
 public:
     virtual int main(int argc, char** argv);
 private:

@@ -13,7 +13,6 @@
 
 #include "Release.h"
 #include "Model.h"
-#include "WaitingResource.h"
 #include "Resource.h"
 #include "Attribute.h"
 #include <assert.h>

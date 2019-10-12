@@ -21,6 +21,7 @@
 #include "Simulator.h"
 #include "StatisticsCollector.h"
 #include "Traits.h"
+#include "Access.h"
 
 bool EventCompare(const Event* a, const Event * b) {
     return a->getTime() < b->getTime();
@@ -77,12 +78,12 @@ Model::Model(const Model& orig) {
 Model::~Model() {
 }
 
-void Model::sendEntityToComponent(Entity* entity, Connection* connection, double timeDelay){
+void Model::sendEntityToComponent(Entity* entity, Connection* connection, double timeDelay) {
     this->sendEntityToComponent(entity, connection->first, timeDelay, connection->second);
 }
 
 void Model::sendEntityToComponent(Entity* entity, ModelComponent* component, double timeDelay, unsigned int componentInputNumber) {
-    /* TODO -: event onEntityMove */
+    this->getOnEventManager()->NotifyEntityMoveHandlers(new SimulationEvent(_simulation->getCurrentReplicationNumber(), new Event(_simulation->getSimulatedTime(), entity, component, componentInputNumber))); //@TODO: Event should include information about "from component" and timeDelay, but it doesn't 
     if (timeDelay > 0) {
 	// schedule to send it
 	Event* newEvent = new Event(this->getSimulation()->getSimulatedTime() + timeDelay, entity, component, componentInputNumber);
@@ -106,9 +107,9 @@ bool Model::loadModel(std::string filename) {
 }
 
 double Model::parseExpression(const std::string expression) {
-    try{
-    return _parser->parse(expression);
-    }catch(...){
+    try {
+	return _parser->parse(expression);
+    } catch (...) {
 	return 0.0; //TODO HOW SAY THERE WAS AN ERROR?
     }
 }
@@ -204,9 +205,26 @@ void Model::clear() {
     //Util::ResetAllIds(); // TODO: To implement
 }
 
+void Model::_createModelInternalElements() {
+    for (std::list<ModelComponent*>::iterator it = _componentManager->begin(); it != _componentManager->end(); it++) {
+	ModelComponent::CreateInternalElements((*it));
+    }
+    /*
+    std::list<ModelElement*>* modelElements;
+    for (std::list<std::string>::iterator itty = getElementManager()->getElementTypenames()->begin(); itty != getElementManager()->getElementTypenames()->end(); itty++) {
+	modelElements = getElementManager()->getElements((*itty))->getList();
+	for (std::list<ModelElement*>::iterator itel = modelElements->begin(); itel != modelElements->end(); itel++) {
+	    ModelElement::CreateInternalElements((*itel));
+	}
+    }
+     */
+}
+
 bool Model::checkModel() {
     getTraceManager()->trace(Util::TraceLevel::simulation, "Checking model consistency");
     Util::IncIndent();
+    // before checking the model, creates all necessary internal ModelElements
+    _createModelInternalElements();
     bool res = this->_modelChecker->checkAll();
     Util::DecIndent();
     if (res) {
@@ -234,15 +252,15 @@ List<Event*>* Model::getEvents() const {
     return _events;
 }
 
-void Model::setTraceManager(TraceManager* _traceManager) {
+void Model::setTraceManager(TraceManager * _traceManager) {
     this->_traceManager = _traceManager;
 }
 
-TraceManager* Model::getTraceManager() const {
+TraceManager * Model::getTraceManager() const {
     return _traceManager;
 }
 
-ComponentManager* Model::getComponentManager() const {
+ComponentManager * Model::getComponentManager() const {
     return _componentManager;
 }
 
@@ -254,39 +272,27 @@ List<SimulationResponse*>* Model::getResponses() const {
     return _responses;
 }
 
-OnEventManager* Model::getOnEventManager() const {
+OnEventManager * Model::getOnEventManager() const {
     return _eventManager;
 }
 
-ElementManager* Model::getElementManager() const {
+ElementManager * Model::getElementManager() const {
     return _elementManager;
 }
 
-ModelInfo* Model::getInfos() const {
+ModelInfo * Model::getInfos() const {
     return _modelInfo;
 }
 
-Simulator* Model::getParentSimulator() const {
+Simulator * Model::getParentSimulator() const {
     return _parentSimulator;
 }
 
-ModelSimulation* Model::getSimulation() const {
+ModelSimulation * Model::getSimulation() const {
     return _simulation;
 }
 
-
-
-//List<Entity*>* Model::getEntities() const {
-//	List<Entity*>* ents = (List<Entity*>*)(getElementManager()->getElements(Util::TypeOf<Entity>())); // static_cast ??
-//	return ents;
-//}
-
-Util::identitifcation Model::getId() const {
+Util::identification Model::getId() const {
     return _id;
 }
-
-//List<ModelComponent*>* Model::getComponents() const {
-//    return _components;
-//}
-
 

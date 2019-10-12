@@ -28,8 +28,8 @@ Station::Station(ElementManager* elems, std::string name) : ModelElement(Util::T
 }
 
 void Station::_initCStats() {
-    _cstatNumberInStation = new StatisticsCollector(_elems, "Number In Station", this);
-    _cstatTimeInStation = new StatisticsCollector(_elems, "Time In Station", this);
+    _cstatNumberInStation = new StatisticsCollector(_elems, _name+"."+"Number_In_Station", this);
+    _cstatTimeInStation = new StatisticsCollector(_elems, _name+"."+"Time_In_Station", this);
     _elems->insert(Util::TypeOf<StatisticsCollector>(), _cstatNumberInStation);
     _elems->insert(Util::TypeOf<StatisticsCollector>(), _cstatTimeInStation);
 
@@ -127,12 +127,16 @@ bool Station::_check(std::string* errorMessage) {
 	    _elems->insert(Util::TypeOf<Attribute>(), attr1);
 	}
     }
-        // include StatisticsCollector needed in EntityType
+    // include StatisticsCollector needed in EntityType
     std::list<ModelElement*>* enttypes = _elems->getElements(Util::TypeOf<EntityType>())->getList();
-    for (std::list<ModelElement*>::iterator it= enttypes->begin(); it!= enttypes->end(); it++) {
-	static_cast<EntityType*>((*it))->getStatisticsCollector("Time in Stations"); // force create this CStat before simulation starts
+    for (std::list<ModelElement*>::iterator it = enttypes->begin(); it != enttypes->end(); it++) {
+	static_cast<EntityType*> ((*it))->getStatisticsCollector("Time in Stations"); // force create this CStat before simulation starts
     }
     //
     return true;
+}
+
+void Station::_createInternalElements() {
+    //_initCStats();
 }
 

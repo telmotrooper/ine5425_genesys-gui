@@ -59,20 +59,23 @@ OBJECTFILES= \
 	${OBJECTDIR}/ElementManager.o \
 	${OBJECTDIR}/Enter.o \
 	${OBJECTDIR}/Entity.o \
+	${OBJECTDIR}/EntityGroup.o \
 	${OBJECTDIR}/EntityType.o \
 	${OBJECTDIR}/Event.o \
 	${OBJECTDIR}/Exit.o \
 	${OBJECTDIR}/ExperimentDesignDefaultImpl1.o \
 	${OBJECTDIR}/ExperimentDesignDummyImpl.o \
 	${OBJECTDIR}/FactorOrInteractionContribution.o \
+	${OBJECTDIR}/Failure.o \
+	${OBJECTDIR}/File.o \
 	${OBJECTDIR}/FirstExampleOfSimulation.o \
 	${OBJECTDIR}/FitterDefaultImpl1.o \
 	${OBJECTDIR}/Formula.o \
+	${OBJECTDIR}/FourthExampleOfSimulation.o \
 	${OBJECTDIR}/Free.o \
 	${OBJECTDIR}/FullSimulationOfComplexModel.o \
 	${OBJECTDIR}/GenesysConsole.o \
 	${OBJECTDIR}/GenesysGUI.o \
-	${OBJECTDIR}/Group.o \
 	${OBJECTDIR}/Halt.o \
 	${OBJECTDIR}/Hold.o \
 	${OBJECTDIR}/HypothesisTesterDefaultImpl1.o \
@@ -106,7 +109,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/ProbDistrib.o \
 	${OBJECTDIR}/ProcessAnalyserDefaultImpl1.o \
 	${OBJECTDIR}/Queue.o \
-	${OBJECTDIR}/ReadWrite.o \
 	${OBJECTDIR}/Record.o \
 	${OBJECTDIR}/Release.o \
 	${OBJECTDIR}/Remove.o \
@@ -137,20 +139,22 @@ OBJECTFILES= \
 	${OBJECTDIR}/StatisticsDefaultImpl1.o \
 	${OBJECTDIR}/StatisticsDummyImpl.o \
 	${OBJECTDIR}/Stop.o \
+	${OBJECTDIR}/Storage.o \
 	${OBJECTDIR}/Store.o \
 	${OBJECTDIR}/Submodel.o \
 	${OBJECTDIR}/TestEnterLeaveRoute.o \
 	${OBJECTDIR}/TestInputAnalyserTools.o \
+	${OBJECTDIR}/TestODE.o \
 	${OBJECTDIR}/TestParser.o \
 	${OBJECTDIR}/TestSimulationControlAndSimulationResponse.o \
 	${OBJECTDIR}/TestStatistics.o \
+	${OBJECTDIR}/ThirdExampleOfSimulation.o \
 	${OBJECTDIR}/ToolManager.o \
 	${OBJECTDIR}/TraceManager.o \
 	${OBJECTDIR}/Unstore.o \
 	${OBJECTDIR}/Util.o \
 	${OBJECTDIR}/Variable.o \
-	${OBJECTDIR}/Waiting.o \
-	${OBJECTDIR}/WaitingResource.o \
+	${OBJECTDIR}/Write.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/parserBisonFlex/Genesys++-driver.o \
 	${OBJECTDIR}/parserBisonFlex/Genesys++-scanner.o \
@@ -303,6 +307,11 @@ ${OBJECTDIR}/Entity.o: Entity.cpp nbproject/Makefile-${CND_CONF}.mk
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Entity.o Entity.cpp
 
+${OBJECTDIR}/EntityGroup.o: EntityGroup.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/EntityGroup.o EntityGroup.cpp
+
 ${OBJECTDIR}/EntityType.o: EntityType.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -333,6 +342,16 @@ ${OBJECTDIR}/FactorOrInteractionContribution.o: FactorOrInteractionContribution.
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FactorOrInteractionContribution.o FactorOrInteractionContribution.cpp
 
+${OBJECTDIR}/Failure.o: Failure.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Failure.o Failure.cpp
+
+${OBJECTDIR}/File.o: File.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/File.o File.cpp
+
 ${OBJECTDIR}/FirstExampleOfSimulation.o: FirstExampleOfSimulation.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -347,6 +366,11 @@ ${OBJECTDIR}/Formula.o: Formula.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Formula.o Formula.cpp
+
+${OBJECTDIR}/FourthExampleOfSimulation.o: FourthExampleOfSimulation.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/FourthExampleOfSimulation.o FourthExampleOfSimulation.cpp
 
 ${OBJECTDIR}/Free.o: Free.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
@@ -367,11 +391,6 @@ ${OBJECTDIR}/GenesysGUI.o: GenesysGUI.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GenesysGUI.o GenesysGUI.cpp
-
-${OBJECTDIR}/Group.o: Group.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Group.o Group.cpp
 
 ${OBJECTDIR}/Halt.o: Halt.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
@@ -538,11 +557,6 @@ ${OBJECTDIR}/Queue.o: Queue.cpp nbproject/Makefile-${CND_CONF}.mk
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Queue.o Queue.cpp
 
-${OBJECTDIR}/ReadWrite.o: ReadWrite.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ReadWrite.o ReadWrite.cpp
-
 ${OBJECTDIR}/Record.o: Record.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -693,6 +707,11 @@ ${OBJECTDIR}/Stop.o: Stop.cpp nbproject/Makefile-${CND_CONF}.mk
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Stop.o Stop.cpp
 
+${OBJECTDIR}/Storage.o: Storage.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Storage.o Storage.cpp
+
 ${OBJECTDIR}/Store.o: Store.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -713,6 +732,11 @@ ${OBJECTDIR}/TestInputAnalyserTools.o: TestInputAnalyserTools.cpp nbproject/Make
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TestInputAnalyserTools.o TestInputAnalyserTools.cpp
 
+${OBJECTDIR}/TestODE.o: TestODE.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TestODE.o TestODE.cpp
+
 ${OBJECTDIR}/TestParser.o: TestParser.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -727,6 +751,11 @@ ${OBJECTDIR}/TestStatistics.o: TestStatistics.cpp nbproject/Makefile-${CND_CONF}
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/TestStatistics.o TestStatistics.cpp
+
+${OBJECTDIR}/ThirdExampleOfSimulation.o: ThirdExampleOfSimulation.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ThirdExampleOfSimulation.o ThirdExampleOfSimulation.cpp
 
 ${OBJECTDIR}/ToolManager.o: ToolManager.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
@@ -753,15 +782,10 @@ ${OBJECTDIR}/Variable.o: Variable.cpp nbproject/Makefile-${CND_CONF}.mk
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variable.o Variable.cpp
 
-${OBJECTDIR}/Waiting.o: Waiting.cpp nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/Write.o: Write.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Waiting.o Waiting.cpp
-
-${OBJECTDIR}/WaitingResource.o: WaitingResource.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WaitingResource.o WaitingResource.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Write.o Write.cpp
 
 ${OBJECTDIR}/main.o: main.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}

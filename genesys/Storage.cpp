@@ -5,53 +5,42 @@
  */
 
 /* 
- * File:   Set.cpp
+ * File:   Storage.cpp
  * Author: rlcancian
  * 
- * Created on 03 de Junho de 2019, 15:11
+ * Created on 20 de Storageembro de 2019, 20:06
  */
 
-#include "Set.h"
+#include "Storage.h"
 
-Set::Set(ElementManager* elems) : ModelElement(Util::TypeOf<Set>()) {
+
+Storage::Storage(ElementManager* elems) : ModelElement(Util::TypeOf<Storage>()) {
     _elems = elems;
 }
 
-Set::Set(ElementManager* elems, std::string name) : ModelElement(Util::TypeOf<Set>()) {
+Storage::Storage(ElementManager* elems, std::string name) : ModelElement(Util::TypeOf<Storage>()) {
     _name = name;
     _elems = elems;
 }
 
-Set::Set(const Set& orig) : ModelElement(orig) {
+Storage::Storage(const Storage& orig) : ModelElement(orig) {
 }
 
-Set::~Set() {
+Storage::~Storage() {
 }
 
-std::string Set::show() {
+std::string Storage::show() {
     return ModelElement::show() +
 	    "";
 }
 
-void Set::setSetOfType(std::string _setOfType) {
-    this->_setOfType = _setOfType;
-}
-
-std::string Set::getSetOfType() const {
-    return _setOfType;
-}
-
-List<ModelElement*>* Set::getElementSet() const {
-    return _elementSet;
-}
-
-PluginInformation* Set::GetPluginInformation() {
-    PluginInformation* info = new PluginInformation(Util::TypeOf<Set>(), &Set::LoadInstance); 
+PluginInformation* Storage::GetPluginInformation() {
+    PluginInformation* info = new PluginInformation(Util::TypeOf<Storage>(), &Storage::LoadInstance); 
     return info;
 }
 
-ModelElement* Set::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
-    Set* newElement = new Set(elems);
+ModelElement* Storage::LoadInstance(ElementManager* elems, std::map<std::string, std::string>* fields) {
+    Storage* newElement = new Storage(elems);
     try {
 	newElement->_loadInstance(fields);
     } catch (const std::exception& e) {
@@ -60,7 +49,7 @@ ModelElement* Set::LoadInstance(ElementManager* elems, std::map<std::string, std
     return newElement;
 }
 
-bool Set::_loadInstance(std::map<std::string, std::string>* fields) {
+bool Storage::_loadInstance(std::map<std::string, std::string>* fields) {
     bool res = ModelElement::_loadInstance(fields);
     if (res) {
 	try {
@@ -72,20 +61,20 @@ bool Set::_loadInstance(std::map<std::string, std::string>* fields) {
     return res;
 }
 
-std::map<std::string, std::string>* Set::_saveInstance() {
-    std::map<std::string, std::string>* fields = ModelElement::_saveInstance(); //Util::TypeOf<Set>());
+std::map<std::string, std::string>* Storage::_saveInstance() {
+    std::map<std::string, std::string>* fields = ModelElement::_saveInstance(); //Util::TypeOf<Storage>());
     //fields->emplace("orderRule", std::to_string(static_cast<int> (this->_orderRule)));
     //fields->emplace("attributeName", this->_attributeName);
     return fields;
 }
 
-bool Set::_check(std::string* errorMessage) {
+bool Storage::_check(std::string* errorMessage) {
     bool resultAll = true;
     // resultAll |= ...
     return resultAll;
 }
 
-ParserChangesInformation* Set::_getParserChangesInformation() {
+ParserChangesInformation* Storage::_getParserChangesInformation() {
     ParserChangesInformation* changes = new ParserChangesInformation();
     //changes->getProductionToAdd()->insert(...);
     //changes->getTokensToAdd()->insert(...);

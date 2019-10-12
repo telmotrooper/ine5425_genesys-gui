@@ -11,10 +11,14 @@
 #include <cmath>
 #include "obj_t.h"
 #include "../Util.h"
+//
+// include to Plugin header files should be specified by plugins themselves
+//
 #include "../Variable.h"
 #include "../Queue.h"
 #include "../Formula.h"
 #include "../Resource.h"
+#include "../Set.h"
 class genesyspp_driver;
 
 }
@@ -37,41 +41,33 @@ class genesyspp_driver;
 
 }
 
+// numbers
 %token <obj_t> NUMD
 %token <obj_t> NUMH
+%token <obj_t> CTEZERO
 
-%token <obj_t> ATRIB
-%token <obj_t> VARI
-%token <obj_t> FORM
-%token <obj_t> QUEUE
-%token <obj_t> RES
-
-%token <obj_t> fTFIN
-%token <obj_t> fNR
-%token <obj_t> fMR
-%token <obj_t> fIRF
-%token <obj_t> fRESSEIZES
-%token <obj_t> fSTATE
-%token <obj_t> fNQ
-%token <obj_t> fFIRSTINQ
-%token <obj_t> fLASTINQ
+// relational operators
 %token <obj_t> oLE
 %token <obj_t> oGE
 %token <obj_t> oEQ
 %token <obj_t> oNE
 
+// logic operators
 %token <obj_t> oAND
 %token <obj_t> oOR
 %token <obj_t> oNOT
 
+// trigonometric functions
 %token <obj_t> fSIN
 %token <obj_t> fCOS
 
-%token <obj_t> fAINT
+// aritmetic functions
+%token <obj_t> fROUND
 %token <obj_t> fMOD
-%token <obj_t> fINT
+%token <obj_t> fTRUNC
 %token <obj_t> fFRAC
 
+// probability distributions
 %token <obj_t> fEXPO
 %token <obj_t> fNORM
 %token <obj_t> fUNIF
@@ -83,14 +79,61 @@ class genesyspp_driver;
 %token <obj_t> fBETA
 %token <obj_t> fDISC
 
+// simulation infos
 %token <obj_t> fTNOW
+%token <obj_t> fTFIN
 
+// algoritmic functions
 %token <obj_t> cIF
 %token <obj_t> cELSE
 %token <obj_t> cFOR
 %token <obj_t> cTO
 %token <obj_t> cDO
+
+// kernel elements
+%token <obj_t> ATRIB
+
 %token <obj_t> ILLEGAL     /* illegal token */
+
+///////////////////////////////
+//
+// to be defined by plugins
+//
+///////////////////////////////
+
+// to be defined by RESOURCE plugin
+%token <obj_t> RESOURCE
+%token <obj_t> fNR
+%token <obj_t> fMR
+%token <obj_t> fIRF
+%token <obj_t> fRESSEIZES
+%token <obj_t> fSTATE
+%token <obj_t> fSETSUM
+
+// to be defined by QUEUE plugin
+%token <obj_t> QUEUE
+%token <obj_t> fNQ
+%token <obj_t> fFIRSTINQ
+%token <obj_t> fLASTINQ
+%token <obj_t> fSAQUE
+%token <obj_t> fAQUE
+
+// to be defined by SET plugin
+%token <obj_t> SET
+%token <obj_t> fNUMSET
+
+// to be defined by STATISTICSCOLECTOR plugin
+%token <obj_t> CSTAT
+%token <obj_t> fTAVG
+
+// to be defined by VARIABLE plugin
+%token <obj_t> VARI
+
+// to be defined by FORMULA plugin
+%token <obj_t> FORM
+
+///////////////////////////////
+///////////////////////////////
 %token LPAREN "("
 %token RPAREN ")"
 %token PLUS "+"
@@ -104,6 +147,8 @@ class genesyspp_driver;
 %token COMMA ","
 %token END 0 "end of file" //need to declare, as bison doesnt in especific situation
 
+///////////////////////////////
+///////////////////////////////
 %type <obj_t> input
 %type <obj_t> programa
 %type <obj_t> expressao
@@ -116,15 +161,18 @@ class genesyspp_driver;
 %type <obj_t> numero
 %type <obj_t> atributo
 %type <obj_t> atribuicao
-%type <obj_t> variavel
-%type <obj_t> formula
+%type <obj_t> funcaoKernel
 %type <obj_t> funcaoTrig
 %type <obj_t> funcaoArit
 %type <obj_t> funcaoProb
-%type <obj_t> funcaoStrc
+%type <obj_t> funcaoPlugin
 %type <obj_t> funcaoUser
 %type <obj_t> listaparm
 %type <obj_t> illegal
+
+// to be defined by PLUGINS
+%type <obj_t> variavel
+%type <obj_t> formula
 
 %left oNOT;
 %left oAND oOR;
@@ -132,53 +180,57 @@ class genesyspp_driver;
 %left MINUS PLUS;
 %left STAR SLASH;
 %precedence NEG;
-%left fAINT fMOD fINT fFRAC;
-
+%left fROUND fMOD fTRUNC fFRAC;
 
 //%printer { yyoutput << $$; } <*>; //prints whren something
 %%
 
-input	   : /* empty */
-           | input '\n' {YYACCEPT;}
-           | input programa                                     { driver.setResult($2.valor);}
-           | illegal
-           | error '\n'                                         { yyerrok; }
-           ;
-
-programa   : expressao                                          { $$.valor = $1.valor;}
-     	     ;
-
-expressao   : aritmetica                                        {$$.valor = $1.valor;}
-            | relacional                                        {$$.valor = $1.valor;}
-            | "(" expressao ")"                                 {$$.valor = $2.valor;}
-            | funcao                                            {$$.valor = $1.valor;}
-            | ATRIB                                             {$$.valor = $1.valor;}
-            | variavel                                          {$$.valor = $1.valor;}
-            | formula                                           {$$.valor = $1.valor;}
-            | numero                                            {$$.valor = $1.valor;}
-            | comando                                           {}
+///////////////////////////////
+///////////////////////////////
+///////////////////////////////
+input	    : /* empty */
+            | input '\n' {YYACCEPT;}
+            | input programa                    { driver.setResult($2.valor);}
+            | illegal
+            | error '\n'                        { yyerrok; }
             ;
 
-numero      : NUMD                                              { $$.valor = $1.valor;}
-            | NUMH                                              { $$.valor = $1.valor;}
+programa    : expressao                         { $$.valor = $1.valor;}
+     	    ;
+
+expressao   : numero                           {$$.valor = $1.valor;}
+            | funcao                           {$$.valor = $1.valor;}
+            | comando                          {$$.valor = $1.valor;}
+	    | aritmetica                       {$$.valor = $1.valor;}
+            | relacional                       {$$.valor = $1.valor;}
+            | "(" expressao ")"                {$$.valor = $2.valor;}
+            | atributo                         {$$.valor = $1.valor;}
+// to be defined by plugin VARIABLE
+            | variavel                         {$$.valor = $1.valor;}
+// to be defined by plugin FORMULA
+            | formula                          {$$.valor = $1.valor;}
             ;
 
-aritmetica  : expressao PLUS expressao                          { $$.valor = $1.valor + $3.valor;}
-            | expressao MINUS expressao                         { $$.valor = $1.valor - $3.valor;}
-            | expressao SLASH expressao                         { $$.valor = $1.valor / $3.valor;}
-            | expressao STAR expressao                          { $$.valor = $1.valor * $3.valor;}
-            | expressao POWER expressao                         { $$.valor = pow($1.valor,$3.valor);}
-            | MINUS expressao %prec NEG                         { $$.valor = -$2.valor;}
+numero      : NUMD                             { $$.valor = $1.valor;}
+            | NUMH                             { $$.valor = $1.valor;}
             ;
 
-relacional  : expressao oAND expressao                          { $$.valor = (int) $1.valor && (int) $3.valor;}
-            | expressao oOR  expressao                          { $$.valor = (int) $1.valor || (int) $3.valor;}
-            | expressao "<"  expressao                          { $$.valor = $1.valor < $3.valor ? 1 : 0;}
-            | expressao oLE  expressao                          { $$.valor = $1.valor <= $3.valor ? 1 : 0;}
-            | expressao ">"  expressao                          { $$.valor = $1.valor > $3.valor ? 1 : 0;}
-            | expressao oGE  expressao                          { $$.valor = $1.valor >= $3.valor ? 1 : 0;}
-            | expressao oEQ  expressao                          { $$.valor = $1.valor == $3.valor ? 1 : 0;}
-            | expressao oNE  expressao                          { $$.valor = $1.valor != $3.valor ? 1 : 0;}
+aritmetica  : expressao PLUS expressao         { $$.valor = $1.valor + $3.valor;}
+            | expressao MINUS expressao        { $$.valor = $1.valor - $3.valor;}
+            | expressao SLASH expressao        { $$.valor = $1.valor / $3.valor;}
+            | expressao STAR expressao         { $$.valor = $1.valor * $3.valor;}
+            | expressao POWER expressao        { $$.valor = pow($1.valor,$3.valor);}
+            | MINUS expressao %prec NEG        { $$.valor = -$2.valor;}
+            ;
+
+relacional  : expressao oAND expressao         { $$.valor = (int) $1.valor && (int) $3.valor;}
+            | expressao oOR  expressao         { $$.valor = (int) $1.valor || (int) $3.valor;}
+            | expressao "<"  expressao         { $$.valor = $1.valor < $3.valor ? 1 : 0;}
+            | expressao oLE  expressao         { $$.valor = $1.valor <= $3.valor ? 1 : 0;}
+            | expressao ">"  expressao         { $$.valor = $1.valor > $3.valor ? 1 : 0;}
+            | expressao oGE  expressao         { $$.valor = $1.valor >= $3.valor ? 1 : 0;}
+            | expressao oEQ  expressao         { $$.valor = $1.valor == $3.valor ? 1 : 0;}
+            | expressao oNE  expressao         { $$.valor = $1.valor != $3.valor ? 1 : 0;}
             ;
 
 comando     : comandoIF
@@ -188,26 +240,90 @@ comando     : comandoIF
 comandoIF   : cIF "(" expressao ")" expressao cELSE expressao   {$$.valor = $3.valor != 0 ? $5.valor : $7.valor;}
             | cIF "(" expressao ")" expressao                   {$$.valor = $3.valor != 0 ? $5.valor : 0;}
             ;
-//Check for function/need, for now will let cout
+//Check for function/need, for now will let cout (these should be commands for program, not expression
 comandoFOR  : cFOR variavel "=" expressao cTO expressao cDO atribuicao  {$$.valor = 0; }
             | cFOR atributo "=" expressao cTO expressao cDO atribuicao  {$$.valor = 0; }
             ;
 
-funcao      : funcaoArit                                        { $$.valor = $1.valor; }
-            | funcaoTrig                                        { $$.valor = $1.valor; }
-            | funcaoProb                                        { $$.valor = $1.valor; }
-            | funcaoStrc                                        { $$.valor = $1.valor; }
-            | funcaoUser                                        { $$.valor = $1.valor; }
+funcao      : funcaoArit                       { $$.valor = $1.valor; }
+            | funcaoTrig                       { $$.valor = $1.valor; }
+            | funcaoProb                       { $$.valor = $1.valor; }
+            | funcaoKernel                     { $$.valor = $1.valor; }
+            | funcaoPlugin                     { $$.valor = $1.valor; }
+            | funcaoUser                       { $$.valor = $1.valor; }
+            ;
+
+funcaoKernel : fTNOW      { $$.valor = driver.getModel()->getSimulation()->getSimulatedTime();}
+             | fTFIN      { $$.valor = driver.getModel()->getInfos()->getReplicationLength();}
+             ;
+
+funcaoTrig  : fSIN   "(" expressao ")"         { $$.valor = sin($3.valor); }
+            | fCOS   "(" expressao ")"         { $$.valor = cos($3.valor); }
+            ;
+
+funcaoArit  : fROUND  "(" expressao ")"        { $$.valor = round($3.valor);}
+            | fFRAC  "(" expressao ")"         { $$.valor = $3.valor - (int) $3.valor;}
+            | fTRUNC   "(" expressao ")"       { $$.valor = trunc($3.valor);}
+            | fMOD   "(" expressao "," expressao ")"            { $$.valor = (int) $3.valor % (int) $5.valor; }
+            ;
+
+funcaoProb  : fEXPO  "(" expressao ")"                           { $$.valor = driver.getProbs()->sampleExponential($3.valor); $$.tipo = "Exponencial";}
+            | fNORM  "(" expressao "," expressao ")"             { $$.valor = driver.getProbs()->sampleNormal($3.valor,$5.valor); $$.tipo = "Normal"; }
+            | fUNIF  "(" expressao "," expressao ")"             { $$.valor = driver.getProbs()->sampleUniform($3.valor,$5.valor); $$.tipo = "Unificada"; }
+            | fWEIB  "(" expressao "," expressao ")"             { $$.valor = driver.getProbs()->sampleWeibull($3.valor,$5.valor); $$.tipo = "Weibull"; }
+            | fLOGN  "(" expressao "," expressao ")"             { $$.valor = driver.getProbs()->sampleLogNormal($3.valor,$5.valor); $$.tipo = "LOGNormal"; }
+            | fGAMM  "(" expressao "," expressao ")"             { $$.valor = driver.getProbs()->sampleGamma($3.valor,$5.valor); $$.tipo = "Gamma"; }
+            | fERLA  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleErlang($3.valor,$5.valor); $$.tipo = "Erlang"; }
+            | fTRIA  "(" expressao "," expressao "," expressao ")"                { $$.valor = driver.getProbs()->sampleTriangular($3.valor,$5.valor,$7.valor); $$.tipo = "Triangular"; }
+            | fBETA  "(" expressao "," expressao "," expressao "," expressao ")"  { $$.valor = driver.getProbs()->sampleBeta($3.valor,$5.valor,$7.valor,$9.valor); $$.tipo = "Beta"; }
+            | fDISC  "(" listaparm ")"
             ;
 
 
-//Attribute not fully implemented on GenESyS, for now does nothing
-atributo    : ATRIB                                             { $$.valor = $1.valor; }
+//Maybe user defined functions, check if continues on the parser, for now returns the value of expressao
+funcaoUser  : "USER" "(" expressao ")"         { $$.valor = $3.valor; }
+            ;
+
+//Probably returns parameters for something, check if continues on the parser, for now does nothing
+listaparm   : listaparm "," expressao "," expressao
+            | expressao "," expressao
+            ;
+//If illegal token, verifies if throws exception or set error message
+illegal     : ILLEGAL           {
+				  driver.setResult(-1);
+				  if(driver.getThrowsException()){
+				    if($1.valor == 0){
+				      throw std::string("Literal nao encontrado");
+				    }else if($1.valor == 1){
+				      throw std::string("Caracter invalido encontrado");
+				    }
+				  }else{
+				    if($1.valor == 0){
+				      driver.setErrorMessage(std::string("Literal nao encontrado"));
+				    }else if($1.valor == 1){
+				      driver.setErrorMessage(std::string("Caracter invalido encontrado"));
+				    }
+				  }
+				}
+            ;
+
+
+// 20181003  ATRIB now returns the attribute ID not the attribute value anymore. So, now get the attribute value for the current entity
+atributo    : ATRIB      {  double attributeValue = 0.0;
+			    if (driver.getModel()->getSimulation()->getCurrentEntity() != nullptr) {
+				try {
+				    // it could crach because there may be no current entity, if the parse is running before simulation and therefore there is no CurrentEntity
+				    attributeValue = driver.getModel()->getSimulation()->getCurrentEntity()->getAttributeValue($1.valor);
+				} catch(...) {
+				}
+			    }
+			    $$.valor = attributeValue; 
+			}
             ;
 
 //Check if want to set the atributo or variavel with expressao or just return the expressao value, for now just returns expressao value
-atribuicao  : atributo "=" expressao                            { $$.valor = $3.valor; }
-            | variavel "=" expressao                            { $$.valor = $3.valor; }
+atribuicao  : atributo "=" expressao           { $$.valor = $3.valor; }
+            | variavel "=" expressao           { $$.valor = $3.valor; }
             ;
 
 variavel    : VARI                                              { $$.valor = ((Variable*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Variable>(), $1.id)))->getValue();} 
@@ -219,89 +335,81 @@ variavel    : VARI                                              { $$.valor = ((V
 formula     : FORM                                              { $$.valor = ((Formula*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Formula>(), $1.id)))->getValue();} 
             ;
 
-funcaoTrig  : fSIN   "(" expressao ")"                          { $$.valor = sin($3.valor); }
-            | fCOS   "(" expressao ")"                          { $$.valor = cos($3.valor); }
-            ;
 
-funcaoArit  : fAINT  "(" expressao ")"                          { $$.valor = (int) $3.valor;}
-            | fFRAC  "(" expressao ")"                          { $$.valor = $3.valor - (int) $3.valor;}
-            | fINT   "(" expressao ")"                          { $$.valor = (int) $3.valor;}
-            | fMOD   "(" expressao "," expressao ")"            { $$.valor = (int) $3.valor % (int) $5.valor; }
-            ;
+funcaoPlugin  : CTEZERO                                        { $$.valor = 0; }
 
-funcaoProb  : fEXPO  "(" expressao ")"                                            { $$.valor = driver.getProbs()->sampleExponential($3.valor); $$.tipo = "Exponencial";}
-            | fNORM  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleNormal($3.valor,$5.valor); $$.tipo = "Normal"; }
-            | fUNIF  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleUniform($3.valor,$5.valor); $$.tipo = "Unificada"; }
-            | fWEIB  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleWeibull($3.valor,$5.valor); $$.tipo = "Weibull"; }
-            | fLOGN  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleLogNormal($3.valor,$5.valor); $$.tipo = "LOGNormal"; }
-            | fGAMM  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleGamma($3.valor,$5.valor); $$.tipo = "Gamma"; }
-            | fERLA  "(" expressao "," expressao ")"                              { $$.valor = driver.getProbs()->sampleErlang($3.valor,$5.valor); $$.tipo = "Erlang"; }
-            | fTRIA  "(" expressao "," expressao "," expressao ")"                { $$.valor = driver.getProbs()->sampleTriangular($3.valor,$5.valor,$7.valor); $$.tipo = "Triangular"; }
-            | fBETA  "(" expressao "," expressao "," expressao "," expressao ")"  { $$.valor = driver.getProbs()->sampleBeta($3.valor,$5.valor,$7.valor,$9.valor); $$.tipo = "Beta"; }
-            | fDISC  "(" listaparm ")"
-            ;
+///////////////////////////////////
+// to be defined by the QUEUE plugin
+///////////////////////////////////
+            |fNQ       "(" QUEUE ")"                    { $$.valor = ((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->size();}
+            | fLASTINQ  "(" QUEUE ")"                   {/*For now does nothing because need acces to list of QUEUE, or at least the last element*/ }
+            | fFIRSTINQ "(" QUEUE ")"                   { if (((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->size() > 0){
+                                                            //id da 1a entidade da fila, talvez pegar nome
+                                                            $$.valor = ((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->first()->getEntity()->getId();
+                                                          }else{
+                                                            $$.valor = 0;
+                                                          }
+                                                        }
+	    | fSAQUE "(" QUEUE "," ATRIB ")"   {   
+				 Util::identification queueID = $3.id;
+				 Util::identification attrID = $5.id;
+				 double sum = ((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->sumAttributesFromWaiting(attrID);
+				  $$.valor = sum;
+				}
+	    | fAQUE "(" QUEUE "," NUMD "," ATRIB ")" {
+				 Util::identification queueID = $3.id;
+				 Util::identification attrID = $7.id;
+				 double value = ((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->getAttributeFromWaitingRank($5.valor-1, attrID); // rank starts on 0 in genesys
+				  $$.valor = value;
+				}
 
-funcaoStrc  : fNQ       "(" QUEUE ")"                           { $$.valor = ((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->size();}
-            | fLASTINQ  "(" QUEUE ")"                           {/*For now does nothing because need acces to list of QUEUE, or at least the last element*/ }
-            | fFIRSTINQ "(" QUEUE ")"                           { if (((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->size() > 0){
-                                                                    //id da 1a entidade da fila, talvez pegar nome
-                                                                    $$.valor = ((Queue*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<Queue>(), $3.id)))->first()->getEntity()->getId();
-                                                                  }else{
-                                                                    $$.valor = 0;
-                                                                  }
-                                                                }
-           | fMR        "(" RES ")"                            { $$.valor = ((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getCapacity();}
-           | fNR        "(" RES ")"                            { $$.valor = ((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getNumberBusy();}
-           | fRESSEIZES "(" RES ")"                            { /*For now does nothing because needs get Seizes, check with teacher*/}
-           | fSTATE     "(" RES ")"                            {  switch(((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getResourceState()){
-                                                                    case Resource::ResourceState::IDLE:
-                                                                      $$.valor = -1;
-                                                                      break;
-                                                                    case Resource::ResourceState::BUSY:
-                                                                      $$.valor = -2;
-                                                                      break;
-                                                                    case Resource::ResourceState::FAILED:
-                                                                      $$.valor = -4;
-                                                                      break;
-                                                                    case Resource::ResourceState::INACTIVE:
-                                                                      $$.valor = -3;
-                                                                    default:
-                                                                      $$.valor = -5;
-                                                                      break;
-                                                                  }
-                                                                }
+///////////////////////////////////
+// to be defined by the RESOURCE plugin
+///////////////////////////////////
+           | fMR        "(" RESOURCE ")"                { $$.valor = ((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getCapacity();}
+           | fNR        "(" RESOURCE ")"                { $$.valor = ((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getNumberBusy();}
+           | fRESSEIZES "(" RESOURCE ")"                { /*For now does nothing because needs get Seizes, check with teacher*/}
+           | fSTATE     "(" RESOURCE ")"                {  $$.valor = static_cast<int>(((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getResourceState());
+							}
 
-           | fIRF       "(" RES ")"                            { $$.valor = ((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getResourceState() == Resource::ResourceState::FAILED ? 1 : 0; }
-           | fTNOW                                             { $$.valor = driver.getModel()->getSimulation()->getSimulatedTime();}
-           | fTFIN                                             { $$.valor = driver.getModel()->getInfos()->getReplicationLength();}
+           | fIRF       "(" RESOURCE ")"                { $$.valor = ((Resource*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Resource>(), $3.id))->getResourceState() == Resource::ResourceState::FAILED ? 1 : 0; }
+           | fSETSUM    "(" SET ")"                     {   unsigned int count=0;
+							    Resource* res;
+							    List<ModelElement*>* setList = ((Set*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Set>(),$3.id))->getElementSet(); 
+							    for (std::list<ModelElement*>::iterator it = setList->getList()->begin(); it!=setList->getList()->end(); it++) {
+								res = dynamic_cast<Resource*>(*it);
+								if (res != nullptr) {
+								    if (res->getResourceState()==Resource::ResourceState::BUSY) {
+									count++;
+								    }
+								}
+							    }
+							    $$.valor = count; 
+							}
+
+///////////////////////////////////
+// to be defined by the SET plugin
+///////////////////////////////////
+           | fNUMSET    "(" SET ")"                     { $$.valor = ((Set*)driver.getModel()->getElementManager()->getElement(Util::TypeOf<Set>(),$3.id))->getElementSet()->size(); }
+
+
+///////////////////////////////////
+// to be defined by the STATISTICSCOLLECTOR plugin
+///////////////////////////////////
+	   | CSTAT			{ $$.valor = 0; }
+           | fTAVG    "(" CSTAT ")"     {
+					    StatisticsCollector* cstat = ((StatisticsCollector*)(driver.getModel()->getElementManager()->getElement(Util::TypeOf<StatisticsCollector>(), $3.id)));
+					    double value = cstat->getStatistics()->average();
+					    $$.valor = value;
+					}
+
+
+///////////////////////////////////
+// to be defined by the ....... plugin
+///////////////////////////////////
+
            ;
 
-//Maybe user defined functions, check if continues on the parser, for now returns the value of expressao
-funcaoUser  : "USER" "(" expressao ")"                          { $$.valor = $3.valor; }
-            ;
-
-//Probably returns parameters for something, check if continues on the parser, for now does nothing
-listaparm   : listaparm "," expressao "," expressao
-            | expressao "," expressao
-            ;
-//If illegal token, verifies if throws exception or set error message
-illegal     : ILLEGAL                                           {
-                                                                  driver.setResult(-1);
-                                                                  if(driver.getThrowsException()){
-                                                                    if($1.valor == 0){
-                                                                      throw std::string("Literal nao encontrado");
-                                                                    }else if($1.valor == 1){
-                                                                      throw std::string("Caracter invalido encontrado");
-                                                                    }
-                                                                  }else{
-                                                                    if($1.valor == 0){
-                                                                      driver.setErrorMessage(std::string("Literal nao encontrado"));
-                                                                    }else if($1.valor == 1){
-                                                                      driver.setErrorMessage(std::string("Caracter invalido encontrado"));
-                                                                    }
-                                                                  }
-                                                                }
-            ;
 
 %%
 void

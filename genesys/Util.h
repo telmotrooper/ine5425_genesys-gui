@@ -65,7 +65,7 @@ static std::string getFileName(const std::string& s) {
 
 class Util {
 public:
-    typedef unsigned long identitifcation;
+    typedef unsigned long identification;
     typedef unsigned int rank;
 
     enum class TimeUnit : int {
@@ -91,8 +91,8 @@ public:
 	mostDetailed = 7
     };
 private:
-    static Util::identitifcation _S_lastId;
-    static std::map<std::string, Util::identitifcation> _S_lastIdOfType;
+    static Util::identification _S_lastId;
+    static std::map<std::string, Util::identification> _S_lastIdOfType;
     static std::map<std::string, std::string> _S_TypeOf;
 
 public: // indentation and string
@@ -105,9 +105,9 @@ public: // indentation and string
     static std::string SetW(std::string text, unsigned short width);
     static std::string StrTimeUnit(Util::TimeUnit timeUnit);
 public: // identitification
-    static Util::identitifcation GenerateNewId();
-    static Util::identitifcation GenerateNewIdOfType(std::string objtype);
-    static Util::identitifcation GetLastIdOfType(std::string objtype);
+    static Util::identification GenerateNewId();
+    static Util::identification GenerateNewIdOfType(std::string objtype);
+    static Util::identification GetLastIdOfType(std::string objtype);
     static void ResetIdOfType(std::string objtype);
 
 public: // simulation support
@@ -136,15 +136,15 @@ public: // template implementations
     /*!
      * Every component or element has a unique ID for its class, but not unique for other classes. IDs are generated sequentially for each class.
      */
-    template<class T> static Util::identitifcation GenerateNewIdOfType() {
+    template<class T> static Util::identification GenerateNewIdOfType() {
 	std::string objtype = Util::TypeOf<T>();
-	std::map<std::string, Util::identitifcation>::iterator it = Util::_S_lastIdOfType.find(objtype);
+	std::map<std::string, Util::identification>::iterator it = Util::_S_lastIdOfType.find(objtype);
 	if (it == Util::_S_lastIdOfType.end()) {
 	    // a new one. create the pair
-	    Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identitifcation>(objtype, 0));
+	    Util::_S_lastIdOfType.insert(std::pair<std::string, Util::identification>(objtype, 0));
 	    it = Util::_S_lastIdOfType.find(objtype);
 	}
-	Util::identitifcation next = (*it).second;
+	Util::identification next = (*it).second;
 	next++;
 	(*it).second = next;
 	return(*it).second;

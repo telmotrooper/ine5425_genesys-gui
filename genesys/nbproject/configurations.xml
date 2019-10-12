@@ -47,12 +47,6 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="ModelParts" projectFiles="true">
         <logicalFolder name="f4" displayName="Elements" projectFiles="true">
-          <logicalFolder name="f1" displayName="SubElement" projectFiles="true">
-            <itemPath>Waiting.cpp</itemPath>
-            <itemPath>Waiting.h</itemPath>
-            <itemPath>WaitingResource.cpp</itemPath>
-            <itemPath>WaitingResource.h</itemPath>
-          </logicalFolder>
           <itemPath>Attribute.cpp</itemPath>
           <itemPath>Attribute.h</itemPath>
           <itemPath>Entity.cpp</itemPath>
@@ -142,8 +136,6 @@
           <itemPath>Match.h</itemPath>
           <itemPath>PickUp.cpp</itemPath>
           <itemPath>PickUp.h</itemPath>
-          <itemPath>ReadWrite.cpp</itemPath>
-          <itemPath>ReadWrite.h</itemPath>
           <itemPath>Release.cpp</itemPath>
           <itemPath>Release.h</itemPath>
           <itemPath>Remove.cpp</itemPath>
@@ -158,6 +150,8 @@
           <itemPath>Store.h</itemPath>
           <itemPath>Unstore.cpp</itemPath>
           <itemPath>Unstore.h</itemPath>
+          <itemPath>Write.cpp</itemPath>
+          <itemPath>Write.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Basic Process" projectFiles="true">
           <itemPath>Assign.cpp</itemPath>
@@ -218,16 +212,22 @@
       </logicalFolder>
       <logicalFolder name="f1" displayName="Elements" projectFiles="true">
         <logicalFolder name="f1" displayName="Advanced Process" projectFiles="true">
+          <itemPath>Failure.cpp</itemPath>
+          <itemPath>Failure.h</itemPath>
+          <itemPath>File.cpp</itemPath>
+          <itemPath>File.h</itemPath>
           <itemPath>Resource.cpp</itemPath>
           <itemPath>Resource.h</itemPath>
+          <itemPath>Storage.cpp</itemPath>
+          <itemPath>Storage.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f2" displayName="Basic Process" projectFiles="true">
           <itemPath>Counter.cpp</itemPath>
           <itemPath>Counter.h</itemPath>
+          <itemPath>EntityGroup.cpp</itemPath>
+          <itemPath>EntityGroup.h</itemPath>
           <itemPath>Formula.cpp</itemPath>
           <itemPath>Formula.h</itemPath>
-          <itemPath>Group.cpp</itemPath>
-          <itemPath>Group.h</itemPath>
           <itemPath>Queue.cpp</itemPath>
           <itemPath>Queue.h</itemPath>
           <itemPath>Schedule.cpp</itemPath>
@@ -328,11 +328,17 @@
       <logicalFolder name="f3" displayName="Examples" projectFiles="true">
         <itemPath>FirstExampleOfSimulation.cpp</itemPath>
         <itemPath>FirstExampleOfSimulation.h</itemPath>
+        <itemPath>FourthExampleOfSimulation.cpp</itemPath>
+        <itemPath>FourthExampleOfSimulation.h</itemPath>
         <itemPath>SecondExampleOfSimulation.cpp</itemPath>
         <itemPath>SecondExampleOfSimulation.h</itemPath>
+        <itemPath>ThirdExampleOfSimulation.cpp</itemPath>
+        <itemPath>ThirdExampleOfSimultion.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Tests" projectFiles="true">
         <logicalFolder name="f1" displayName="Oldies" projectFiles="true">
+          <itemPath>BuildSimulationModel03.cpp</itemPath>
+          <itemPath>BuildSimulationModel03.h</itemPath>
           <itemPath>TestInputAnalyserTools.cpp</itemPath>
           <itemPath>TestInputAnalyserTools.h</itemPath>
           <itemPath>TestStatistics.cpp</itemPath>
@@ -343,13 +349,13 @@
                        projectFiles="true">
           <itemPath>TestEnterLeaveRoute.cpp</itemPath>
           <itemPath>TestEnterLeaveRoute.h</itemPath>
+          <itemPath>TestODE.cpp</itemPath>
+          <itemPath>TestODE.h</itemPath>
           <itemPath>TestParser.cpp</itemPath>
           <itemPath>TestParser.h</itemPath>
           <itemPath>TestSimulationControlAndSimulationResponse.cpp</itemPath>
           <itemPath>TestSimulationControlAndSimulationResponse.h</itemPath>
         </logicalFolder>
-        <itemPath>BuildSimulationModel03.cpp</itemPath>
-        <itemPath>BuildSimulationModel03.h</itemPath>
         <itemPath>FullSimulationOfComplexModel.cpp</itemPath>
         <itemPath>FullSimulationOfComplexModel.h</itemPath>
       </logicalFolder>
@@ -505,6 +511,10 @@
       </item>
       <item path="Entity.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="EntityGroup.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="EntityGroup.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="EntityType.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EntityType.h" ex="false" tool="3" flavor2="0">
@@ -534,6 +544,14 @@
       </item>
       <item path="FactorOrInteractionContribution.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Failure.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Failure.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="File.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="FirstExampleOfSimulation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FirstExampleOfSimulation.h" ex="false" tool="3" flavor2="0">
@@ -547,6 +565,10 @@
       <item path="Formula.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Formula.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FourthExampleOfSimulation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FourthExampleOfSimulation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Free.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -565,10 +587,6 @@
       <item path="GenesysGUI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="GenesysGUI.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Group.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Group.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Halt.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -718,10 +736,6 @@
       </item>
       <item path="Queue.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ReadWrite.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="ReadWrite.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Record.h" ex="false" tool="3" flavor2="0">
@@ -852,6 +866,10 @@
       </item>
       <item path="Stop.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Store.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Store.h" ex="false" tool="3" flavor2="0">
@@ -867,6 +885,10 @@
       <item path="TestInputAnalyserTools.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TestInputAnalyserTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestODE.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TestODE.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TestParser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -885,6 +907,10 @@
       <item path="TestStatistics.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TestStatistics.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ThirdExampleOfSimulation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ThirdExampleOfSimultion.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ToolManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -908,13 +934,9 @@
       </item>
       <item path="Variable.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Waiting.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Write.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Waiting.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="WaitingResource.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="WaitingResource.h" ex="false" tool="3" flavor2="0">
+      <item path="Write.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1091,6 +1113,10 @@
       </item>
       <item path="Entity.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="EntityGroup.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="EntityGroup.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="EntityType.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="EntityType.h" ex="false" tool="3" flavor2="0">
@@ -1120,6 +1146,14 @@
       </item>
       <item path="FactorOrInteractionContribution.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Failure.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Failure.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="File.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="File.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="FirstExampleOfSimulation.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="FirstExampleOfSimulation.h" ex="false" tool="3" flavor2="0">
@@ -1133,6 +1167,10 @@
       <item path="Formula.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Formula.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="FourthExampleOfSimulation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="FourthExampleOfSimulation.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Free.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1151,10 +1189,6 @@
       <item path="GenesysGUI.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="GenesysGUI.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Group.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Group.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Halt.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1304,10 +1338,6 @@
       </item>
       <item path="Queue.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="ReadWrite.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="ReadWrite.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Record.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Record.h" ex="false" tool="3" flavor2="0">
@@ -1438,6 +1468,10 @@
       </item>
       <item path="Stop.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Storage.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Storage.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Store.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Store.h" ex="false" tool="3" flavor2="0">
@@ -1453,6 +1487,10 @@
       <item path="TestInputAnalyserTools.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TestInputAnalyserTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="TestODE.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="TestODE.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="TestParser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1471,6 +1509,10 @@
       <item path="TestStatistics.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="TestStatistics.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="ThirdExampleOfSimulation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ThirdExampleOfSimultion.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="ToolManager.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -1494,13 +1536,9 @@
       </item>
       <item path="Variable.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Waiting.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Write.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Waiting.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="WaitingResource.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="WaitingResource.h" ex="false" tool="3" flavor2="0">
+      <item path="Write.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
