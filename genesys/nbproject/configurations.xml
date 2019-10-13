@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Arquivos de Cabeçalho"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Arquivos de Código-Fonte"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="ResourceFiles"
-                   displayName="Arquivos de Recurso"
-                   projectFiles="true">
-    </logicalFolder>
     <logicalFolder name="f9" displayName="Configuration" projectFiles="true">
       <itemPath>Traits.h</itemPath>
     </logicalFolder>
@@ -122,6 +110,7 @@
       </logicalFolder>
       <itemPath>Simulator.cpp</itemPath>
       <itemPath>Simulator.h</itemPath>
+      <itemPath>Wrappers.h</itemPath>
     </logicalFolder>
     <logicalFolder name="f3" displayName="Plugins" projectFiles="true">
       <logicalFolder name="f2" displayName="Components" projectFiles="true">
@@ -934,6 +923,8 @@
       </item>
       <item path="Variable.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Wrappers.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Write.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Write.h" ex="false" tool="3" flavor2="0">
@@ -1535,6 +1526,8 @@
       <item path="Variable.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Variable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Wrappers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Write.cpp" ex="false" tool="1" flavor2="0">
       </item>
