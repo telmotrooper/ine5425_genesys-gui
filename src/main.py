@@ -44,7 +44,7 @@ def main():
         model = libgenesys.Model(simulator)
         tm = model.getTraceManager()
         components = model.getComponentManager()
-        # elements = model.getElementManager()
+        elements = model.getElementManager()
 
     handler.print(f.getvalue().decode('utf-8'))
     handler.print(f"Model ID: {model.getId()}")

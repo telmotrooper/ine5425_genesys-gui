@@ -15,6 +15,7 @@
 #define WRAPPERS_H
 
 #include "ComponentManager.h"
+#include "ElementManager.h"
 #include "Model.h"
 #include "Simulator.h"
 #include "TraceManager.h"
@@ -33,6 +34,17 @@ PYBIND11_MODULE(libgenesys, m) {
         .def("begin", &ComponentManager::begin)
         .def("end", &ComponentManager::end);
     
+    py::class_<ElementManager>(m, "ElementManager")
+        .def(py::init<Model*>())
+        .def("insert", &ElementManager::insert)
+        .def("remove", &ElementManager::remove)
+//        .def("check", &ElementManager::check)
+        .def("clear", &ElementManager::clear)
+//        .def("getElement", &ElementManager::getElement)
+//        .def("getNumberOfElements", &ElementManager::getNumberOfElements)
+        .def("getRankOf", &ElementManager::getRankOf)
+        .def("getElementTypenames", &ElementManager::getElementTypenames);
+    
     py::class_<Model>(m, "Model")
         .def(py::init<Simulator*>())
         .def("saveModel", &Model::saveModel)
@@ -41,8 +53,8 @@ PYBIND11_MODULE(libgenesys, m) {
         .def("clear", &Model::clear)
         .def("show", &Model::show)
         .def("removeEntity", &Model::removeEntity)
-      //.def("sendEntityToComponent", &Model::sendEntityToComponent)
-      //.def("parseExpression", &Model::parseExpression)
+//        .def("sendEntityToComponent", &Model::sendEntityToComponent)
+//        .def("parseExpression", &Model::parseExpression)
         .def("checkExpression", &Model::checkExpression)
         .def("getId", &Model::getId)
         .def("getControls", &Model::getControls)
@@ -70,10 +82,10 @@ PYBIND11_MODULE(libgenesys, m) {
     
     py::class_<TraceManager>(m, "TraceManager")
         .def(py::init<Simulator*>())
-      //.def("addTraceHandler", &TraceManager::addTraceHandler);
-      //.def("addTraceReportHandler", &TraceManager::addTraceReportHandler)
-      //.def("addTraceSimulationHandler", &TraceManager::addTraceSimulationHandler)
-      //.def("addTraceErrorHandler", &TraceManager::addTraceErrorHandler)
+//        .def("addTraceHandler", &TraceManager::addTraceHandler);
+//        .def("addTraceReportHandler", &TraceManager::addTraceReportHandler)
+//        .def("addTraceSimulationHandler", &TraceManager::addTraceSimulationHandler)
+//        .def("addTraceErrorHandler", &TraceManager::addTraceErrorHandler)
         .def("trace", &TraceManager::trace)
         .def("traceError", &TraceManager::traceError)
         .def("traceReport", &TraceManager::traceReport)
