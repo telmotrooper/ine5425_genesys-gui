@@ -3,17 +3,23 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
-
+import sys
+from io import BytesIO
+from stdout_redirector import stdout_redirector
 from handler import Handler
-from integration import Integration
+
+try:
+    import libgenesys
+except ModuleNotFoundError:
+    print("Error: \"libgenesys.so\" not found in current directory")
+    sys.exit()
+
 
 def main():
     builder = Gtk.Builder()
     builder.add_from_file("user_interface.glade")
     handler = Handler(builder)
     builder.connect_signals(handler)
-
-    integration = Integration(handler)
 
     window = builder.get_object("main_window")
     window.set_icon_list([
@@ -27,6 +33,15 @@ def main():
     ])
     window.maximize()
     window.show_all()
+
+    f = BytesIO()
+    simulator = None
+
+    with stdout_redirector(f):
+        simulator = libgenesys.Simulator()
+        model = libgenesys.Model(simulator)
+        print(f"Model ID: {model.getId()}")
+    handler.print(f.getvalue().decode('utf-8'))
 
     Gtk.main()
 
