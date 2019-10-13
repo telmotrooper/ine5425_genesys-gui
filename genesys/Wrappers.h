@@ -14,15 +14,22 @@
 #ifndef WRAPPERS_H
 #define WRAPPERS_H
 
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
 #include "Simulator.h"
+#include <pybind11/pybind11.h>
+
+namespace py = pybind11;
 
 PYBIND11_MODULE(libgenesys, m) {
     py::class_<Simulator>(m, "Simulator")
         .def(py::init())
-        .def("getName", &Simulator::getName);
+        .def("getVersion", &Simulator::getVersion)
+        .def("getName", &Simulator::getName)
+        .def("getLicenceManager", &Simulator::getLicenceManager) 
+        .def("getPluginManager", &Simulator::getPluginManager) 
+        .def("getModelManager", &Simulator::getModelManager) 
+        .def("getToolManager", &Simulator::getToolManager) 
+        .def("getTraceManager", &Simulator::getTraceManager) 
+        .def("getParserManager", &Simulator::getParserManager);
 }
 
 #endif /* WRAPPERS_H */
