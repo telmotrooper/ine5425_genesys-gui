@@ -16,6 +16,7 @@
 
 #include "Model.h"
 #include "Simulator.h"
+#include "TraceManager.h"
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;
@@ -29,8 +30,8 @@ PYBIND11_MODULE(libgenesys, m) {
         .def("clear", &Model::clear)
         .def("show", &Model::show)
         .def("removeEntity", &Model::removeEntity)
-//        .def("sendEntityToComponent", &Model::sendEntityToComponent)
-//        .def("parseExpression", &Model::parseExpression)
+      //.def("sendEntityToComponent", &Model::sendEntityToComponent)
+      //.def("parseExpression", &Model::parseExpression)
         .def("checkExpression", &Model::checkExpression)
         .def("getId", &Model::getId)
         .def("getControls", &Model::getControls)
@@ -55,6 +56,21 @@ PYBIND11_MODULE(libgenesys, m) {
         .def("getToolManager", &Simulator::getToolManager) 
         .def("getTraceManager", &Simulator::getTraceManager) 
         .def("getParserManager", &Simulator::getParserManager);
+    
+    py::class_<TraceManager>(m, "TraceManager")
+        .def(py::init<Simulator*>())
+      //.def("addTraceHandler", &TraceManager::addTraceHandler);
+      //.def("addTraceReportHandler", &TraceManager::addTraceReportHandler)
+      //.def("addTraceSimulationHandler", &TraceManager::addTraceSimulationHandler)
+      //.def("addTraceErrorHandler", &TraceManager::addTraceErrorHandler)
+        .def("trace", &TraceManager::trace)
+        .def("traceError", &TraceManager::traceError)
+        .def("traceReport", &TraceManager::traceReport)
+        .def("traceSimulation", &TraceManager::traceSimulation)
+        .def("getErrorMessages", &TraceManager::getErrorMessages)
+        .def("setTraceLevel", &TraceManager::setTraceLevel)
+        .def("getTraceLevel", &TraceManager::getTraceLevel)
+        .def("getSimulator", &TraceManager::getSimulator);
 }
 
 #endif /* WRAPPERS_H */

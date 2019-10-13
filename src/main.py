@@ -36,14 +36,20 @@ def main():
 
     simulator = None
     model = None
+    tm = None
 
     f = BytesIO()
     with stdout_redirector(f):
         simulator = libgenesys.Simulator()
         model = libgenesys.Model(simulator)
+        tm = model.getTraceManager()
+        # components = model.getComponentManager()
+        # elements = model.getElementManager()
+
     handler.print(f.getvalue().decode('utf-8'))
     handler.print(f"Model ID: {model.getId()}")
     model.loadModel("genesys/models/model01_CreDelDis.txt")
+
     Gtk.main()
 
 
