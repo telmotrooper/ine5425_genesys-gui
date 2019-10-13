@@ -14,6 +14,7 @@
 #ifndef WRAPPERS_H
 #define WRAPPERS_H
 
+#include "ComponentManager.h"
 #include "Model.h"
 #include "Simulator.h"
 #include "TraceManager.h"
@@ -22,6 +23,16 @@
 namespace py = pybind11;
 
 PYBIND11_MODULE(libgenesys, m) {
+    py::class_<ComponentManager>(m, "ComponentManager")
+        .def(py::init<Model*>())
+        .def("insert", &ComponentManager::insert)
+        .def("remove", &ComponentManager::remove)
+        .def("clear", &ComponentManager::clear)
+//        .def("getComponent", &ComponentManager::getComponent)
+        .def("getNumberOfComponents", &ComponentManager::getNumberOfComponents)
+        .def("begin", &ComponentManager::begin)
+        .def("end", &ComponentManager::end);
+    
     py::class_<Model>(m, "Model")
         .def(py::init<Simulator*>())
         .def("saveModel", &Model::saveModel)

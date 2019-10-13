@@ -43,7 +43,7 @@ def main():
         simulator = libgenesys.Simulator()
         model = libgenesys.Model(simulator)
         tm = model.getTraceManager()
-        # components = model.getComponentManager()
+        components = model.getComponentManager()
         # elements = model.getElementManager()
 
     handler.print(f.getvalue().decode('utf-8'))
