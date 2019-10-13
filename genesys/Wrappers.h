@@ -43,8 +43,7 @@ PYBIND11_MODULE(libgenesys, m) {
         .def("getSimulation", &Model::getSimulation)
         .def("getEvents", &Model::getEvents)
         .def("setTraceManager", &Model::setTraceManager)
-        .def("getTraceManager", &Model::getTraceManager)
-    ;
+        .def("getTraceManager", &Model::getTraceManager);
     
     py::class_<Simulator>(m, "Simulator")
         .def(py::init())

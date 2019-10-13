@@ -34,15 +34,16 @@ def main():
     window.maximize()
     window.show_all()
 
-    f = BytesIO()
     simulator = None
+    model = None
 
+    f = BytesIO()
     with stdout_redirector(f):
         simulator = libgenesys.Simulator()
         model = libgenesys.Model(simulator)
-        print(f"Model ID: {model.getId()}")
     handler.print(f.getvalue().decode('utf-8'))
-
+    handler.print(f"Model ID: {model.getId()}")
+    model.loadModel("genesys/models/model01_CreDelDis.txt")
     Gtk.main()
 
 
