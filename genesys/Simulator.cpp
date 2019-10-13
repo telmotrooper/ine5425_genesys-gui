@@ -15,6 +15,10 @@
 #include "LicenceManager.h"
 #include "ToolManager.h"
 
+// Wrapper settings
+#include <pybind11/pybind11.h>
+namespace py = pybind11;
+
 Simulator::Simulator() {
     // This is the ONLY method in the entire software where std::cout is allowed.
     std::cout << "RUNNING " << _name << ", version " << _version << std::endl;
@@ -66,3 +70,6 @@ LicenceManager* Simulator::getLicenceManager() const {
     return _licenceManager;
 }
 
+PYBIND11_MODULE(libgenesys, m) {
+    py::class_<Simulator>(m, "Simulator");
+}

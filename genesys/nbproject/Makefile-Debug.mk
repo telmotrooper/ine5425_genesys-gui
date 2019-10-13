@@ -167,8 +167,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-fpermissive
-CXXFLAGS=-fpermissive
+CCFLAGS=-fpermissive `python3 -m pybind11 --includes` 
+CXXFLAGS=-fpermissive `python3 -m pybind11 --includes` 
 
 # Fortran Compiler Flags
 FFLAGS=

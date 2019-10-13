@@ -399,7 +399,7 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
-          <commandLine>-fpermissive</commandLine>
+          <commandLine>-fpermissive `python3 -m pybind11 --includes`</commandLine>
         </ccTool>
         <asmTool>
           <warningLevel>2</warningLevel>
