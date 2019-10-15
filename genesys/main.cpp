@@ -14,7 +14,7 @@
 #include <iostream>
 #include <thread>
 #include "Traits.h"
-#include "wrappers/Wrappers.h"
+#include "Wrappers.h"
 
 /*
  * This is the MAIN application of GenESyS. It just calls the Application specificied on the configuration file.

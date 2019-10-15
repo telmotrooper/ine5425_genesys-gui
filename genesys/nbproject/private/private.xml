@@ -8,9 +8,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/telmo/Development/University/genesys-gui/genesys/Wrappers.h</file>
+            <file>file:/home/telmo/Development/University/genesys-gui/genesys/TraceManager.h</file>
             <file>file:/home/telmo/Development/University/genesys-gui/genesys/FirstExampleOfSimulation.cpp</file>
+            <file>file:/home/telmo/Development/University/genesys-gui/genesys/ComponentManager.h</file>
             <file>file:/home/telmo/Development/University/genesys-gui/genesys/Model.cpp</file>
-            <file>file:/home/telmo/Development/University/genesys-gui/genesys/Util.h</file>
         </group>
     </open-files>
 </project-private>

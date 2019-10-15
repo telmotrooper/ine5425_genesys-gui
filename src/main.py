@@ -41,14 +41,11 @@ def main():
     f = BytesIO()
     with stdout_redirector(f):
         simulator = libgenesys.Simulator()
-        # Create an empty model
         model = libgenesys.Model(simulator)
         tm = model.getTraceManager()
-        # Get easy access to classes used to insert components and elements into a model
         components = model.getComponentManager()
         elements = model.getElementManager()
 
-    # simulator.getTraceManager().setTraceLevel(7) # Most detailed
     handler.print(f.getvalue().decode('utf-8'))
     handler.print(f"Model ID: {model.getId()}")
     model.loadModel("genesys/models/model01_CreDelDis.txt")
