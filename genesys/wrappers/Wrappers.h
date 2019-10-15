@@ -14,11 +14,11 @@
 #ifndef WRAPPERS_H
 #define WRAPPERS_H
 
-#include "ComponentManager.h"
-#include "ElementManager.h"
-#include "Model.h"
-#include "Simulator.h"
-#include "TraceManager.h"
+#include "../ComponentManager.h"
+#include "../ElementManager.h"
+#include "../Model.h"
+#include "../Simulator.h"
+#include "../TraceManager.h"
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;
