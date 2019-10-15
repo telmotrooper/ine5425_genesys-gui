@@ -377,6 +377,10 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>wrappers/ComponentManagerWrapper.h</itemPath>
+    <itemPath>wrappers/ElementManagerWrapper.h</itemPath>
+    <itemPath>wrappers/ModelWrapper.h</itemPath>
+    <itemPath>wrappers/SimulatorWrapper.h</itemPath>
+    <itemPath>wrappers/TraceManagerWrapper.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -979,6 +983,14 @@
       <item path="parserBisonFlex/stack.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ComponentManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ElementManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ModelWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/SimulatorWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/TraceManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -1585,6 +1597,14 @@
       <item path="parserBisonFlex/stack.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ComponentManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ElementManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ModelWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/SimulatorWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/TraceManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

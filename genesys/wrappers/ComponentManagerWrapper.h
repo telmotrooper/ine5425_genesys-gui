@@ -6,7 +6,7 @@
 
 /* 
  * File:   ComponentManagerWrapper.h
- * Author: Telmo "Trooper"
+ * Author: Telmo "Trooper" <telmo.trooper@gmail.com>
  *
  * Created on October 14, 2019, 11:08 PM
  */
