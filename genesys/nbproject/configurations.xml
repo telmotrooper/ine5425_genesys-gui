@@ -376,6 +376,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>wrappers/ComponentManagerWrapper.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -976,6 +977,8 @@
       <item path="parserBisonFlex/position.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="parserBisonFlex/stack.hh" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ComponentManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -1580,6 +1583,8 @@
       <item path="parserBisonFlex/position.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="parserBisonFlex/stack.hh" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ComponentManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
