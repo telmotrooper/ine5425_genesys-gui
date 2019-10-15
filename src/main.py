@@ -48,7 +48,7 @@ def main():
         components = model.getComponentManager()
         elements = model.getElementManager()
 
-    # simulator.getTraceManager().setTraceLevel(7) # Most detailed
+    simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.mostDetailed)
     handler.print(f.getvalue().decode('utf-8'))
     handler.print(f"Model ID: {model.getId()}")
     model.loadModel("genesys/models/model01_CreDelDis.txt")

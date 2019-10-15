@@ -20,15 +20,15 @@ namespace py = pybind11;
 
 void initElementManager(py::module &m) {
     py::class_<ElementManager>(m, "ElementManager")
-    .def(py::init<Model*>())
-    .def("insert", &ElementManager::insert)
-    .def("remove", &ElementManager::remove)
-//    .def("check", &ElementManager::check)
-    .def("clear", &ElementManager::clear)
-//    .def("getElement", &ElementManager::getElement)
-//    .def("getNumberOfElements", &ElementManager::getNumberOfElements)
-    .def("getRankOf", &ElementManager::getRankOf)
-    .def("getElementTypenames", &ElementManager::getElementTypenames);
+        .def(py::init<Model*>())
+        .def("insert", &ElementManager::insert)
+        .def("remove", &ElementManager::remove)
+//        .def("check", &ElementManager::check)
+        .def("clear", &ElementManager::clear)
+//        .def("getElement", &ElementManager::getElement)
+//        .def("getNumberOfElements", &ElementManager::getNumberOfElements)
+        .def("getRankOf", &ElementManager::getRankOf)
+        .def("getElementTypenames", &ElementManager::getElementTypenames);
 }
 
 #endif /* ELEMENT_MANAGER_WRAPPER_H */

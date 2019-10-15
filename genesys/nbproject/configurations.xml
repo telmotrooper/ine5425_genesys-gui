@@ -381,6 +381,7 @@
     <itemPath>wrappers/ModelWrapper.h</itemPath>
     <itemPath>wrappers/SimulatorWrapper.h</itemPath>
     <itemPath>wrappers/TraceManagerWrapper.h</itemPath>
+    <itemPath>wrappers/UtilWrapper.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -991,6 +992,8 @@
       <item path="wrappers/SimulatorWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/TraceManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/UtilWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -1605,6 +1608,8 @@
       <item path="wrappers/SimulatorWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/TraceManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/UtilWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

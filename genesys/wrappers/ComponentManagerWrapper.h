@@ -20,14 +20,14 @@ namespace py = pybind11;
 
 void initComponentManager(py::module &m) {
     py::class_<ComponentManager>(m, "ComponentManager")
-    .def(py::init<Model*>())
-    .def("insert", &ComponentManager::insert)
-    .def("remove", &ComponentManager::remove)
-    .def("clear", &ComponentManager::clear)
-//    .def("getComponent", &ComponentManager::getComponent)
-    .def("getNumberOfComponents", &ComponentManager::getNumberOfComponents)
-    .def("begin", &ComponentManager::begin)
-    .def("end", &ComponentManager::end);
+        .def(py::init<Model*>())
+        .def("insert", &ComponentManager::insert)
+        .def("remove", &ComponentManager::remove)
+        .def("clear", &ComponentManager::clear)
+    //    .def("getComponent", &ComponentManager::getComponent)
+        .def("getNumberOfComponents", &ComponentManager::getNumberOfComponents)
+        .def("begin", &ComponentManager::begin)
+        .def("end", &ComponentManager::end);
 }
 
 #endif /* COMPONENT_MANAGER_WRAPPER_H */
