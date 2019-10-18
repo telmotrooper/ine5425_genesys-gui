@@ -61,9 +61,7 @@ def main():
     simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.mostDetailed)
 
     entityType1 = libgenesys.EntityType(elements, "Type_of_Representative_Entity")
-    # elements.insert("Type_of_Representative_Entity", entityType1)
-    # EntityType* entityType1 = new EntityType(elements, "Type_of_Representative_Entity");
-    # elements->insert(Util::TypeOf<EntityType>(), entityType1); // insert the element into the model
+    elements.insert("Type_of_Representative_Entity", entityType1)
 
     # handler.print(f"Model ID: {model.getId()}")
     

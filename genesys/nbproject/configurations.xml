@@ -379,6 +379,7 @@
     <itemPath>wrappers/ComponentManagerWrapper.h</itemPath>
     <itemPath>wrappers/ElementManagerWrapper.h</itemPath>
     <itemPath>wrappers/EntityTypeWrapper.h</itemPath>
+    <itemPath>wrappers/ModelElementWrapper.h</itemPath>
     <itemPath>wrappers/ModelWrapper.h</itemPath>
     <itemPath>wrappers/SimulatorWrapper.h</itemPath>
     <itemPath>wrappers/TraceManagerWrapper.h</itemPath>
@@ -989,6 +990,8 @@
       <item path="wrappers/ElementManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/EntityTypeWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ModelElementWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ModelWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1607,6 +1610,8 @@
       <item path="wrappers/ElementManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/EntityTypeWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ModelElementWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ModelWrapper.h" ex="false" tool="3" flavor2="0">
       </item>

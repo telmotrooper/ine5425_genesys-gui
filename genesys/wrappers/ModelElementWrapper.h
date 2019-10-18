@@ -16,31 +16,32 @@
  */
 
 /* 
- * File:   EntityTypeWrapper.h
+ * File:   ModelElementWrapper.h
  * Author: Telmo "Trooper" <telmo.trooper@gmail.com>
  *
- * Created on October 17, 2019, 11:19 PM
+ * Created on October 18, 2019, 12:03 AM
  */
 
-#ifndef ENTITY_TYPE_WRAPPER_H
-#define ENTITY_TYPE_WRAPPER_H
+#ifndef MODEL_ELEMENT_WRAPPER_H
+#define MODEL_ELEMENT_WRAPPER_H
 
 #include "../ModelElement.h"
-#include "../EntityType.h"
-#include "../ElementManager.h"
 #include <pybind11/pybind11.h>
 namespace py = pybind11;
 
-void initEntityType(py::module &m) {
-    py::class_<EntityType, ModelElement>(m, "EntityType")
-        .def(py::init<ElementManager*>())
-        .def(py::init<ElementManager*, std::string>())
-        .def(py::init<EntityType&>())
-        .def("show", &EntityType::show)
-        .def("GetPluginInformation", &EntityType::GetPluginInformation)
-        .def("LoadInstance", &EntityType::LoadInstance)
-        .def("setInitialWaitingCost", &EntityType::setInitialWaitingCost);
-        // There are more methods which haven't been added to the wrapper yet
+void initModelElement(py::module &m) {
+    py::class_<ModelElement>(m, "ModelElement")
+        .def(py::init<std::string>())
+        .def(py::init<ModelElement&>())
+        .def("getId", &ModelElement::getId)
+        .def("setName", &ModelElement::setName)
+        .def("getName", &ModelElement::getName)
+        .def("getTypename", &ModelElement::getTypename)
+        .def("LoadInstance", &ModelElement::LoadInstance)
+        .def("SaveInstance", &ModelElement::SaveInstance)
+        .def("Check", &ModelElement::Check)
+        .def("show", &ModelElement::show);
 }
 
-#endif /* ENTITY_TYPE_WRAPPER_H */
+#endif /* MODEL_ELEMENT_WRAPPER_H */
+
