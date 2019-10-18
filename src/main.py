@@ -40,17 +40,26 @@ def main():
 
     f = BytesIO()
     with stdout_redirector(f):
+        # Instantiate a simulator
         simulator = libgenesys.Simulator()
+
         # Create an empty model
         model = libgenesys.Model(simulator)
+
+        # Should "handle traces and simulation events to output them"
         tm = model.getTraceManager()
+        # this->setDefaultTraceHandlers(tm);
+
         # Get easy access to classes used to insert components and elements into a model
         components = model.getComponentManager()
         elements = model.getElementManager()
 
+    # Set the trace level of the simulation
     simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.mostDetailed)
+
     handler.print(f.getvalue().decode('utf-8'))
     handler.print(f"Model ID: {model.getId()}")
+    
     model.loadModel("genesys/models/model01_CreDelDis.txt")
 
     Gtk.main()

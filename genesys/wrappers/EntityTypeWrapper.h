@@ -16,30 +16,15 @@
  */
 
 /* 
- * File:   Wrapper.h
+ * File:   EntityTypeWrapper.h
  * Author: Telmo "Trooper" <telmo.trooper@gmail.com>
  *
- * Created on October 12, 2019, 9:53 PM
+ * Created on October 17, 2019, 11:19 PM
  */
 
-#ifndef WRAPPERS_H
-#define WRAPPERS_H
+#ifndef ENTITY_TYPE_WRAPPER_H
+#define ENTITY_TYPE_WRAPPER_H
 
-#include "ComponentManagerWrapper.h"
-#include "ElementManagerWrapper.h"
-#include "ModelWrapper.h"
-#include "SimulatorWrapper.h"
-#include "TraceManagerWrapper.h"
-#include "UtilWrapper.h"
-#include <pybind11/pybind11.h>
 
-PYBIND11_MODULE(libgenesys, m) {  
-    initComponentManager(m);
-    initElementManager(m);
-    initModel(m);
-    initSimulator(m);
-    initTraceManager(m);
-    initUtil(m);
-}
 
-#endif /* WRAPPERS_H */
+#endif /* ENTITY_TYPE_WRAPPER_H */
