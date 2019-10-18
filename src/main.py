@@ -54,11 +54,18 @@ def main():
         components = model.getComponentManager()
         elements = model.getElementManager()
 
+    # Print to GUI stuff that was just executed
+    handler.print(f.getvalue().decode('utf-8'))
+
     # Set the trace level of the simulation
     simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.mostDetailed)
 
-    handler.print(f.getvalue().decode('utf-8'))
-    handler.print(f"Model ID: {model.getId()}")
+    entityType1 = libgenesys.EntityType(elements, "Type_of_Representative_Entity")
+    # elements.insert("Type_of_Representative_Entity", entityType1)
+    # EntityType* entityType1 = new EntityType(elements, "Type_of_Representative_Entity");
+    # elements->insert(Util::TypeOf<EntityType>(), entityType1); // insert the element into the model
+
+    # handler.print(f"Model ID: {model.getId()}")
     
     model.loadModel("genesys/models/model01_CreDelDis.txt")
 

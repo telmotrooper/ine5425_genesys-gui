@@ -31,6 +31,7 @@
 #include "SimulatorWrapper.h"
 #include "TraceManagerWrapper.h"
 #include "UtilWrapper.h"
+#include "EntityTypeWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {  
@@ -40,6 +41,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initSimulator(m);
     initTraceManager(m);
     initUtil(m);
+    initEntityType(m);
 }
 
 #endif /* WRAPPERS_H */

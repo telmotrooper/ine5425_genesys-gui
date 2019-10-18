@@ -25,6 +25,24 @@
 #ifndef ENTITY_TYPE_WRAPPER_H
 #define ENTITY_TYPE_WRAPPER_H
 
+#include "../EntityType.h"
+#include "../ElementManager.h"
+#include <pybind11/pybind11.h>
+namespace py = pybind11;
 
+void initEntityType(py::module &m) {
+    py::class_<EntityType>(m, "EntityType")
+        .def(py::init<ElementManager*>())
+        .def(py::init<ElementManager*, std::string>())
+        .def(py::init<EntityType&>())
+        .def("show", &EntityType::show)
+        .def("GetPluginInformation", &EntityType::GetPluginInformation)
+        .def("LoadInstance", &EntityType::LoadInstance)
+        .def("setInitialWaitingCost", &EntityType::setInitialWaitingCost);
+//        .def("getElement", &EntityType::getElement)
+//        .def("getNumberOfElements", &EntityType::getNumberOfElements)
+//        .def("getRankOf", &EntityType::getRankOf)
+//        .def("getElementTypenames", &EntityType::getElementTypenames);
+}
 
 #endif /* ENTITY_TYPE_WRAPPER_H */
