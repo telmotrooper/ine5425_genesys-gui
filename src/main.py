@@ -60,12 +60,21 @@ def main():
     # Set the trace level of the simulation
     simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.mostDetailed)
 
+    # Create a SourceModelElement of type EntityType, which will be used by a ModelComponent later
     entityType1 = libgenesys.EntityType(elements, "Type_of_Representative_Entity")
     elements.insert(entityType1.getTypename(), entityType1)
 
+    create1 = libgenesys.Create(model);
+
+    # // create a ModelComponent of type Create, used to insert entities into the model
+    # Create* create1 = new Create(model);
+    # create1->setEntityType(entityType1);
+    # create1->setTimeBetweenCreationsExpression("1.5"); // create one new entity every 1.5 seconds
+    # components->insert(create1); // insert the component into the model
+
     # handler.print(f"Model ID: {model.getId()}")
     
-    model.loadModel("genesys/models/model01_CreDelDis.txt")
+    # model.loadModel("genesys/models/model01_CreDelDis.txt")
 
     Gtk.main()
 

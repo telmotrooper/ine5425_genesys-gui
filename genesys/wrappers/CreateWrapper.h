@@ -16,36 +16,30 @@
  */
 
 /* 
- * File:   Wrapper.h
+ * File:   CreateWrapper.h
  * Author: Telmo "Trooper" <telmo.trooper@gmail.com>
  *
- * Created on October 12, 2019, 9:53 PM
+ * Created on October 19, 2019, 6:30 PM
  */
 
-#ifndef WRAPPERS_H
-#define WRAPPERS_H
+#ifndef CREATE_WRAPPER_H
+#define CREATE_WRAPPER_H
 
-#include "ComponentManagerWrapper.h"
-#include "ElementManagerWrapper.h"
-#include "ModelWrapper.h"
-#include "SimulatorWrapper.h"
-#include "TraceManagerWrapper.h"
-#include "UtilWrapper.h"
-#include "ModelElementWrapper.h"
-#include "EntityTypeWrapper.h"
-#include "CreateWrapper.h"
+#include "../ModelElement.h"
+#include "../Create.h"
+#include "../ElementManager.h"
 #include <pybind11/pybind11.h>
+namespace py = pybind11;
 
-PYBIND11_MODULE(libgenesys, m) {  
-    initComponentManager(m);
-    initElementManager(m);
-    initModel(m);
-    initSimulator(m);
-    initTraceManager(m);
-    initUtil(m);
-    initModelElement(m);
-    initEntityType(m);
-    initCreate(m);
+void initCreate(py::module &m) {
+    py::class_<Create, SourceModelComponent>(m, "Create")
+        .def(py::init<Model*>())
+        .def(py::init<Create&>())
+        .def("show", &Create::show)
+        .def("GetPluginInformation", &Create::GetPluginInformation)
+        .def("LoadInstance", &Create::LoadInstance);
+        // There are more methods which haven't been added to the wrapper yet
 }
 
-#endif /* WRAPPERS_H */
+#endif /* CREATE_WRAPPER_H */
+
