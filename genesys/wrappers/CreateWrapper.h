@@ -32,6 +32,8 @@
 namespace py = pybind11;
 
 void initCreate(py::module &m) {
+    py::class_<ModelComponent, ModelElement>(m, "ModelComponent");
+    py::class_<SourceModelComponent, ModelComponent>(m, "SourceModelComponent");
     py::class_<Create, SourceModelComponent>(m, "Create")
         .def(py::init<Model*>())
         .def(py::init<Create&>())
