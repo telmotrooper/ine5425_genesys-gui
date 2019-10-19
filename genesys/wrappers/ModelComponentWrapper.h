@@ -30,7 +30,8 @@
 namespace py = pybind11;
 
 void initModelComponent(py::module &m) {
-    py::class_<ModelComponent, ModelElement>(m, "ModelComponent");
+    py::class_<ModelComponent, ModelElement>(m, "ModelComponent")
+        .def("getNextComponents", &ModelComponent::getNextComponents);
 }
 
 #endif /* MODEL_COMPONENT_WRAPPER_H */

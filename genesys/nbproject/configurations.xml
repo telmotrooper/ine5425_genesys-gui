@@ -377,6 +377,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>wrappers/ComponentManagerWrapper.h</itemPath>
+    <itemPath>wrappers/ConnectionManagerWrapper.h</itemPath>
     <itemPath>wrappers/CreateWrapper.h</itemPath>
     <itemPath>wrappers/DelayWrapper.h</itemPath>
     <itemPath>wrappers/ElementManagerWrapper.h</itemPath>
@@ -990,6 +991,11 @@
       <item path="parserBisonFlex/stack.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ComponentManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ConnectionManagerWrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="wrappers/CreateWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1621,6 +1627,11 @@
       <item path="parserBisonFlex/stack.hh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ComponentManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ConnectionManagerWrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="wrappers/CreateWrapper.h" ex="false" tool="3" flavor2="0">
       </item>

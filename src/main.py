@@ -74,13 +74,17 @@ def main():
     delay1 = libgenesys.Delay(model)  # By default delay takes 1 second
     components.insert(delay1)
 
-    # Delay* delay1 = new Delay(model);
-    # 
-    # components->insert(delay1);  // insert the component into the model
+    # Create a SinkModelComponent of type Dispose, used to remove entities from the model
 
-    # handler.print(f"Model ID: {model.getId()}")
-    
-    # model.loadModel("genesys/models/model01_CreDelDis.txt")
+    # TODO
+
+    # Dispose* dispose1 = new Dispose(model);  // insert the component into the model
+    # components->insert(dispose1)
+
+    # Connect model components to create a "workflow". Should always start from
+    # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
+    create1.getNextComponents().insert(delay1)
+    # delay1.getNextComponents().insert(dispose1)
 
     Gtk.main()
 
