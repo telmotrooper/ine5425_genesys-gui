@@ -66,12 +66,8 @@ def main():
 
     create1 = libgenesys.Create(model)
     create1.setEntityType(entityType1)
-
-    # // create a ModelComponent of type Create, used to insert entities into the model
-    # Create* create1 = new Create(model);
-    # create1->setEntityType(entityType1);
-    # create1->setTimeBetweenCreationsExpression("1.5"); // create one new entity every 1.5 seconds
-    # components->insert(create1); // insert the component into the model
+    create1.setTimeBetweenCreationsExpression("1.5")
+    components.insert(create1)
 
     # handler.print(f"Model ID: {model.getId()}")
     

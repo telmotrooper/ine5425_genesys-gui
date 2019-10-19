@@ -31,7 +31,8 @@ namespace py = pybind11;
 
 void initSourceModelComponent(py::module &m) {
     py::class_<SourceModelComponent, ModelComponent>(m, "SourceModelComponent")
-        .def("setEntityType", &SourceModelComponent::setEntityType);
+        .def("setEntityType", &SourceModelComponent::setEntityType)
+        .def("setTimeBetweenCreationsExpression", &SourceModelComponent::setTimeBetweenCreationsExpression);
 }
 
 #endif /* SOURCE_MODEL_COMPONENT_WRAPPER_H */
