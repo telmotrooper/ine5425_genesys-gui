@@ -64,7 +64,8 @@ def main():
     entityType1 = libgenesys.EntityType(elements, "Type_of_Representative_Entity")
     elements.insert(entityType1.getTypename(), entityType1)
 
-    create1 = libgenesys.Create(model);
+    create1 = libgenesys.Create(model)
+    create1.setEntityType(entityType1)
 
     # // create a ModelComponent of type Create, used to insert entities into the model
     # Create* create1 = new Create(model);
