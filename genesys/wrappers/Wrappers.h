@@ -36,6 +36,7 @@
 #include "CreateWrapper.h"
 #include "SourceModelComponentWrapper.h"
 #include "ModelComponentWrapper.h"
+#include "DelayWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {  
@@ -50,6 +51,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initModelComponent(m); // depends on ModelElement
     initSourceModelComponent(m); // depends on ModelComponent
     initCreate(m); // depends on SourceModelComponent
+    initDelay(m); // depends on ModelComponent
 }
 
 #endif /* WRAPPERS_H */

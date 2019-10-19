@@ -64,10 +64,19 @@ def main():
     entityType1 = libgenesys.EntityType(elements, "Type_of_Representative_Entity")
     elements.insert(entityType1.getTypename(), entityType1)
 
+    # Create a ModelComponent of type Create, used to insert entities into the model
     create1 = libgenesys.Create(model)
     create1.setEntityType(entityType1)
     create1.setTimeBetweenCreationsExpression("1.5")
     components.insert(create1)
+
+    # Create a ModelComponent of type Delay, used to represent a time delay
+    delay1 = libgenesys.Delay(model)  # By default delay takes 1 second
+    components.insert(delay1)
+
+    # Delay* delay1 = new Delay(model);
+    # 
+    # components->insert(delay1);  // insert the component into the model
 
     # handler.print(f"Model ID: {model.getId()}")
     
