@@ -16,28 +16,22 @@
  */
 
 /* 
- * File:   CreateWrapper.h
+ * File:   SourceModelComponentWrapper.h
  * Author: Telmo "Trooper" <telmo.trooper@gmail.com>
  *
- * Created on October 19, 2019, 6:30 PM
+ * Created on October 19, 2019, 6:51 PM
  */
 
-#ifndef CREATE_WRAPPER_H
-#define CREATE_WRAPPER_H
+#ifndef SOURCE_MODEL_COMPONENT_WRAPPER_H
+#define SOURCE_MODEL_COMPONENT_WRAPPER_H
 
-#include "../Create.h"
+#include "../SourceModelComponent.h"
 #include <pybind11/pybind11.h>
 namespace py = pybind11;
 
-void initCreate(py::module &m) {
-    py::class_<Create, SourceModelComponent>(m, "Create")
-        .def(py::init<Model*>())
-        .def(py::init<Create&>())
-        .def("show", &Create::show)
-        .def("GetPluginInformation", &Create::GetPluginInformation)
-        .def("LoadInstance", &Create::LoadInstance);
-        // There are more methods which haven't been added to the wrapper yet
+void initSourceModelComponent(py::module &m) {
+    py::class_<SourceModelComponent, ModelComponent>(m, "SourceModelComponent");
 }
 
-#endif /* CREATE_WRAPPER_H */
+#endif /* SOURCE_MODEL_COMPONENT_WRAPPER_H */
 

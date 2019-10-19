@@ -34,6 +34,8 @@
 #include "ModelElementWrapper.h"
 #include "EntityTypeWrapper.h"
 #include "CreateWrapper.h"
+#include "SourceModelComponentWrapper.h"
+#include "ModelComponentWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {  
@@ -44,8 +46,10 @@ PYBIND11_MODULE(libgenesys, m) {
     initTraceManager(m);
     initUtil(m);
     initModelElement(m);
-    initEntityType(m);
-    initCreate(m);
+    initEntityType(m); // depends on ModelElement
+    initModelComponent(m); // depends on ModelElement
+    initSourceModelComponent(m); // depends on ModelComponent
+    initCreate(m); // depends on SourceModelComponent
 }
 
 #endif /* WRAPPERS_H */
