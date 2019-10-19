@@ -61,7 +61,7 @@ def main():
     simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.mostDetailed)
 
     entityType1 = libgenesys.EntityType(elements, "Type_of_Representative_Entity")
-    elements.insert("Type_of_Representative_Entity", entityType1)
+    elements.insert(entityType1.getTypename(), entityType1)
 
     # handler.print(f"Model ID: {model.getId()}")
     
