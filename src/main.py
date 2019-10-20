@@ -83,6 +83,17 @@ def main():
     create1.getNextComponents().insert(delay1)
     delay1.getNextComponents().insert(dispose1)
 
+    # Insert the model into the simulator 
+    simulator.getModelManager().insert(model)
+
+    # If the model is ok then save the model into a text file 
+    # if(model.checkModel()):
+        # model.saveModel("./temp/firstExampleOfSimulation.txt")
+        # If the model is saved into a file, it can be just loaded instead of built
+
+    # // execute the simulation util completed and show the report
+    # model->getSimulation()->startSimulation();
+
     Gtk.main()
 
 

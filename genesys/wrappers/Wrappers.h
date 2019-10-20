@@ -25,6 +25,7 @@
 #ifndef WRAPPERS_H
 #define WRAPPERS_H
 
+#include "ModelManagerWrapper.h"
 #include "ComponentManagerWrapper.h"
 #include "ElementManagerWrapper.h"
 #include "ModelWrapper.h"
@@ -42,7 +43,8 @@
 #include "DisposeWrappers.h"
 #include <pybind11/pybind11.h>
 
-PYBIND11_MODULE(libgenesys, m) {  
+PYBIND11_MODULE(libgenesys, m) {
+    initModelManager(m);
     initComponentManager(m);
     initElementManager(m);
     initModel(m);
