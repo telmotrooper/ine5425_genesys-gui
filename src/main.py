@@ -88,12 +88,17 @@ def main():
     # Insert the model into the simulator 
     simulator.getModelManager().insert(model)
 
-    # If the model is ok then save the model into a text file 
-    # if(model.checkModel()):
-    #     model.saveModel("./temp/firstExampleOfSimulation.txt")
-        # If the model is saved into a file, it can be just loaded instead of built
+    # These methods are generating a segmantation fault:
+    # model.checkModel()
+    # model.saveModel("./firstExampleOfSimulation.txt")
+    # model.getSimulation().startSimulation()
 
-    # Execute the simulation util completed and show the report
+    # # If the model is ok then save it into a text file 
+    # if model.checkModel():
+    #     model.saveModel("./temp/firstExampleOfSimulation.txt")
+    # #     If the model is saved into a file, it can be just loaded instead of built
+
+    # # Execute the simulation util completed and show the report
     # model.getSimulation().startSimulation()
 
     Gtk.main()
