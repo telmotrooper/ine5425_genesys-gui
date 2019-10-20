@@ -43,12 +43,14 @@ def main():
         # Instantiate a simulator
         simulator = libgenesys.Simulator()
 
+        libgenesys.PyGenesysApplication().insertFakePluginsByHand(simulator)
+
         # Create an empty model
         model = libgenesys.Model(simulator)
 
         # Should "handle traces and simulation events to output them"
         tm = model.getTraceManager()
-        # this->setDefaultTraceHandlers(tm);
+        libgenesys.PyGenesysApplication().setDefaultTraceHandlers(tm);
 
         # Get easy access to classes used to insert components and elements into a model
         components = model.getComponentManager()
@@ -88,11 +90,11 @@ def main():
 
     # If the model is ok then save the model into a text file 
     # if(model.checkModel()):
-        # model.saveModel("./temp/firstExampleOfSimulation.txt")
+    #     model.saveModel("./temp/firstExampleOfSimulation.txt")
         # If the model is saved into a file, it can be just loaded instead of built
 
-    # // execute the simulation util completed and show the report
-    # model->getSimulation()->startSimulation();
+    # Execute the simulation util completed and show the report
+    # model.getSimulation().startSimulation()
 
     Gtk.main()
 
