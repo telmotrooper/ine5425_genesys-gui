@@ -380,6 +380,7 @@
     <itemPath>wrappers/ConnectionManagerWrapper.h</itemPath>
     <itemPath>wrappers/CreateWrapper.h</itemPath>
     <itemPath>wrappers/DelayWrapper.h</itemPath>
+    <itemPath>wrappers/DisposeWrappers.h</itemPath>
     <itemPath>wrappers/ElementManagerWrapper.h</itemPath>
     <itemPath>wrappers/EntityTypeWrapper.h</itemPath>
     <itemPath>wrappers/ModelComponentWrapper.h</itemPath>
@@ -1001,6 +1002,8 @@
       <item path="wrappers/CreateWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/DelayWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/DisposeWrappers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ElementManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1642,6 +1645,8 @@
       <item path="wrappers/CreateWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/DelayWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/DisposeWrappers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ElementManagerWrapper.h" ex="false" tool="3" flavor2="0">
       </item>

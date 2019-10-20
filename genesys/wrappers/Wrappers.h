@@ -39,6 +39,7 @@
 #include "DelayWrapper.h"
 #include "ConnectionManagerWrapper.h"
 #include "SinkModelComponentWrapper.h"
+#include "DisposeWrappers.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {  
@@ -56,6 +57,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initDelay(m); // depends on ModelComponent
     initConnectionManager(m);
     initSinkModelComponent(m); // depends on ModelComponent
+    initDispose(m); // depends on SinkModelComponent
 }
 
 #endif /* WRAPPERS_H */

@@ -75,16 +75,13 @@ def main():
     components.insert(delay1)
 
     # Create a SinkModelComponent of type Dispose, used to remove entities from the model
-
-    # TODO
-
-    # Dispose* dispose1 = new Dispose(model);  // insert the component into the model
-    # components->insert(dispose1)
+    dispose1 = libgenesys.Dispose(model)
+    components.insert(dispose1)
 
     # Connect model components to create a "workflow". Should always start from
     # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
     create1.getNextComponents().insert(delay1)
-    # delay1.getNextComponents().insert(dispose1)
+    delay1.getNextComponents().insert(dispose1)
 
     Gtk.main()
 
