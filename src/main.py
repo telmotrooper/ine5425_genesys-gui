@@ -89,7 +89,7 @@ def main():
     simulator.getModelManager().insert(model)
 
     # These methods are generating a segmantation fault:
-    # model.checkModel()
+    model.checkModel()
     # model.saveModel("./firstExampleOfSimulation.txt")
     # model.getSimulation().startSimulation()
 
