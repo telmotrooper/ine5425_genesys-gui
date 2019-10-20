@@ -387,6 +387,7 @@
     <itemPath>wrappers/ModelComponentWrapper.h</itemPath>
     <itemPath>wrappers/ModelElementWrapper.h</itemPath>
     <itemPath>wrappers/ModelManagerWrapper.h</itemPath>
+    <itemPath>wrappers/ModelSimulationWrapper.h</itemPath>
     <itemPath>wrappers/ModelWrapper.h</itemPath>
     <itemPath>wrappers/SimulatorWrapper.h</itemPath>
     <itemPath>wrappers/SinkModelComponentWrapper.h</itemPath>
@@ -1021,6 +1022,8 @@
       <item path="wrappers/ModelElementWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ModelManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ModelSimulationWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ModelWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -1671,6 +1674,8 @@
       <item path="wrappers/ModelElementWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ModelManagerWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="wrappers/ModelSimulationWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="wrappers/ModelWrapper.h" ex="false" tool="3" flavor2="0">
       </item>

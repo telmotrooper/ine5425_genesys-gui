@@ -36,7 +36,6 @@ void initDispose(py::module &m) {
         .def("show", &Dispose::show)
         .def("GetPluginInformation", &Dispose::GetPluginInformation)
         .def("LoadInstance", &Dispose::LoadInstance);
-        // There are more methods which haven't been added to the wrapper yet
 }
 
 #endif /* DISPOSE_WRAPPERS_H */
