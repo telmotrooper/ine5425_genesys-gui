@@ -82,23 +82,21 @@ def main():
 
     # Connect model components to create a "workflow". Should always start from
     # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
-    # create1.getNextComponents().insert(delay1)
-    # delay1.getNextComponents().insert(dispose1, 0)
+    create1.getNextComponents().insert(delay1)
+    delay1.getNextComponents().insert(dispose1)
 
     # Insert the model into the simulator 
     simulator.getModelManager().insert(model)
 
-    # If "getNextComponents" is used at all inside Python, these methods generate a segmantation fault:
-    # model.checkModel()
-    # model.saveModel("./firstExampleOfSimulation.txt")
+    # If "getNextComponents" is used at all inside Python, this method generate a segmantation fault:
     # model.getSimulation().startSimulation()
 
-    # # If the model is ok then save it into a text file 
-    # if model.checkModel():
-    #     model.saveModel("./temp/firstExampleOfSimulation.txt")
-    # #     If the model is saved into a file, it can be just loaded instead of built
+    # If the model is ok then save it into a text file 
+    if model.checkModel():
+        model.saveModel("./firstExampleOfSimulation.txt")
+        # If the model is saved into a file, it can be just loaded instead of built
 
-    # # Execute the simulation util completed and show the report
+    # Execute the simulation util completed and show the report
     # model.getSimulation().startSimulation()
 
     Gtk.main()
