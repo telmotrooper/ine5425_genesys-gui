@@ -31,7 +31,14 @@ namespace py = pybind11;
 
 void initModelComponent(py::module &m) {
     py::class_<ModelComponent, ModelElement>(m, "ModelComponent")
-        .def("getNextComponents", &ModelComponent::getNextComponents);
+        .def("show", &ModelComponent::show)
+        .def("getNextComponents", &ModelComponent::getNextComponents)
+        .def("Execute", &ModelComponent::Execute)
+        .def("InitBetweenReplications", &ModelComponent::InitBetweenReplications)
+        .def("CreateInternalElements", &ModelComponent::CreateInternalElements)
+        .def("Check", &ModelComponent::Check)
+        // .def("LoadInstance", &ModelComponent::LoadInstance)
+        .def("SaveInstance", &ModelComponent::SaveInstance);
 }
 
 #endif /* MODEL_COMPONENT_WRAPPER_H */
