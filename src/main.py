@@ -82,14 +82,14 @@ def main():
 
     # Connect model components to create a "workflow". Should always start from
     # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
-    create1.getNextComponents().insert(delay1)
-    delay1.getNextComponents().insert(dispose1)
+    # create1.getNextComponents().insert(delay1)
+    # delay1.getNextComponents().insert(dispose1, 0)
 
     # Insert the model into the simulator 
     simulator.getModelManager().insert(model)
 
-    # These methods are generating a segmantation fault:
-    model.checkModel()
+    # If "getNextComponents" is used at all inside Python, these methods generate a segmantation fault:
+    # model.checkModel()
     # model.saveModel("./firstExampleOfSimulation.txt")
     # model.getSimulation().startSimulation()
 
