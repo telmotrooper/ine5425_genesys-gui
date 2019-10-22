@@ -6,6 +6,7 @@ from gi.repository import Gtk, GdkPixbuf
 import sys
 from handler import Handler
 import example_simulation_1
+import file_handler
 
 try:
     import libgenesys
@@ -34,7 +35,8 @@ def main():
     window.show_all()
 
     # Running simulation
-    example_simulation_1.run_simulation(handler)
+    # example_simulation_1.run_simulation(handler)
+    file_handler.run_simulation(handler, "src/models/example_1.txt")
 
     Gtk.main()
 
