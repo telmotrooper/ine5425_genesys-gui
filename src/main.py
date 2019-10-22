@@ -90,8 +90,8 @@ def main():
             model.saveModel("./firstExampleOfSimulation.txt")
             # If the model is saved into a file, it can be just loaded instead of built
 
-        # Execute the simulation util completed and show the report
-        # model.getSimulation().startSimulation()
+    # Execute the simulation util completed and show the report
+    model.getSimulation().startSimulation()
 
     # Print to GUI stuff that was just executed
     handler.print(f.getvalue().decode('utf-8'))

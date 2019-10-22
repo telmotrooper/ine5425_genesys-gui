@@ -111,14 +111,15 @@ void TraceManager::traceSimulation(Util::TraceLevel tracelevel, double time, Ent
 
 void TraceManager::traceReport(Util::TraceLevel tracelevel, std::string text) {
     if (_traceConditionPassed(tracelevel)) {
-	text = Util::Indent() + text;
-	TraceEvent e = TraceEvent(tracelevel, text);
-	for (std::list<traceListener>::iterator it = this->_traceReportHandlers->begin(); it != _traceReportHandlers->end(); it++) {
-	    (*it)(e);
-	}
-	for (std::list<traceListenerMethod>::iterator it = this->_traceReportHandlersMethod->begin(); it != _traceReportHandlersMethod->end(); it++) {
-	    (*it)(e);
-	}
+        std::cout << text << std::endl;
+        // text = Util::Indent() + text;
+        // TraceEvent e = TraceEvent(tracelevel, text);
+        // for (std::list<traceListener>::iterator it = this->_traceReportHandlers->begin(); it != _traceReportHandlers->end(); it++) {
+        //     (*it)(e);
+        // }
+        // for (std::list<traceListenerMethod>::iterator it = this->_traceReportHandlersMethod->begin(); it != _traceReportHandlersMethod->end(); it++) {
+        //     (*it)(e);
+        // }
     }
 }
 

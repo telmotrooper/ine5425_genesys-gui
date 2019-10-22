@@ -49,10 +49,12 @@ void initModel(py::module &m) {
         .def("getComponentManager", &Model::getComponentManager)
         .def("getInfos", &Model::getInfos)
         .def("getParentSimulator", &Model::getParentSimulator)
-        .def("getSimulation", &Model::getSimulation)
+        .def("getSimulation", &Model::getSimulation,
+            py::return_value_policy::reference)
         .def("getEvents", &Model::getEvents)
         .def("setTraceManager", &Model::setTraceManager)
-        .def("getTraceManager", &Model::getTraceManager);
+        .def("getTraceManager", &Model::getTraceManager,
+            py::return_value_policy::reference);
 }
 
 #endif /* MODEL_WRAPPER_H */
