@@ -98,14 +98,15 @@ void TraceManager::traceError(std::exception e, std::string text) {
 
 void TraceManager::traceSimulation(Util::TraceLevel tracelevel, double time, Entity* entity, ModelComponent* component, std::string text) {
     if (_traceConditionPassed(tracelevel)) {
-	text = Util::Indent() + text;
-	TraceSimulationEvent e = TraceSimulationEvent(tracelevel, time, entity, component, text);
-	for (std::list<traceSimulationListener>::iterator it = this->_traceSimulationHandlers->begin(); it != _traceSimulationHandlers->end(); it++) {
-	    (*it)(e);
-	}
-	for (std::list<traceSimulationListenerMethod>::iterator it = this->_traceSimulationHandlersMethod->begin(); it != _traceSimulationHandlersMethod->end(); it++) {
-	    (*it)(e);
-	}
+        std::cout << text << std::endl;
+        // text = Util::Indent() + text;
+        // TraceSimulationEvent e = TraceSimulationEvent(tracelevel, time, entity, component, text);
+        // for (std::list<traceSimulationListener>::iterator it = this->_traceSimulationHandlers->begin(); it != _traceSimulationHandlers->end(); it++) {
+        //     (*it)(e);
+        // }
+        // for (std::list<traceSimulationListenerMethod>::iterator it = this->_traceSimulationHandlersMethod->begin(); it != _traceSimulationHandlersMethod->end(); it++) {
+        //     (*it)(e);
+        // }
     }
 }
 

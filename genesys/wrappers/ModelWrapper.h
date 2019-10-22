@@ -45,8 +45,10 @@ void initModel(py::module &m) {
         .def("getControls", &Model::getControls)
         .def("getResponses", &Model::getResponses)
         .def("getOnEventManager", &Model::getOnEventManager)
-        .def("getElementManager", &Model::getElementManager)
-        .def("getComponentManager", &Model::getComponentManager)
+        .def("getElementManager", &Model::getElementManager,
+            py::return_value_policy::reference)
+        .def("getComponentManager", &Model::getComponentManager,
+            py::return_value_policy::reference)
         .def("getInfos", &Model::getInfos)
         .def("getParentSimulator", &Model::getParentSimulator)
         .def("getSimulation", &Model::getSimulation,
