@@ -60,4 +60,4 @@ def run_simulation(handler):
     model.getSimulation().startSimulation()
 
   # Print to GUI stuff that was just executed
-  handler.print(f.getvalue().decode('utf-8'))
+  handler.print_to_log(f.getvalue().decode('utf-8'))

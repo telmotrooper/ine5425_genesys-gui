@@ -188,11 +188,12 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkMenuItem" id="run_example_1_menu">
+                      <object class="GtkMenuItem" id="clear_menu">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Run Example 1</property>
+                        <property name="label" translatable="yes">Clear</property>
                         <property name="use_underline">True</property>
+                        <signal name="activate" handler="clear_log" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -202,11 +203,12 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="clear_menu">
+                      <object class="GtkMenuItem" id="run_example_1_menu">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Clear</property>
+                        <property name="label" translatable="yes">Run Example 1</property>
                         <property name="use_underline">True</property>
+                        <signal name="activate" handler="run_example_one" swapped="no"/>
                       </object>
                     </child>
                   </object>
