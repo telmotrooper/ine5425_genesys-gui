@@ -19,8 +19,8 @@ class Handler:
 
   def clear_log(self, button):
     buffer = self.log.get_buffer()
-    # x = buffer.get_bounds()
-    # buffer.delete(buffer.get_bounds())
+    bounds = buffer.get_bounds()
+    buffer.delete(bounds.start, bounds.end)
 
   def run_example_one(self, button):
     example_simulation_1.run_simulation(self)
