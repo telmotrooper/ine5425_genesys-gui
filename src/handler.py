@@ -28,3 +28,7 @@ class Handler:
   def show_about_dialog(self, button):
     self.builder.get_object("about_dialog").show_all()
     self.builder.get_object("about_dialog").connect("delete-event", lambda w, e: w.hide() or True)
+  
+  def show_file_chooser(self, button):
+    self.builder.get_object("file_chooser").show_all()
+    self.builder.get_object("file_chooser").connect("delete-event", lambda w, e: w.hide() or True)
