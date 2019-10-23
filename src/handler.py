@@ -3,6 +3,7 @@ import datetime
 
 import example_simulation_1
 import file_handler
+from display import Display
 
 class Handler:
   def __init__(self, builder):
@@ -11,6 +12,9 @@ class Handler:
     self.about_dialog = self.builder.get_object("about_dialog")
     self.file_chooser = self.builder.get_object("file_chooser")
     self.file_chooser.connect("file-activated", self.choose_file)
+
+    self.drawing_area = self.builder.get_object("drawing_area")
+    self.display = Display(self.drawing_area)
   
   def on_destroy(self, *args):
     Gtk.main_quit()
