@@ -10,6 +10,7 @@ class Handler:
     self.log = builder.get_object("log")
     self.about_dialog = self.builder.get_object("about_dialog")
     self.file_chooser = self.builder.get_object("file_chooser")
+    self.file_chooser.connect("file-activated", self.choose_file)
   
   def on_destroy(self, *args):
     Gtk.main_quit()
