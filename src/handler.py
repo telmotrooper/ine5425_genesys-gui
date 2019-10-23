@@ -39,3 +39,8 @@ class Handler:
   
   def hide_file_chooser(self, button):
     self.file_chooser.hide()
+
+  def choose_file(self, button):
+    self.file_chooser.hide()
+    file_path = self.file_chooser.get_filename()
+    file_handler.run_simulation(self, file_path)
