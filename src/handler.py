@@ -1,11 +1,15 @@
 from gi.repository import Gtk
 import datetime
+
 import example_simulation_1
+import file_handler
 
 class Handler:
   def __init__(self, builder):
     self.builder = builder
     self.log = builder.get_object("log")
+    self.about_dialog = self.builder.get_object("about_dialog")
+    self.file_chooser = self.builder.get_object("file_chooser")
   
   def on_destroy(self, *args):
     Gtk.main_quit()
@@ -26,9 +30,12 @@ class Handler:
     example_simulation_1.run_simulation(self)
 
   def show_about_dialog(self, button):
-    self.builder.get_object("about_dialog").show_all()
-    self.builder.get_object("about_dialog").connect("delete-event", lambda w, e: w.hide() or True)
+    self.about_dialog.show_all()
+    self.about_dialog.connect("delete-event", lambda w, e: w.hide() or True)
   
   def show_file_chooser(self, button):
-    self.builder.get_object("file_chooser").show_all()
-    self.builder.get_object("file_chooser").connect("delete-event", lambda w, e: w.hide() or True)
+    self.file_chooser.show_all()
+    self.file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
+  
+  def hide_file_chooser(self, button):
+    self.file_chooser.hide()

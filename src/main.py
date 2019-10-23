@@ -36,7 +36,7 @@ def main():
 
     # Running simulation
     # example_simulation_1.run_simulation(handler)
-    file_handler.run_simulation(handler, "src/models/cancian_example_1.txt")
+    # file_handler.run_simulation(handler, "src/models/cancian_example_1.txt")
 
     Gtk.main()
 
