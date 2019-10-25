@@ -4,7 +4,6 @@ class Display:
   def __init__(self, da):
     Display.da = da
     Display.da.connect("draw", self.draw)
-    Display.da.set_size_request(1250, 750)
   
   def redraw(self):
     self.da.queue_draw()

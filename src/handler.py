@@ -10,11 +10,15 @@ class Handler:
     self.builder = builder
     self.log = builder.get_object("log")
     self.about_dialog = self.builder.get_object("about_dialog")
+    self.list_store = self.builder.get_object("list_store")
     self.file_chooser = self.builder.get_object("file_chooser")
     self.file_chooser.connect("file-activated", self.choose_file)
 
     self.drawing_area = self.builder.get_object("drawing_area")
     self.display = Display(self.drawing_area)
+
+    example = self.list_store.append(["Example 1", "Create", "1"])
+    # self.builder.get_object("TreeSelection").select_iter(index)
   
   def on_destroy(self, *args):
     Gtk.main_quit()
