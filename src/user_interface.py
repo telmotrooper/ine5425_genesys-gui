@@ -2,14 +2,12 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 
-class UserInterface:
+class UserInterface:  # Singleton
   instance = None
 
   # Internal class
   class __UserInterface:
     def __init__(self, builder):
-      print(type(builder))
-
       if (type(builder) is Gtk.Builder):
         self.builder = builder
         # Elements

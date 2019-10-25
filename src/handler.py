@@ -10,13 +10,10 @@ from user_interface import UserInterface
 class Handler:
   def __init__(self, builder):
     self.ui = UserInterface(None)
-
-    self.ui.file_chooser.connect("file-activated", self.choose_file)
-    
     self.display = Display(self.ui.drawing_area)
 
-    example = self.ui.list_store.append(["Example 1", "Create", "1"])
-    # self.builder.get_object("TreeSelection").select_iter(index)
+    # Connecting events to UI elements
+    self.ui.file_chooser.connect("file-activated", self.choose_file)
   
   def on_destroy(self, *args):
     Gtk.main_quit()

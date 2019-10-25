@@ -35,7 +35,8 @@ void initComponentManager(py::module &m) {
         .def("insert", &ComponentManager::insert)
         .def("remove", &ComponentManager::remove)
         .def("clear", &ComponentManager::clear)
-    //    .def("getComponent", &ComponentManager::getComponent)
+        .def("getComponent", (ModelComponent* (ComponentManager::*)(Util::identification)) &ComponentManager::getComponent)
+        .def("getComponent", (ModelComponent* (ComponentManager::*)(std::string)) &ComponentManager::getComponent)
         .def("getNumberOfComponents", &ComponentManager::getNumberOfComponents)
         .def("begin", &ComponentManager::begin)
         .def("end", &ComponentManager::end);
