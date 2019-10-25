@@ -34,12 +34,18 @@ void initSimulator(py::module &m) {
         .def(py::init())
         .def("getVersion", &Simulator::getVersion)
         .def("getName", &Simulator::getName)
-        .def("getLicenceManager", &Simulator::getLicenceManager) 
-        .def("getPluginManager", &Simulator::getPluginManager) 
-        .def("getModelManager", &Simulator::getModelManager) 
-        .def("getToolManager", &Simulator::getToolManager) 
-        .def("getTraceManager", &Simulator::getTraceManager) 
-        .def("getParserManager", &Simulator::getParserManager);
+        .def("getLicenceManager", &Simulator::getLicenceManager,
+            py::return_value_policy::reference)
+        .def("getPluginManager", &Simulator::getPluginManager,
+            py::return_value_policy::reference)
+        .def("getModelManager", &Simulator::getModelManager,
+            py::return_value_policy::reference)
+        .def("getToolManager", &Simulator::getToolManager,
+            py::return_value_policy::reference)
+        .def("getTraceManager", &Simulator::getTraceManager,
+            py::return_value_policy::reference)
+        .def("getParserManager", &Simulator::getParserManager,
+            py::return_value_policy::reference);
 }
 
 #endif /* SIMULATOR_WRAPPER_H */

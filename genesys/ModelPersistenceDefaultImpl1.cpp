@@ -15,17 +15,12 @@
 #include <fstream>
 #include <ctime>
 #include <regex>
+#include <cassert>
 #include "ModelComponent.h"
 #include "Simulator.h"
 
 ModelPersistenceDefaultImpl1::ModelPersistenceDefaultImpl1(Model* model) {
     _model = model;
-}
-
-ModelPersistenceDefaultImpl1::ModelPersistenceDefaultImpl1(const ModelPersistenceDefaultImpl1& orig) {
-}
-
-ModelPersistenceDefaultImpl1::~ModelPersistenceDefaultImpl1() {
 }
 
 std::map<std::string, std::string>* ModelPersistenceDefaultImpl1::_getSimulatorInfoFieldsToSave() {
@@ -41,7 +36,7 @@ bool ModelPersistenceDefaultImpl1::save(std::string filename) {
     Util::IncIndent();
     std::list<std::string> *simulInfosToSave, *modelInfosToSave, *modelElementsToSave, *modelComponentsToSave;
     {
-	bool res = true;
+	//bool res = true;
 	std::map<std::string, std::string>* fields;
 	fields = _getSimulatorInfoFieldsToSave();
 	simulInfosToSave = _adjustFieldsToSave(fields);
@@ -106,6 +101,7 @@ bool ModelPersistenceDefaultImpl1::save(std::string filename) {
 	Util::DecIndent();
     }
     Util::DecIndent();
+    return true; // todo: check if save really saved successfully
 }
 
 void ModelPersistenceDefaultImpl1::_saveContent(std::list<std::string>* content, std::ofstream* file) {
@@ -158,6 +154,10 @@ bool ModelPersistenceDefaultImpl1::_loadFields(std::string line) {
 		    Plugin* plugin = this->_model->getParentSimulator()->getPluginManager()->find(thistypename);
 		    if (plugin != nullptr) {
 			res = plugin->loadAndInsertNew(_model, fields);
+			// save fields for components, in order to allow to connect components after all of them have been loaded
+			if (res && plugin->getPluginInfo()->isComponent()) {
+			    _componentFields->insert(_componentFields->end(), fields);
+			}
 		    } else {
 			_model->getTraceManager()->trace(Util::TraceLevel::errors, "Error loading file: Could not identity typename \"" + thistypename + "\"");
 			res = false;
@@ -173,7 +173,6 @@ bool ModelPersistenceDefaultImpl1::_loadFields(std::string line) {
     } catch (...) {
 
     }
-
     return res;
 }
 
@@ -187,12 +186,14 @@ bool ModelPersistenceDefaultImpl1::load(std::string filename) {
     bool res = true;
     _model->getTraceManager()->trace(Util::TraceLevel::blockArrival, "Loading file \"" + filename + "\"");
     Util::IncIndent();
+    _componentFields->clear();
     {
 	std::ifstream modelFile;
 	std::string inputLine;
 	try {
 	    modelFile.open(filename);
 	    while (getline(modelFile, inputLine) && res) {
+		//trim(&inputLine);
 		if (inputLine.substr(0, 1) != "#" && !inputLine.empty()) {
 		    //Util::IncIndent();
 		    res &= _loadFields(inputLine);
@@ -203,6 +204,47 @@ bool ModelPersistenceDefaultImpl1::load(std::string filename) {
 	} catch (...) {
 	    _model->getTraceManager()->trace(Util::TraceLevel::errors, "Error loading file \"" + filename + "\"");
 	}
+    }
+    if (res) {
+	// connect loaded components
+	ComponentManager* cm = _model->getComponentManager();
+	_model->getTraceManager()->trace(Util::TraceLevel::blockArrival, "Connecting loaded components");
+	Util::IncIndent();
+	{
+	    for (std::list<std::map<std::string, std::string>*>::iterator it = _componentFields->begin(); it != _componentFields->end(); it++) {
+		std::map<std::string, std::string>* fields = (*it);
+		// find the component
+		ModelComponent* thisComponent = nullptr;
+		Util::identification thisId = std::stoi((*fields->find("id")).second);
+		for (std::list<ModelComponent*>::iterator itcomp = cm->begin(); itcomp != cm->end(); itcomp++) {
+		    if ((*itcomp)->getId() == thisId) {
+			thisComponent = (*itcomp);
+			break; // end inner for loop
+		    }
+		}
+		assert(thisComponent != nullptr);
+
+		// find the next components connected with this one
+		unsigned short nextSize = std::stoi((*fields->find("nextSize")).second);
+		for (unsigned short i = 0; i < nextSize; i++) {
+		    Util::identification nextId = std::stoi((*fields->find("nextId" + std::to_string(i))).second);
+		    unsigned short nextInputNumber = 0;
+		    if (fields->find("nextInputNumber" + std::to_string(i)) != fields->end())
+			nextInputNumber = std::stoi((*fields->find("nextInputNumber" + std::to_string(i))).second);
+
+		    for (std::list<ModelComponent*>::iterator itcomp = cm->begin(); itcomp != cm->end(); itcomp++) {// connect the components 
+			if ((*itcomp)->getId() == nextId) { // connect the components 
+			    ModelComponent* nextComponent = (*itcomp);
+			    thisComponent->getNextComponents()->insert(nextComponent, nextInputNumber);
+			    _model->getTraceManager()->trace(Util::TraceLevel::blockInternal, thisComponent->getName() + " -> " + nextComponent->getName());
+			    break;
+			}
+		    }
+		}
+
+	    }
+	}
+	Util::DecIndent();
     }
     Util::DecIndent();
     return res;

@@ -20,8 +20,7 @@
 class ModelPersistenceDefaultImpl1 : public ModelPersistence_if {
 public:
     ModelPersistenceDefaultImpl1(Model* model);
-    ModelPersistenceDefaultImpl1(const ModelPersistenceDefaultImpl1& orig);
-    virtual ~ModelPersistenceDefaultImpl1();
+    virtual ~ModelPersistenceDefaultImpl1() = default;
 public:
     virtual bool save(std::string filename);
     virtual bool load(std::string filename);
@@ -32,6 +31,8 @@ private:
     void _loadSimulatorInfoFields(std::map<std::string, std::string>* fields);
     std::list<std::string>* _adjustFieldsToSave(std::map<std::string, std::string>* fields);
     std::map<std::string, std::string>* _getSimulatorInfoFieldsToSave();
+private:
+    std::list<std::map<std::string, std::string>*>* _componentFields = new std::list<std::map<std::string, std::string>*>();
 private:
     Model* _model = nullptr;
     bool _isSaved = false;

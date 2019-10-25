@@ -39,7 +39,8 @@ void initModelManager(py::module &m) {
         .def("saveModel", &ModelManager::saveModel)
         .def("loadModel", &ModelManager::loadModel)
         .def("front", &ModelManager::front)
-        .def("current", &ModelManager::current)
+        .def("current", &ModelManager::current,
+            py::return_value_policy::reference)
         .def("next", &ModelManager::next)
         .def("end", &ModelManager::end);
 }
