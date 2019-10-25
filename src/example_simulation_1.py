@@ -8,7 +8,6 @@ def run_simulation(handler):
   component_counter = 0  
   f = BytesIO()
 
-
   with stdout_redirector(f):
     # Instantiate a simulator
     simulator = libgenesys.Simulator()
@@ -38,25 +37,22 @@ def run_simulation(handler):
     create1.setEntityType(entityType1)
     create1.setTimeBetweenCreationsExpression("1.5")
     components.insert(create1)
-    component_counter += 1; ui.list_store.append(["Create_1", "Create", str(component_counter)])
+    insert_into_list(create1)
 
     # Create a ModelComponent of type Delay, used to represent a time delay
     delay1 = libgenesys.Delay(model)  # By default delay takes 1 second
     components.insert(delay1)
-    component_counter += 1; ui.list_store.append(["Delay_1", "Delay", str(component_counter)])
+    insert_into_list(delay1)
 
     # Create a SinkModelComponent of type Dispose, used to remove entities from the model
     dispose1 = libgenesys.Dispose(model)
     components.insert(dispose1)
-    component_counter += 1; ui.list_store.append(["Dispose_1", "Dispose", str(component_counter)])
-
+    insert_into_list(dispose1)
 
     # Connect model components to create a "workflow". Should always start from
     # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
     create1.getNextComponents().insert(delay1)
     delay1.getNextComponents().insert(dispose1)
-
-
 
     # Insert the model into the simulator 
     simulator.getModelManager().insert(model)
@@ -69,7 +65,16 @@ def run_simulation(handler):
     # Execute the simulation util completed and show the report
     model.getSimulation().startSimulation()
 
-    print(create1.show())
-
   # Print to GUI stuff that was just executed
   handler.print_to_log(f.getvalue().decode('utf-8'))
+
+def insert_into_list(component):
+  ui = UserInterface(None)
+  text = component.show().split(",")
+  # print(text)
+
+  ui.list_store.append([
+    text[1].split('"')[1],
+    component.__class__.__name__,
+    text[0].split("=")[1]
+  ])

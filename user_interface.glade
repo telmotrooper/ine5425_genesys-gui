@@ -576,7 +576,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Add Modules</property>
+                        <property name="label" translatable="yes">Add Components</property>
                       </object>
                     </child>
                   </object>
@@ -657,7 +657,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Module Instances</property>
+                        <property name="label" translatable="yes">Component Instances</property>
                       </object>
                     </child>
                   </object>
