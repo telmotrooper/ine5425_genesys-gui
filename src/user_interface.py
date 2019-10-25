@@ -12,10 +12,11 @@ class UserInterface:  # Singleton
         self.builder = builder
         # Elements
         self.log = builder.get_object("log")
-        self.about_dialog = self.builder.get_object("about_dialog")
-        self.list_store = self.builder.get_object("list_store")
-        self.file_chooser = self.builder.get_object("file_chooser")
-        self.drawing_area = self.builder.get_object("drawing_area")
+        self.about_dialog = builder.get_object("about_dialog")
+        self.list_store = builder.get_object("list_store")
+        self.file_chooser = builder.get_object("file_chooser")
+        self.drawing_area = builder.get_object("drawing_area")
+        self.tree_view = builder.get_object("tree_view")
 
   def __init__(self, builder):
     if not UserInterface.instance:

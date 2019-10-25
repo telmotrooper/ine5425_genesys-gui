@@ -4,7 +4,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 import sys
-from handler import Handler
+from event_handler import EventHandler
 import example_simulation_1
 import file_handler
 from user_interface import UserInterface
@@ -23,7 +23,7 @@ def main():
 
     # Generate references for the elements
     UserInterface(builder)
-    handler = Handler(builder)
+    handler = EventHandler(builder)
     builder.connect_signals(handler)
     
 

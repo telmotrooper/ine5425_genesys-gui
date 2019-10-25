@@ -7,7 +7,7 @@ from display import Display
 from user_interface import UserInterface
 
 
-class Handler:
+class EventHandler:
   def __init__(self, builder):
     self.ui = UserInterface(None)
     self.display = Display(self.ui.drawing_area)
