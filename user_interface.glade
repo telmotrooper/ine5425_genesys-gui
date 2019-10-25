@@ -55,11 +55,11 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton">
-                <property name="label" translatable="yes">Open</property>
+                <property name="label" translatable="yes">Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="choose_file" swapped="no"/>
+                <signal name="clicked" handler="hide_file_chooser" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -69,11 +69,11 @@
             </child>
             <child>
               <object class="GtkButton">
-                <property name="label" translatable="yes">Cancel</property>
+                <property name="label" translatable="yes">Open</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="hide_file_chooser" swapped="no"/>
+                <signal name="clicked" handler="choose_file" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
