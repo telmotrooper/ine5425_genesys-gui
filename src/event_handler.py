@@ -48,3 +48,6 @@ class EventHandler:
     self.ui.file_chooser.hide()
     file_path = self.ui.file_chooser.get_filename()
     file_handler.run_simulation(self, file_path)
+
+  def edit_component(self, tree_view, path, column):
+    self.print_to_log(str(path))
