@@ -7,6 +7,7 @@ import sys
 from handler import Handler
 import example_simulation_1
 import file_handler
+from user_interface import UserInterface
 
 try:
     import libgenesys
@@ -16,10 +17,15 @@ except ModuleNotFoundError:
 
 
 def main():
+    # Load user interface
     builder = Gtk.Builder()
     builder.add_from_file("user_interface.glade")
+
+    # Generate references for the elements
+    UserInterface(builder)
     handler = Handler(builder)
     builder.connect_signals(handler)
+    
 
     window = builder.get_object("main_window")
     window.set_icon_list([
