@@ -147,6 +147,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="show_file_chooser" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -279,15 +280,6 @@
                         <signal name="activate" handler="run_example_one" swapped="no"/>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkMenuItem" id="run_file_menu">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Run File...</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="show_file_chooser" swapped="no"/>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -347,6 +339,7 @@
                 <property name="label" translatable="yes">open_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-open</property>
+                <signal name="clicked" handler="show_file_chooser" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
