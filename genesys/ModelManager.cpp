@@ -45,8 +45,9 @@ bool ModelManager::saveModel(std::string filename) {
 }
 
 bool ModelManager::loadModel(std::string filename) {
-    if (_currentModel == nullptr)
-	this->insert(new Model(_simulator));
+    //if (_currentModel == nullptr)
+    // always load into a new model
+    this->insert(new Model(_simulator));
     return _currentModel->loadModel(filename);
 }
 

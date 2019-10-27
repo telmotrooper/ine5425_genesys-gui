@@ -11,11 +11,9 @@ def run_simulation(handler, file):
 
     libgenesys.PyGenesysApplication().insertFakePluginsByHand(simulator)
 
-    # Create an empty model
-    model = libgenesys.Model(simulator)
+    simulator.getModelManager().loadModel(file)
 
-    # Load model from file
-    model.loadModel(file)
+    model = simulator.getModelManager().current()
 
     # Should "handle traces and simulation events to output them"
     tm = model.getTraceManager()
@@ -23,9 +21,6 @@ def run_simulation(handler, file):
 
     # Set the trace level of the simulation
     simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.blockArrival)
-
-    # Insert the model into the simulator 
-    simulator.getModelManager().insert(model)
 
     # Execute the simulation util completed and show the report
     model.getSimulation().startSimulation()
