@@ -9,11 +9,11 @@ def run_simulation(handler, file):
     # Instantiate a simulator
     simulator = libgenesys.Simulator()
 
-    libgenesys.PyGenesysApplication().insertFakePluginsByHand(simulator)
-
     simulator.getModelManager().loadModel(file)
 
     model = simulator.getModelManager().current()
+
+    libgenesys.PyGenesysApplication().insertFakePluginsByHand(simulator)
 
     # Should "handle traces and simulation events to output them"
     tm = model.getTraceManager()
