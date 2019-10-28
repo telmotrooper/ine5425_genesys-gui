@@ -22,8 +22,8 @@
  * Created on October 19, 2019, 7:22 PM
  */
 
-#ifndef DELAYWRAPPER_H
-#define DELAYWRAPPER_H
+#ifndef DELAY_WRAPPER_H
+#define DELAY_WRAPPER_H
 
 #include "../Delay.h"
 #include <pybind11/pybind11.h>
@@ -42,5 +42,5 @@ void initDelay(py::module &m) {
         .def("LoadInstance", &Delay::LoadInstance);
 }
 
-#endif /* DELAYWRAPPER_H */
+#endif /* DELAY_WRAPPER_H */
 
