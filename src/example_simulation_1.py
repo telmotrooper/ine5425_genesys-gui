@@ -76,5 +76,6 @@ def insert_into_list(component):
   ui.list_store.append([
     text[1].split('"')[1],
     component.__class__.__name__,
-    text[0].split("=")[1]
+    text[0].split("=")[1],
+    ""
   ])
