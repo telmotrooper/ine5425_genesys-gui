@@ -75,7 +75,7 @@ def insert_into_list(component):
   text = component.show().split(",")
 
   # print(
-  #   component.getNextComponents().front()
+  #   type(component.getNextComponents())
   # )
 
   ui.list_store.append([
