@@ -1,10 +1,11 @@
 from io import BytesIO
 from stdout_redirector import stdout_redirector
-from user_interface import UserInterface
+from component_list import ComponentList
 import libgenesys
 
 def run_simulation(handler):
-  ui = UserInterface()
+  cl = ComponentList()
+
   component_counter = 0  
   f = BytesIO()
 
@@ -55,9 +56,9 @@ def run_simulation(handler):
     simulator.getModelManager().insert(model)
 
     # Insert components into GUI list
-    insert_into_list(create1)
-    insert_into_list(delay1)
-    insert_into_list(dispose1)
+    cl.insert(create1)
+    cl.insert(delay1)
+    cl.insert(dispose1)
 
     # If the model is ok then save it into a text file 
     # if model.checkModel():
@@ -69,20 +70,3 @@ def run_simulation(handler):
 
   # Print to GUI stuff that was just executed
   handler.print_to_log(f.getvalue().decode('utf-8'))
-
-def insert_into_list(component):
-  ui = UserInterface()
-  text = component.show().split(",")
-
-  nextText = ["=(End)"]
-
-  if type(component) != libgenesys.Dispose:
-    nextComponent = component.getNextComponents().front()
-    nextText = nextComponent.show().split(",")
-
-  ui.list_store.append([
-    text[1].split('"')[1],
-    component.__class__.__name__,
-    text[0].split("=")[1],
-    nextText[0].split("=")[1]
-  ])
