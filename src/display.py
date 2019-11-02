@@ -1,5 +1,6 @@
 import cairo
 from os import path
+from graphviz import Digraph
 
 class Display:  # Singleton
   instance = None
@@ -24,8 +25,19 @@ class Display:  # Singleton
       ctx.set_source_rgb(255, 255, 255)  # color white
       ctx.paint()
 
-      base_path = path.abspath(path.join(path.dirname(__file__), ".."))
+      diag = self.generate_diagram()
+      image = cairo.ImageSurface.create_from_png(diag)
 
-      image = cairo.ImageSurface.create_from_png(base_path + "/icons/icon-256.png")
       ctx.set_source_surface(image, 0, 0)
       ctx.paint()
+    
+    def generate_diagram(self):
+      dot = Digraph(comment='The Round Table')
+      dot.node('A', 'King Arthur')
+      dot.node('B', 'Sir Bedevere the Wise')
+      dot.node('L', 'Sir Lancelot the Brave')
+      dot.edges(['AB', 'AL'])
+      dot.edge('B', 'L', constraint='false')
+      dot.render(filename="diagram", directory="temp", format="png")
+
+      return path.abspath(path.join(path.dirname(__file__), "../temp/diagram.png"))

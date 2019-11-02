@@ -1,5 +1,6 @@
-.idea
+temp/
 
+.idea
 genesys/nbproject/private
 **/nbproject/private/**
 **/nbproject/Makefile-*.mk
