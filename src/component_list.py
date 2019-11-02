@@ -1,5 +1,6 @@
 from os import path
 from user_interface import UserInterface
+from graphviz import Digraph
 import libgenesys
 
 class ComponentList:  # Singleton
@@ -27,7 +28,6 @@ class ComponentList:  # Singleton
         nextComponent = component.getNextComponents().front()
         nextText = nextComponent.show().split(",")
 
-
       # Add to list in GUI
       ui.list_store.append([
         text[1].split('"')[1],
@@ -41,3 +41,20 @@ class ComponentList:  # Singleton
         "name": component.__class__.__name__,
         "nextId": nextText[0].split("=")[1]
       }
+
+      # Ask for a redraw to update GUI
+      ui.drawing_area.queue_draw()
+
+    def generate_diagram(self):
+      if len(self.component_dict) == 0:
+        return None
+      
+      dot = Digraph(comment='The Round Table')
+      dot.node('A', 'King Arthur')
+      dot.node('B', 'Sir Bedevere the Wise')
+      dot.node('L', 'Sir Lancelot the Brave')
+      dot.edges(['AB', 'AL'])
+      dot.edge('B', 'L', constraint='false')
+      dot.render(filename="diagram", directory="temp", format="png")
+
+      return path.abspath(path.join(path.dirname(__file__), "../temp/diagram.png"))

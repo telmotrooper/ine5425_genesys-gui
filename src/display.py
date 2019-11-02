@@ -1,6 +1,6 @@
 import cairo
+from component_list import ComponentList
 from os import path
-from graphviz import Digraph
 
 class Display:  # Singleton
   instance = None
@@ -15,29 +15,17 @@ class Display:  # Singleton
   # Internal class
   class __Display:
     def __init__(self, da):
-      Display.da = da
-      Display.da.connect("draw", self.draw)
-    
-    def redraw(self):
-      self.da.queue_draw()
+      self.da = da
+      self.da.connect("draw", self.draw)
+      self.ci = ComponentList()
     
     def draw(self, da, ctx):
       ctx.set_source_rgb(255, 255, 255)  # color white
       ctx.paint()
 
-      diag = self.generate_diagram()
-      image = cairo.ImageSurface.create_from_png(diag)
+      diag = self.ci.generate_diagram()
 
-      ctx.set_source_surface(image, 10, 10)
-      ctx.paint()
-    
-    def generate_diagram(self):
-      dot = Digraph(comment='The Round Table')
-      dot.node('A', 'King Arthur')
-      dot.node('B', 'Sir Bedevere the Wise')
-      dot.node('L', 'Sir Lancelot the Brave')
-      dot.edges(['AB', 'AL'])
-      dot.edge('B', 'L', constraint='false')
-      dot.render(filename="diagram", directory="temp", format="png")
-
-      return path.abspath(path.join(path.dirname(__file__), "../temp/diagram.png"))
+      if(diag):
+        image = cairo.ImageSurface.create_from_png(diag)
+        ctx.set_source_surface(image, 10, 10)
+        ctx.paint()
