@@ -60,8 +60,8 @@ def run_simulation(handler):
     insert_into_list(dispose1)
 
     # If the model is ok then save it into a text file 
-    if model.checkModel():
-        model.saveModel("src/models/example_1.txt") # Assuming you're running from root folder
+    # if model.checkModel():
+    #     model.saveModel("src/models/example_1.txt") # Assuming you're running from root folder
         # If the model is saved into a file, it can be just loaded instead of built
 
     # Execute the simulation util completed and show the report
@@ -74,13 +74,15 @@ def insert_into_list(component):
   ui = UserInterface(None)
   text = component.show().split(",")
 
-  # print(
-  #   type(component.getNextComponents())
-  # )
+  nextText = "="
+
+  if type(component) != libgenesys.Dispose:
+    nextComponent = component.getNextComponents().front()
+    nextText = nextComponent.show().split(",")
 
   ui.list_store.append([
     text[1].split('"')[1],
     component.__class__.__name__,
     text[0].split("=")[1],
-    ""
+    nextText[0].split("=")[1]
   ])
