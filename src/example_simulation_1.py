@@ -74,7 +74,7 @@ def insert_into_list(component):
   ui = UserInterface(None)
   text = component.show().split(",")
 
-  nextText = "="
+  nextText = ["=(End)"]
 
   if type(component) != libgenesys.Dispose:
     nextComponent = component.getNextComponents().front()
