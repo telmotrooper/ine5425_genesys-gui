@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 
 def main():
     base_path = path.abspath(path.join(path.dirname(__file__), ".."))
-    print(base_path)
+
     # Load user interface
     builder = Gtk.Builder()
     builder.add_from_file(base_path + "/user_interface.glade")
