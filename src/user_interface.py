@@ -18,8 +18,8 @@ class UserInterface:  # Singleton
         self.drawing_area = builder.get_object("drawing_area")
         self.tree_view = builder.get_object("tree_view")
 
-  def __init__(self, builder):
-    if not UserInterface.instance:
+  def __init__(self, builder=None):
+    if not UserInterface.instance and builder is not None:
       UserInterface.instance = UserInterface.__UserInterface(builder)
 
   def __getattr__(self, name):

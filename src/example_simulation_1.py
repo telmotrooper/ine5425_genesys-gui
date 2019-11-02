@@ -4,7 +4,7 @@ from user_interface import UserInterface
 import libgenesys
 
 def run_simulation(handler):
-  ui = UserInterface(None)
+  ui = UserInterface()
   component_counter = 0  
   f = BytesIO()
 
@@ -71,7 +71,7 @@ def run_simulation(handler):
   handler.print_to_log(f.getvalue().decode('utf-8'))
 
 def insert_into_list(component):
-  ui = UserInterface(None)
+  ui = UserInterface()
   text = component.show().split(",")
 
   nextText = ["=(End)"]

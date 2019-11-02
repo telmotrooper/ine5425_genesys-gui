@@ -9,7 +9,7 @@ from user_interface import UserInterface
 
 class EventHandler:
   def __init__(self, builder):
-    self.ui = UserInterface(None)
+    self.ui = UserInterface()
     self.display = Display(self.ui.drawing_area)
 
     # Connecting events to UI elements
