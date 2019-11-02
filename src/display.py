@@ -28,7 +28,7 @@ class Display:  # Singleton
       diag = self.generate_diagram()
       image = cairo.ImageSurface.create_from_png(diag)
 
-      ctx.set_source_surface(image, 0, 0)
+      ctx.set_source_surface(image, 10, 10)
       ctx.paint()
     
     def generate_diagram(self):
