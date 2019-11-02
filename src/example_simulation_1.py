@@ -37,17 +37,14 @@ def run_simulation(handler):
     create1.setEntityType(entityType1)
     create1.setTimeBetweenCreationsExpression("1.5")
     components.insert(create1)
-    insert_into_list(create1)
 
     # Create a ModelComponent of type Delay, used to represent a time delay
     delay1 = libgenesys.Delay(model)  # By default delay takes 1 second
     components.insert(delay1)
-    insert_into_list(delay1)
 
     # Create a SinkModelComponent of type Dispose, used to remove entities from the model
     dispose1 = libgenesys.Dispose(model)
     components.insert(dispose1)
-    insert_into_list(dispose1)
 
     # Connect model components to create a "workflow". Should always start from
     # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
@@ -56,6 +53,11 @@ def run_simulation(handler):
 
     # Insert the model into the simulator 
     simulator.getModelManager().insert(model)
+
+    # Insert components into GUI list
+    insert_into_list(create1)
+    insert_into_list(delay1)
+    insert_into_list(dispose1)
 
     # If the model is ok then save it into a text file 
     if model.checkModel():
@@ -71,7 +73,10 @@ def run_simulation(handler):
 def insert_into_list(component):
   ui = UserInterface(None)
   text = component.show().split(",")
-  # print(text)
+
+  # print(
+  #   component.getNextComponents().front()
+  # )
 
   ui.list_store.append([
     text[1].split('"')[1],
