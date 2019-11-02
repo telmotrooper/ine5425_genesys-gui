@@ -38,7 +38,8 @@ class ComponentList:  # Singleton
 
       # Add to control dictionary
       self.component_dict[text[0].split("=")[1]] = {
-        "name": component.__class__.__name__,
+        "name": text[1].split('"')[1],
+        "type": component.__class__.__name__,
         "nextId": nextText[0].split("=")[1]
       }
 
@@ -49,12 +50,16 @@ class ComponentList:  # Singleton
       if len(self.component_dict) == 0:
         return None
       
-      dot = Digraph(comment='The Round Table')
-      dot.node('A', 'King Arthur')
-      dot.node('B', 'Sir Bedevere the Wise')
-      dot.node('L', 'Sir Lancelot the Brave')
-      dot.edges(['AB', 'AL'])
-      dot.edge('B', 'L', constraint='false')
+      dot = Digraph(comment='Genesys Model')
+
+      for key in self.component_dict.keys():
+        dot.node(key, self.component_dict.get(key)["name"])
+      
+      for key in self.component_dict.keys():
+        component = self.component_dict.get(key)
+        if component["nextId"] and component["nextId"] != "(End)":
+          dot.edge(key, component["nextId"])
+
       dot.render(filename="diagram", directory="temp", format="png")
 
       return path.abspath(path.join(path.dirname(__file__), "../temp/diagram.png"))
