@@ -1,6 +1,4 @@
-from io import BytesIO
 from stdout_redirector import stdout_redirector
-from component_list import ComponentList
 from simulation import Simulation
 import libgenesys
 
@@ -9,9 +7,7 @@ class Example1(Simulation):
     super().__init__(handler)
   
   def prepare_simulation(self):
-    f = BytesIO()
-
-    with stdout_redirector(f):
+    with stdout_redirector(self.stream):
       # Create a SourceModelElement of type EntityType, which will be used by a ModelComponent later
       self.entityType1 = libgenesys.EntityType(self.elements, "Type_of_Representative_Entity")
       self.elements.insert(self.entityType1.getTypename(), self.entityType1)

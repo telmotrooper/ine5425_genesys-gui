@@ -1,4 +1,3 @@
-from io import BytesIO
 from stdout_redirector import stdout_redirector
 from component_list import ComponentList
 from simulation import Simulation
@@ -10,9 +9,8 @@ class Example2(Simulation):
   
   def prepare_simulation(self):
     simulator = self.simulator
-    f = BytesIO()
 
-    with stdout_redirector(f):
+    with stdout_redirector(self.stream):
       libgenesys.PyGenesysApplication().insertFakePluginsByHand(simulator)
 
       # Create an empty model
