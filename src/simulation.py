@@ -16,7 +16,16 @@ class Simulation:
 
       # Create an empty model
       self.model = libgenesys.Model(self.simulator)
-    
+
+      # Should "handle traces and simulation events to output them"
+      self.tm = self.model.getTraceManager()
+
+      libgenesys.PyGenesysApplication().setDefaultTraceHandlers(self.tm);
+
+      # Get easy access to classes used to insert components and elements into a model
+      self.components = self.model.getComponentManager()
+      self.elements = self.model.getElementManager()
+        
     self.handler.print_to_log(f.getvalue().decode('utf-8'))
 
   def prepareSimulation(self):
