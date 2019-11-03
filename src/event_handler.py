@@ -1,7 +1,7 @@
 from gi.repository import Gtk
 import datetime
 
-import example_simulation_1
+from examples.example1 import Example1
 import load_simulation
 from display import Display
 from user_interface import UserInterface
@@ -31,7 +31,7 @@ class EventHandler:
     buffer.delete(bounds.start, bounds.end)
 
   def run_example_one(self, button):
-    simulation = example_simulation_1.Example1(self)
+    simulation = Example1(self)
     simulation.prepareSimulation()
 
   def show_about_dialog(self, button):
