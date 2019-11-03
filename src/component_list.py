@@ -50,10 +50,11 @@ class ComponentList:  # Singleton
       if len(self.component_dict) == 0:
         return None
       
-      dot = Digraph(comment='Genesys Model')
+      dot = Digraph(comment="Genesys Model")
+      dot.graph_attr["rankdir"] = "LR"
 
       for key in self.component_dict.keys():
-        dot.node(key, self.component_dict.get(key)["name"])
+        dot.node(key, self.component_dict.get(key)["name"], shape="rectangle")
       
       for key in self.component_dict.keys():
         component = self.component_dict.get(key)
