@@ -159,6 +159,7 @@
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
+                        <signal name="activate" handler="save_simulation" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -364,6 +365,7 @@
                 <property name="label" translatable="yes">save_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
+                <signal name="clicked" handler="save_simulation" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -387,6 +389,7 @@
                 <property name="label" translatable="yes">play_button</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-play</property>
+                <signal name="clicked" handler="run_simulation" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

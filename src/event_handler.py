@@ -10,6 +10,7 @@ from user_interface import UserInterface
 
 class EventHandler:
   def __init__(self, builder):
+    self.current_simulation = None
     self.ui = UserInterface()
     self.display = Display(self.ui.drawing_area)
 
@@ -32,14 +33,18 @@ class EventHandler:
     buffer.delete(bounds.start, bounds.end)
 
   def run_example_one(self, button):
-    simulation = Example1(self)
-    simulation.prepare_simulation()
-    simulation.save_to_file("example_one")
-    simulation.run()
+    self.current_simulation = Example1(self)
+    self.current_simulation.prepare_simulation()
 
   def run_example_two(self, button):
     simulation = Example2(self)
     simulation.prepare_simulation()
+
+  def save_simulation(self, button):
+    self.current_simulation.save_to_file("example_one")
+
+  def run_simulation(self, button):
+    self.current_simulation.run()
 
   def show_about_dialog(self, button):
     self.ui.about_dialog.show_all()
