@@ -33,13 +33,13 @@ class EventHandler:
 
   def run_example_one(self, button):
     simulation = Example1(self)
-    simulation.prepareSimulation()
-    simulation.saveToFile("example_one")
+    simulation.prepare_simulation()
+    simulation.save_to_file("example_one")
     simulation.run()
 
   def run_example_two(self, button):
     simulation = Example2(self)
-    simulation.prepareSimulation()
+    simulation.prepare_simulation()
 
   def show_about_dialog(self, button):
     self.ui.about_dialog.show_all()

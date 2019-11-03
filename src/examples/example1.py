@@ -8,7 +8,7 @@ class Example1(Simulation):
   def __init__(self, handler):
     super().__init__(handler)
   
-  def prepareSimulation(self):
+  def prepare_simulation(self):
     f = BytesIO()
 
     with stdout_redirector(f):
@@ -44,4 +44,4 @@ class Example1(Simulation):
       self.cl.insert(self.dispose1)
 
     # Print to GUI stuff that was just executed
-    self.handler.print_to_log(f.getvalue().decode('utf-8'))
+    self.write_to_log()

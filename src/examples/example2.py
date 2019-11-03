@@ -8,7 +8,7 @@ class Example2(Simulation):
   def __init__(self, handler):
     super().__init__(handler)
   
-  def prepareSimulation(self):
+  def prepare_simulation(self):
     simulator = self.simulator
     f = BytesIO()
 

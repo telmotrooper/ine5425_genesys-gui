@@ -7,9 +7,9 @@ class Simulation:
   def __init__(self, handler):
     self.handler = handler
     self.cl = ComponentList()
-    f = BytesIO()
+    self.stream = BytesIO()
 
-    with stdout_redirector(f):
+    with stdout_redirector(self.stream):
       self.simulator = libgenesys.Simulator()
       libgenesys.PyGenesysApplication().insertFakePluginsByHand(self.simulator)
       # A "self.model" object also has to be defined, but we'll leave that to the child
@@ -29,23 +29,30 @@ class Simulation:
       # Set the trace level of the simulation
       self.simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.blockArrival)
         
-    self.handler.print_to_log(f.getvalue().decode('utf-8'))
+    self.write_to_log()
 
-  def prepareSimulation(self):
+  def prepare_simulation(self):
     pass
 
-  def loadFromFile(self):
+  def load_from_file(self):
     pass
 
-  def saveToFile(self, filename):
-    if self.model.checkModel():
-      self.model.saveModel("src/models/{}.txt".format(filename)) # Assuming you're running from root folder
+  def save_to_file(self, filename):
+    with stdout_redirector(self.stream):
+      if self.model.checkModel():
+        self.model.saveModel("src/models/{}.txt".format(filename)) # Assuming you're running from root folder
+    self.write_to_log()
 
   def run(self):
-    self.model.getSimulation().startSimulation()
+    with stdout_redirector(self.stream):
+      self.model.getSimulation().startSimulation()
+    self.write_to_log()
 
-  def addComponent(self):
+  def add_component(self):
     pass
 
-  def editComponent(self):
+  def edit_component(self):
     pass
+
+  def write_to_log(self):
+    self.handler.print_to_log(self.stream.getvalue().decode('utf-8'))
