@@ -27,5 +27,7 @@ class Display:  # Singleton
 
       if(diag):
         image = cairo.ImageSurface.create_from_png(diag)
-        ctx.set_source_surface(image, 15, 15)
+        adj = 15
+        self.da.set_size_request(image.get_width()+adj, image.get_height()+adj)
+        ctx.set_source_surface(image, adj, adj)
         ctx.paint()
