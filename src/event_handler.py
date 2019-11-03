@@ -33,6 +33,7 @@ class EventHandler:
   def run_example_one(self, button):
     simulation = Example1(self)
     simulation.prepareSimulation()
+    # simulation.run()
 
   def show_about_dialog(self, button):
     self.ui.about_dialog.show_all()
