@@ -13,8 +13,6 @@ class Example1(Simulation):
     f = BytesIO()
 
     with stdout_redirector(f):
-      libgenesys.PyGenesysApplication().insertFakePluginsByHand(simulator)
-
       # Create an empty model
       self.model = libgenesys.Model(simulator)
 
