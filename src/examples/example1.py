@@ -43,13 +43,5 @@ class Example1(Simulation):
       self.cl.insert(self.delay1)
       self.cl.insert(self.dispose1)
 
-      # If the model is ok then save it into a text file 
-      # if self.model.checkModel():
-      #     self.model.saveModel("src/models/example_1.txt") # Assuming you're running from root folder
-          # If the model is saved into a file, it can be just loaded instead of built
-
-      # Execute the simulation util completed and show the report
-      self.model.getSimulation().startSimulation()
-
     # Print to GUI stuff that was just executed
     self.handler.print_to_log(f.getvalue().decode('utf-8'))
