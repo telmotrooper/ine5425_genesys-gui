@@ -385,32 +385,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="forward_button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">forward_button</property>
-                <property name="use_underline">True</property>
-                <property name="stock_id">gtk-media-forward</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="next_button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">next_button</property>
-                <property name="use_underline">True</property>
-                <property name="stock_id">gtk-media-next</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkToolButton" id="pause_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>

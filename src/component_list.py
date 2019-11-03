@@ -56,7 +56,8 @@ class ComponentList:  # Singleton
       for key in self.component_dict.keys():
         component = self.component_dict.get(key)
         attr = self.get_visual_attributes(component["type"])
-        dot.node(key, component["name"],
+        dot.node(key,
+          '<<FONT POINT-SIZE="10">{}</FONT>>'.format(component["name"]),
           shape=attr["shape"],
           height=attr["height"],
           style=attr["style"],
