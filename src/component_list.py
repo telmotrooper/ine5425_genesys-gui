@@ -75,27 +75,19 @@ class ComponentList:  # Singleton
 
 
     def get_visual_attributes(self, componentType):
+      visual = {
+        "shape": "rect",
+        "height": ".8",
+        "style": "filled",
+        "fillcolor": "#fef6cd",
+        "orientation": "0"
+      }
+
       if componentType == "Create":
-        return {
-          "shape": "cds",
-          "height": ".8",
-          "style": "filled",
-          "fillcolor": "#fef6cd",
-          "orientation": "0"
-        }
+        visual["shape"] = "cds"
+      
       elif componentType == "Dispose":
-        return {
-          "shape": "cds",
-          "height": ".8",
-          "style": "filled",
-          "fillcolor": "#fef6cd",
-          "orientation": "90"
-        }
-      else:
-        return {
-          "shape": "rect",
-          "height": ".8",
-          "style": "filled",
-          "fillcolor": "#fef6cd",
-          "orientation": "0"
-        }
+        visual["shape"] = "cds"
+        visual["orientation"] = "90"
+        
+      return visual
