@@ -13,9 +13,6 @@ class Example1(Simulation):
     f = BytesIO()
 
     with stdout_redirector(f):
-      # Create an empty model
-      self.model = libgenesys.Model(simulator)
-
       # Should "handle traces and simulation events to output them"
       tm = self.model.getTraceManager()
       libgenesys.PyGenesysApplication().setDefaultTraceHandlers(tm);

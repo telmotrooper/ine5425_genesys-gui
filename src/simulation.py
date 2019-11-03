@@ -13,6 +13,10 @@ class Simulation:
       self.simulator = libgenesys.Simulator()
       libgenesys.PyGenesysApplication().insertFakePluginsByHand(self.simulator)
       # A "self.model" object also has to be defined, but we'll leave that to the child
+
+      # Create an empty model
+      self.model = libgenesys.Model(self.simulator)
+    
     self.handler.print_to_log(f.getvalue().decode('utf-8'))
 
   def prepareSimulation(self):
