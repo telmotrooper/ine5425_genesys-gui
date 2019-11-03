@@ -12,9 +12,6 @@ class Example1(Simulation):
     f = BytesIO()
 
     with stdout_redirector(f):
-      # Set the trace level of the simulation
-      self.simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.blockArrival)
-
       # Create a SourceModelElement of type EntityType, which will be used by a ModelComponent later
       self.entityType1 = libgenesys.EntityType(self.elements, "Type_of_Representative_Entity")
       self.elements.insert(self.entityType1.getTypename(), self.entityType1)

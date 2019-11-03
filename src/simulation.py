@@ -25,6 +25,9 @@ class Simulation:
       # Get easy access to classes used to insert components and elements into a model
       self.components = self.model.getComponentManager()
       self.elements = self.model.getElementManager()
+
+      # Set the trace level of the simulation
+      self.simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.blockArrival)
         
     self.handler.print_to_log(f.getvalue().decode('utf-8'))
 
