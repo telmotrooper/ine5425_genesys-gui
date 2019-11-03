@@ -60,7 +60,8 @@ class ComponentList:  # Singleton
           shape=attr["shape"],
           height=attr["height"],
           style=attr["style"],
-          fillcolor=attr["fillcolor"]
+          fillcolor=attr["fillcolor"],
+          orientation=attr["orientation"]
         )
       
       for key in self.component_dict.keys():
@@ -74,17 +75,27 @@ class ComponentList:  # Singleton
 
 
     def get_visual_attributes(self, componentType):
-      if(componentType == "Create"):
+      if componentType == "Create":
         return {
           "shape": "cds",
           "height": ".8",
           "style": "filled",
-          "fillcolor": "#fef6cd"
+          "fillcolor": "#fef6cd",
+          "orientation": "0"
+        }
+      elif componentType == "Dispose":
+        return {
+          "shape": "cds",
+          "height": ".8",
+          "style": "filled",
+          "fillcolor": "#fef6cd",
+          "orientation": "90"
         }
       else:
         return {
-          "shape": "ellipse",
+          "shape": "rect",
           "height": ".8",
           "style": "filled",
-          "fillcolor": "white"
+          "fillcolor": "#fef6cd",
+          "orientation": "0"
         }
