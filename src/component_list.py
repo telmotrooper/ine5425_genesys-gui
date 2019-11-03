@@ -54,7 +54,9 @@ class ComponentList:  # Singleton
       dot.graph_attr["rankdir"] = "LR"
 
       for key in self.component_dict.keys():
-        dot.node(key, self.component_dict.get(key)["name"], shape="rectangle")
+        component = self.component_dict.get(key)
+        attr = self.get_visual_attributes(component["type"])
+        dot.node(key, component["name"], shape=attr["shape"], height=attr["height"])
       
       for key in self.component_dict.keys():
         component = self.component_dict.get(key)
@@ -64,3 +66,11 @@ class ComponentList:  # Singleton
       dot.render(filename="diagram", directory="temp", format="png")
 
       return path.abspath(path.join(path.dirname(__file__), "../temp/diagram.png"))
+
+
+    def get_visual_attributes(self, componentType):
+      print(componentType)
+      if(componentType == "Create"):
+        return {"shape": "cds", "height": ".8"}
+      else:
+        return {"shape": "ellipse", "height": ".8"}
