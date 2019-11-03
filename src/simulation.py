@@ -34,9 +34,9 @@ class Simulation:
   def loadFromFile(self):
     pass
 
-  def saveToFile(self):
+  def saveToFile(self, filename):
     if self.model.checkModel():
-      self.model.saveModel("src/models/example_1.txt") # Assuming you're running from root folder
+      self.model.saveModel("src/models/{}.txt".format(filename)) # Assuming you're running from root folder
 
   def run(self):
     self.model.getSimulation().startSimulation()

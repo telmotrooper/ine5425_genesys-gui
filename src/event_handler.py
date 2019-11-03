@@ -34,6 +34,7 @@ class EventHandler:
   def run_example_one(self, button):
     simulation = Example1(self)
     simulation.prepareSimulation()
+    simulation.saveToFile("example_one")
 
   def run_example_two(self, button):
     simulation = Example2(self)
