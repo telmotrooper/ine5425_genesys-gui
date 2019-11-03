@@ -56,7 +56,12 @@ class ComponentList:  # Singleton
       for key in self.component_dict.keys():
         component = self.component_dict.get(key)
         attr = self.get_visual_attributes(component["type"])
-        dot.node(key, component["name"], shape=attr["shape"], height=attr["height"])
+        dot.node(key, component["name"],
+          shape=attr["shape"],
+          height=attr["height"],
+          style=attr["style"],
+          fillcolor=attr["fillcolor"]
+        )
       
       for key in self.component_dict.keys():
         component = self.component_dict.get(key)
@@ -69,8 +74,17 @@ class ComponentList:  # Singleton
 
 
     def get_visual_attributes(self, componentType):
-      print(componentType)
       if(componentType == "Create"):
-        return {"shape": "cds", "height": ".8"}
+        return {
+          "shape": "cds",
+          "height": ".8",
+          "style": "filled",
+          "fillcolor": "#fef6cd"
+        }
       else:
-        return {"shape": "ellipse", "height": ".8"}
+        return {
+          "shape": "ellipse",
+          "height": ".8",
+          "style": "filled",
+          "fillcolor": "white"
+        }
