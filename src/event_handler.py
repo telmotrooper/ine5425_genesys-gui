@@ -2,6 +2,7 @@ from gi.repository import Gtk
 import datetime
 
 from examples.example1 import Example1
+from examples.example2 import Example2
 import load_simulation
 from display import Display
 from user_interface import UserInterface
@@ -33,7 +34,10 @@ class EventHandler:
   def run_example_one(self, button):
     simulation = Example1(self)
     simulation.prepareSimulation()
-    # simulation.run()
+
+  def run_example_two(self, button):
+    simulation = Example2(self)
+    simulation.prepareSimulation()
 
   def show_about_dialog(self, button):
     self.ui.about_dialog.show_all()

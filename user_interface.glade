@@ -282,6 +282,15 @@
                         <signal name="activate" handler="run_example_one" swapped="no"/>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkMenuItem" id="run_example_2_menu">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Run Example 2</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="run_example_two" swapped="no"/>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
