@@ -30,6 +30,7 @@ class Simulation:
       self.simulator.getTraceManager().setTraceLevel(libgenesys.TraceLevel.blockArrival)
         
     self.write_to_log()
+    self.prepare_simulation()
 
   def prepare_simulation(self):
     pass

@@ -32,13 +32,11 @@ class EventHandler:
     bounds = buffer.get_bounds()
     buffer.delete(bounds.start, bounds.end)
 
-  def run_example_one(self, button):
+  def load_example_one(self, button):
     self.current_simulation = Example1(self)
-    self.current_simulation.prepare_simulation()
 
-  def run_example_two(self, button):
+  def load_example_two(self, button):
     simulation = Example2(self)
-    simulation.prepare_simulation()
 
   def save_simulation(self, button):
     self.current_simulation.save_to_file("example_one")

@@ -250,10 +250,10 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem" id="run_menu">
+              <object class="GtkMenuItem" id="load_menu">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Run</property>
+                <property name="label" translatable="yes">Load</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu">
@@ -275,21 +275,21 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="run_example_1_menu">
+                      <object class="GtkMenuItem" id="load_example_1_menu">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Run Example 1</property>
+                        <property name="label" translatable="yes">Load Example 1</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="run_example_one" swapped="no"/>
+                        <signal name="activate" handler="load_example_one" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="run_example_2_menu">
+                      <object class="GtkMenuItem" id="load_example_2_menu">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Run Example 2</property>
+                        <property name="label" translatable="yes">Load Example 2</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="run_example_two" swapped="no"/>
+                        <signal name="activate" handler="load_example_two" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -335,7 +335,8 @@
               <object class="GtkToolButton" id="new_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">save_button</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">New</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-new</property>
               </object>
@@ -348,7 +349,8 @@
               <object class="GtkToolButton" id="open_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">open_button</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Open</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-open</property>
                 <signal name="clicked" handler="show_file_chooser" swapped="no"/>
@@ -362,7 +364,8 @@
               <object class="GtkToolButton" id="save_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">save_button</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Save</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
                 <signal name="clicked" handler="save_simulation" swapped="no"/>
@@ -383,10 +386,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkToolButton" id="play_button">
+              <object class="GtkToolButton" id="run_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">play_button</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Run</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-play</property>
                 <signal name="clicked" handler="run_simulation" swapped="no"/>
@@ -400,7 +404,8 @@
               <object class="GtkToolButton" id="pause_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">pause_button</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Pause</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-pause</property>
               </object>
@@ -413,7 +418,8 @@
               <object class="GtkToolButton" id="stop_button">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">stop_button</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Stop</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-media-stop</property>
               </object>
