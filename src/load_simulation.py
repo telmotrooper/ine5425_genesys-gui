@@ -8,7 +8,7 @@ def run_simulation(handler, file):
   with stdout_redirector(f):
     # Instantiate a simulator
     simulator = libgenesys.Simulator()
-
+    
     simulator.getModelManager().loadModel(file)
 
     model = simulator.getModelManager().current()

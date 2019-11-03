@@ -2,7 +2,7 @@ from gi.repository import Gtk
 import datetime
 
 import example_simulation_1
-import file_handler
+import load_simulation
 from display import Display
 from user_interface import UserInterface
 
@@ -31,7 +31,8 @@ class EventHandler:
     buffer.delete(bounds.start, bounds.end)
 
   def run_example_one(self, button):
-    example_simulation_1.run_simulation(self)
+    simulation = example_simulation_1.Example1(self)
+    simulation.prepareSimulation()
 
   def show_about_dialog(self, button):
     self.ui.about_dialog.show_all()
@@ -47,7 +48,7 @@ class EventHandler:
   def choose_file(self, button):
     self.ui.file_chooser.hide()
     file_path = self.ui.file_chooser.get_filename()
-    file_handler.run_simulation(self, file_path)
+    load_simulation.run_simulation(self, file_path)
 
   def edit_component(self, tree_view, path, column):
     self.print_to_log(str(path))

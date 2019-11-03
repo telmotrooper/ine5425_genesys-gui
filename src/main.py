@@ -6,8 +6,6 @@ from gi.repository import Gtk, GdkPixbuf
 import sys
 from os import path
 from event_handler import EventHandler
-import example_simulation_1
-import file_handler
 from user_interface import UserInterface
 
 try:
@@ -42,11 +40,6 @@ def main():
     ])
     window.maximize()
     window.show_all()
-
-    # Running simulation
-    # example_simulation_1.run_simulation(handler)
-    # file_handler.run_simulation(handler, "src/models/cancian_example_1.txt")
-
     Gtk.main()
 
 
