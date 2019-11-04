@@ -3,6 +3,7 @@ import datetime
 
 from examples.example1 import Example1
 from examples.example2 import Example2
+from examples.example3 import Example3
 import load_simulation
 from display import Display
 from user_interface import UserInterface
@@ -38,6 +39,9 @@ class EventHandler:
 
   def load_example_two(self, button):
     self.current_simulation = Example2(self)
+
+  def load_example_three(self, button):
+    self.current_simulation = Example3(self)
 
   def save_simulation(self, button):
     self.current_simulation.save_to_file("example_one")
