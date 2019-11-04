@@ -23,7 +23,9 @@ class Example2(Simulation):
       # Create a ModelComponent of type Create, used to insert entities into the model
       self.create1 = libgenesys.Create(self.model)
       self.create1.setEntityType(self.entityType1)
-      self.create1.setTimeBetweenCreationsExpression("1.5")
+      self.create1.setTimeBetweenCreationsExpression("Expo(2)")
+      # self.create1.setTimeUnit(libgenesys.TimeUnit.minute)
+      # self.create1.setEntitiesPerCreation(1)
       self.components.insert(self.create1)
 
       # Create a ModelComponent of type Delay, used to represent a time delay
