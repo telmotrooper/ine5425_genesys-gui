@@ -41,7 +41,7 @@ class Simulation:
   def save_to_file(self, filename):
     with stdout_redirector(self.stream):
       if self.model.checkModel():
-        self.model.saveModel("src/models/{}.txt".format(filename)) # Assuming you're running from root folder
+        self.model.saveModel(filename)
     self.write_to_log()
 
   def run(self):

@@ -76,7 +76,8 @@ class EventHandler:
 
     if file_name[-4:] != ".txt":
       file_name += ".txt"
-      
+    
+    self.current_simulation.save_to_file(folder + "/" + file_name)
     self.print_to_log(folder + "/" + file_name)
     self.ui.save_file_chooser.hide()
 
