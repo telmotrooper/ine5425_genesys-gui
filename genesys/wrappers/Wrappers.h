@@ -44,6 +44,7 @@
 #include "BaseConsoleGenesysApplicationWrapper.h"
 #include "ModelSimulationWrapper.h"
 #include "ModelInfoWrapper.h"
+#include "ResourceWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {
@@ -66,6 +67,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initBaseConsoleGenesysApplication(m);
     initModelSimulation(m);
     initModelInfo(m);
+    initResource(m);
 }
 
 #endif /* WRAPPERS_H */

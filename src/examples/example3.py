@@ -8,25 +8,24 @@ class Example3(Simulation):
   
   def prepare_simulation(self):
     with stdout_redirector(self.stream):
+      self.tm.setTraceLevel(libgenesys.TraceLevel.mostDetailed)
+
       self.infos = self.model.getInfos()
-      self.infos.setAnalystName("Your name")
-      self.infos.setProjectTitle("The title of the project")
-      self.infos.setDescription("This simulation model tests one of the most basic models possible.")
-      self.infos.setReplicationLength(30)
-      self.infos.setReplicationLengthTimeUnit(libgenesys.TimeUnit.minute)
+      self.infos.setReplicationLength(60)
+      self.infos.setReplicationLengthTimeUnit(libgenesys.TimeUnit.second)
       self.infos.setNumberOfReplications(3)
 
-      # Create a SourceModelElement of type EntityType, which will be used by a ModelComponent later
-      self.entityType1 = libgenesys.EntityType(self.elements, "Type_of_Representative_Entity")
-      self.elements.insert(self.entityType1.getTypename(), self.entityType1)
+      self.customer = libgenesys.EntityType(self.elements, "Customer")
+      self.elements.insert(self.customer.getTypename(), self.customer)
 
-      # Create a ModelComponent of type Create, used to insert entities into the model
       self.create1 = libgenesys.Create(self.model)
-      self.create1.setEntityType(self.entityType1)
-      self.create1.setTimeBetweenCreationsExpression("Expo(2)")
+      self.create1.setEntityType(self.customer)
+      self.create1.setTimeBetweenCreationsExpression("norm(3,1)")
       self.create1.setTimeUnit(libgenesys.TimeUnit.minute)
       self.create1.setEntitiesPerCreation(1)
       self.components.insert(self.create1)
+
+      self.machine1 = libgenesys.Resource(self.elements, "Machine_1")
 
       # Create a ModelComponent of type Delay, used to represent a time delay
       self.delay1 = libgenesys.Delay(self.model)  # By default delay takes 1 second
