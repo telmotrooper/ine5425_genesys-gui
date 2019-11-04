@@ -7,7 +7,14 @@
     <property name="icon_name">help-faq</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Genesys Simulator</property>
+    <property name="version">Unknown version</property>
+    <property name="comments" translatable="yes">A software for event-based simulation.</property>
     <property name="website">https://github.com/rlcancian/ReGenESYs</property>
+    <property name="license" translatable="yes">The C++ simulator is under a custom license
+&lt;https://github.com/rlcancian/ReGenESYs&gt;
+
+GUI and wrappers are under GPLv3
+&lt;https://www.gnu.org/licenses/gpl-3.0.en.html&gt;</property>
     <property name="authors">
 (Main Developer)
 Rafael Luiz Cancian
@@ -104,6 +111,7 @@ Telmo Henrique Valverde da Silva</property>
   <object class="GtkFileChooserDialog" id="save_file_chooser">
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
+    <property name="action">save</property>
     <property name="filter">allowed_files</property>
     <child>
       <placeholder/>
