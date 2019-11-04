@@ -33,13 +33,14 @@ class Example3(Simulation):
       self.queueSeize1.setOrderRule(libgenesys.OrderRule.FIFO)
       self.elements.insert("Queue", self.queueSeize1)
 
+      self.seize1 = libgenesys.Seize(self.model)
+      self.seize1.setResource(self.machine1)
+      self.seize1.setQueue(self.queueSeize1)
+      self.components.insert(self.seize1)
 
-
-
-      # Create a ModelComponent of type Delay, used to represent a time delay
       self.delay1 = libgenesys.Delay(self.model)  # By default delay takes 1 second
-      self.delay1.setDelayExpression("NORM(1,0.2)")
-      self.delay1.setDelayTimeUnit(libgenesys.TimeUnit.minute)
+      self.delay1.setDelayExpression("norm(3,1)")
+      self.delay1.setDelayTimeUnit(libgenesys.TimeUnit.second)
       self.components.insert(self.delay1)
 
       # Create a SinkModelComponent of type Dispose, used to remove entities from the model
