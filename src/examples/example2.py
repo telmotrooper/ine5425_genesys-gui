@@ -13,7 +13,7 @@ class Example2(Simulation):
       self.infos.setProjectTitle("The title of the project")
       self.infos.setDescription("This simulation model tests one of the most basic models possible.")
       self.infos.setReplicationLength(30)
-      # self.infos.setReplicationLengthTimeUnit(Util::TimeUnit::minute)
+      self.infos.setReplicationLengthTimeUnit(libgenesys.TimeUnit.minute)
       self.infos.setNumberOfReplications(3)
 
       # Create a SourceModelElement of type EntityType, which will be used by a ModelComponent later

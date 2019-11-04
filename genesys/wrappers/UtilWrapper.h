@@ -42,6 +42,17 @@ void initUtil(py::module &m) {
         .value("blockInternal", Util::TraceLevel::blockInternal)
         .value("mostDetailed", Util::TraceLevel::mostDetailed)
         .export_values();
+
+    py::enum_<Util::TimeUnit>(m, "TimeUnit")
+        .value("picosecond", Util::TimeUnit::picosecond)
+        .value("nanosecond", Util::TimeUnit::nanosecond)
+        .value("microsecond", Util::TimeUnit::microsecond)
+        .value("milisecond", Util::TimeUnit::milisecond)
+        .value("second", Util::TimeUnit::second)
+        .value("minute", Util::TimeUnit::minute)
+        .value("hour", Util::TimeUnit::hour)
+        .value("day", Util::TimeUnit::day)
+        .value("week", Util::TimeUnit::week);
 }
 
 #endif /* UTIL_WRAPPER_H */

@@ -49,6 +49,7 @@ void initModelInfo(py::module &m) {
         .def("setReplicationLength", &ModelInfo::setReplicationLength)
         .def("getReplicationLengthTimeUnit", &ModelInfo::getReplicationLengthTimeUnit,
             py::return_value_policy::reference)
+        .def("setReplicationLengthTimeUnit", &ModelInfo::setReplicationLengthTimeUnit)    
         .def("setWarmUpPeriod", &ModelInfo::setWarmUpPeriod)
         .def("getWarmUpPeriod", &ModelInfo::getWarmUpPeriod)
         .def("setWarmUpPeriodTimeUnit", &ModelInfo::setWarmUpPeriodTimeUnit)
