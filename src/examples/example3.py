@@ -29,6 +29,13 @@ class Example3(Simulation):
       self.machine1.setCapacity(1)
       self.elements.insert("Resource", self.machine1)
 
+      self.queueSeize1 = libgenesys.Queue(self.elements, "Queue_Machine_1")
+      self.queueSeize1.setOrderRule(libgenesys.OrderRule.FIFO)
+      self.elements.insert("Queue", self.queueSeize1)
+
+
+
+
       # Create a ModelComponent of type Delay, used to represent a time delay
       self.delay1 = libgenesys.Delay(self.model)  # By default delay takes 1 second
       self.delay1.setDelayExpression("NORM(1,0.2)")
@@ -51,6 +58,7 @@ class Example3(Simulation):
       self.cl.insert(self.create1)
       self.cl.insert(self.delay1)
       self.cl.insert(self.dispose1)
+      # self.cl.insert(self.queueSeize1)
 
     # Print to GUI stuff that was just executed
     self.write_to_log()
