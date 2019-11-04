@@ -52,8 +52,15 @@ class EventHandler:
     self.ui.open_file_chooser.show_all()
     self.ui.open_file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
   
+  def show_save_file_chooser(self, button):
+    self.ui.save_file_chooser.show_all()
+    self.ui.save_file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
+
   def hide_open_file_chooser(self, button):
     self.ui.open_file_chooser.hide()
+
+  def hide_save_file_chooser(self, button):
+    self.ui.save_file_chooser.hide()
 
   def choose_file(self, button):
     self.ui.open_file_chooser.hide()
