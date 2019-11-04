@@ -24,12 +24,14 @@ class Example2(Simulation):
       self.create1 = libgenesys.Create(self.model)
       self.create1.setEntityType(self.entityType1)
       self.create1.setTimeBetweenCreationsExpression("Expo(2)")
-      # self.create1.setTimeUnit(libgenesys.TimeUnit.minute)
-      # self.create1.setEntitiesPerCreation(1)
+      self.create1.setTimeUnit(libgenesys.TimeUnit.minute)
+      self.create1.setEntitiesPerCreation(1)
       self.components.insert(self.create1)
 
       # Create a ModelComponent of type Delay, used to represent a time delay
       self.delay1 = libgenesys.Delay(self.model)  # By default delay takes 1 second
+      self.delay1.setDelayExpression("NORM(1,0.2)")
+      self.delay1.setDelayTimeUnit(libgenesys.TimeUnit.minute)
       self.components.insert(self.delay1)
 
       # Create a SinkModelComponent of type Dispose, used to remove entities from the model
