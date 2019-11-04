@@ -15,7 +15,7 @@ class EventHandler:
     self.display = Display(self.ui.drawing_area)
 
     # Connecting events to UI elements
-    self.ui.file_chooser.connect("file-activated", self.choose_file)
+    self.ui.open_file_chooser.connect("file-activated", self.choose_file)
   
   def on_destroy(self, *args):
     Gtk.main_quit()
@@ -48,16 +48,16 @@ class EventHandler:
     self.ui.about_dialog.show_all()
     self.ui.about_dialog.connect("delete-event", lambda w, e: w.hide() or True)
   
-  def show_file_chooser(self, button):
-    self.ui.file_chooser.show_all()
-    self.ui.file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
+  def show_open_file_chooser(self, button):
+    self.ui.open_file_chooser.show_all()
+    self.ui.open_file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
   
-  def hide_file_chooser(self, button):
-    self.ui.file_chooser.hide()
+  def hide_open_file_chooser(self, button):
+    self.ui.open_file_chooser.hide()
 
   def choose_file(self, button):
-    self.ui.file_chooser.hide()
-    file_path = self.ui.file_chooser.get_filename()
+    self.ui.open_file_chooser.hide()
+    file_path = self.ui.open_file_chooser.get_filename()
     load_simulation.run_simulation(self, file_path)
 
   def edit_component(self, tree_view, path, column):

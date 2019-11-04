@@ -21,6 +21,6 @@ class UserInterface:  # Singleton
         self.log = builder.get_object("log")
         self.about_dialog = builder.get_object("about_dialog")
         self.list_store = builder.get_object("list_store")
-        self.file_chooser = builder.get_object("file_chooser")
+        self.open_file_chooser = builder.get_object("open_file_chooser")
         self.drawing_area = builder.get_object("drawing_area")
         self.tree_view = builder.get_object("tree_view")
