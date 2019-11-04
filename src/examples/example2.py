@@ -8,6 +8,14 @@ class Example2(Simulation):
   
   def prepare_simulation(self):
     with stdout_redirector(self.stream):
+      self.infos = self.model.getInfos()
+      self.infos.setAnalystName("Your name")
+      self.infos.setProjectTitle("The title of the project")
+      self.infos.setDescription("This simulation model tests one of the most basic models possible.")
+      self.infos.setReplicationLength(30)
+      # self.infos.setReplicationLengthTimeUnit(Util::TimeUnit::minute)
+      self.infos.setNumberOfReplications(3)
+
       # Create a SourceModelElement of type EntityType, which will be used by a ModelComponent later
       self.entityType1 = libgenesys.EntityType(self.elements, "Type_of_Representative_Entity")
       self.elements.insert(self.entityType1.getTypename(), self.entityType1)

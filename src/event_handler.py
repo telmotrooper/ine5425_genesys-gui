@@ -37,7 +37,7 @@ class EventHandler:
     self.current_simulation = Example1(self)
 
   def load_example_two(self, button):
-    simulation = Example2(self)
+    self.current_simulation = Example2(self)
 
   def save_simulation(self, button):
     self.current_simulation.save_to_file("example_one")
