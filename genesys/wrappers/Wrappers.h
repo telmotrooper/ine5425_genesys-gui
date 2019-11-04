@@ -43,6 +43,7 @@
 #include "DisposeWrappers.h"
 #include "BaseConsoleGenesysApplicationWrapper.h"
 #include "ModelSimulationWrapper.h"
+#include "ModelInfoWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {
@@ -64,6 +65,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initDispose(m); // depends on SinkModelComponent
     initBaseConsoleGenesysApplication(m);
     initModelSimulation(m);
+    initModelInfo(m);
 }
 
 #endif /* WRAPPERS_H */

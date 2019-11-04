@@ -49,7 +49,8 @@ void initModel(py::module &m) {
             py::return_value_policy::reference)
         .def("getComponentManager", &Model::getComponentManager,
             py::return_value_policy::reference)
-        .def("getInfos", &Model::getInfos)
+        .def("getInfos", &Model::getInfos,
+            py::return_value_policy::reference)
         .def("getParentSimulator", &Model::getParentSimulator)
         .def("getSimulation", &Model::getSimulation,
             py::return_value_policy::reference)
