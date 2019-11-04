@@ -46,6 +46,7 @@
 #include "ModelInfoWrapper.h"
 #include "ResourceWrapper.h"
 #include "QueueWrapper.h"
+#include "SeizeWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {
@@ -70,6 +71,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initModelInfo(m);
     initResource(m);
     initQueue(m);
+    initSeize(m);
 }
 
 #endif /* WRAPPERS_H */

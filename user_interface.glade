@@ -732,10 +732,9 @@ https://www.flaticon.com/authors/vectors-market</property>
               </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkPaned">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">9</property>
+                <property name="can_focus">True</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkScrolledWindow">
@@ -762,9 +761,8 @@ https://www.flaticon.com/authors/vectors-market</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="resize">False</property>
+                    <property name="shrink">True</property>
                   </packing>
                 </child>
                 <child>
@@ -786,16 +784,15 @@ https://www.flaticon.com/authors/vectors-market</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="resize">True</property>
+                    <property name="shrink">True</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
