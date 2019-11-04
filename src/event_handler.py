@@ -71,14 +71,18 @@ class EventHandler:
     load_simulation.run_simulation(self, file_path)
 
   def save_file(self, button):
-    folder = self.ui.save_file_chooser.get_current_folder()
-    file_name = self.ui.save_file_chooser.get_current_name()
+    if self.current_simulation == None:
+      self.print_to_log("Error: There's no model to be saved.")
+    else:
+      folder = self.ui.save_file_chooser.get_current_folder()
+      file_name = self.ui.save_file_chooser.get_current_name()
 
-    if file_name[-4:] != ".txt":
-      file_name += ".txt"
-    
-    self.current_simulation.save_to_file(folder + "/" + file_name)
-    self.print_to_log(folder + "/" + file_name)
+      if file_name[-4:] != ".txt":
+        file_name += ".txt"
+      
+      self.current_simulation.save_to_file(folder + "/" + file_name)
+      self.print_to_log(folder + "/" + file_name)
+
     self.ui.save_file_chooser.hide()
 
   def edit_component(self, tree_view, path, column):
