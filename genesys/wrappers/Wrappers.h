@@ -47,6 +47,7 @@
 #include "ResourceWrapper.h"
 #include "QueueWrapper.h"
 #include "SeizeWrapper.h"
+#include "ReleaseWrapper.h"
 #include <pybind11/pybind11.h>
 
 PYBIND11_MODULE(libgenesys, m) {
@@ -72,6 +73,7 @@ PYBIND11_MODULE(libgenesys, m) {
     initResource(m);
     initQueue(m);
     initSeize(m);
+    initRelease(m);
 }
 
 #endif /* WRAPPERS_H */

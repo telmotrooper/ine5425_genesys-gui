@@ -43,23 +43,27 @@ class Example3(Simulation):
       self.delay1.setDelayTimeUnit(libgenesys.TimeUnit.second)
       self.components.insert(self.delay1)
 
-      # Create a SinkModelComponent of type Dispose, used to remove entities from the model
+      self.release1 = libgenesys.Release(self.model)
+      self.release1.setResource(self.machine1)
+      self.components.insert(self.release1)      
+
       self.dispose1 = libgenesys.Dispose(self.model)
       self.components.insert(self.dispose1)
 
-      # Connect model components to create a "workflow". Should always start from
-      # a SourceModelComponent and end at a SinkModelComponent (it will be checked)
-      self.create1.getNextComponents().insert(self.delay1)
-      self.delay1.getNextComponents().insert(self.dispose1)
+      self.create1.getNextComponents().insert(self.seize1)
+      self.seize1.getNextComponents().insert(self.delay1)
+      self.delay1.getNextComponents().insert(self.release1)
+      self.release1.getNextComponents().insert(self.dispose1)
 
       # Insert the model into the simulator 
       self.simulator.getModelManager().insert(self.model)
 
       # Insert components into GUI list
       self.cl.insert(self.create1)
+      self.cl.insert(self.seize1)
       self.cl.insert(self.delay1)
+      self.cl.insert(self.release1)
       self.cl.insert(self.dispose1)
-      # self.cl.insert(self.queueSeize1)
 
     # Print to GUI stuff that was just executed
     self.write_to_log()
