@@ -30,7 +30,7 @@
 namespace py = pybind11;
 
 void initResource(py::module &m) {
-    py::class_<Resource>(m, "Resource")
+    py::class_<Resource, ModelElement>(m, "Resource")
         .def(py::init<ElementManager*>())
         .def(py::init<ElementManager*, std::string>())
         .def(py::init<Resource&>())

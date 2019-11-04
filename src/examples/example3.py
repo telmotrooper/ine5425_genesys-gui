@@ -26,6 +26,8 @@ class Example3(Simulation):
       self.components.insert(self.create1)
 
       self.machine1 = libgenesys.Resource(self.elements, "Machine_1")
+      self.machine1.setCapacity(1)
+      self.elements.insert("Resource", self.machine1)
 
       # Create a ModelComponent of type Delay, used to represent a time delay
       self.delay1 = libgenesys.Delay(self.model)  # By default delay takes 1 second
