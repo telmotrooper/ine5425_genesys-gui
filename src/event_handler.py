@@ -11,6 +11,7 @@ from user_interface import UserInterface
 class EventHandler:
   def __init__(self, builder):
     self.current_simulation = None
+    self.current_file = None
     self.ui = UserInterface()
     self.display = Display(self.ui.drawing_area)
 
@@ -59,6 +60,15 @@ class EventHandler:
     self.ui.save_file_chooser.show_all()
     self.ui.save_file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
 
+  def save_as(self, button):
+    self.show_save_file_chooser(button)
+  
+  def save(self, button):
+    if self.current_file == None:
+      self.show_save_file_chooser(button)
+    else:
+      self.save_file(button)
+
   def hide_open_file_chooser(self, button):
     self.ui.open_file_chooser.hide()
 
@@ -80,10 +90,13 @@ class EventHandler:
       if file_name[-4:] != ".txt":
         file_name += ".txt"
       
-      self.current_simulation.save_to_file(folder + "/" + file_name)
-      self.print_to_log(folder + "/" + file_name)
+      file_path = folder + "/" + file_name
+      self.current_simulation.save_to_file(file_path)
+      self.current_file = file_path
+      self.print_to_log(file_path)
 
     self.ui.save_file_chooser.hide()
+
 
   def edit_component(self, tree_view, path, column):
     self.print_to_log(str(path))

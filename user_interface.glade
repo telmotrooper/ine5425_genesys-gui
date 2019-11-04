@@ -233,7 +233,7 @@ https://www.flaticon.com/authors/vectors-market</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="show_save_file_chooser" swapped="no"/>
+                        <signal name="activate" handler="save" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -243,7 +243,7 @@ https://www.flaticon.com/authors/vectors-market</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="show_save_file_chooser" swapped="no"/>
+                        <signal name="activate" handler="save_as" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -385,7 +385,7 @@ https://www.flaticon.com/authors/vectors-market</property>
                 <property name="label" translatable="yes">Save</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
-                <signal name="clicked" handler="show_save_file_chooser" swapped="no"/>
+                <signal name="clicked" handler="save" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
