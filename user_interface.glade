@@ -16,10 +16,11 @@
 GUI and wrappers are under GPLv3
 &lt;https://www.gnu.org/licenses/gpl-3.0.en.html&gt;</property>
     <property name="authors">
-(Main Developer)
-Rafael Luiz Cancian
-(Developer for GUI and Wrappers)
-Telmo Henrique Valverde da Silva</property>
+(Main Developer) Rafael Luiz Cancian 
+(Developer for GUI and Wrappers) Telmo "Trooper"</property>
+    <property name="artists">
+Target Icon by Vectors Market
+https://www.flaticon.com/authors/vectors-market</property>
     <property name="logo">icons/icon-128.png</property>
     <child>
       <placeholder/>
