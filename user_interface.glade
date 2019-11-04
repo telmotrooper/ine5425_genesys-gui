@@ -22,6 +22,7 @@ GUI and wrappers are under GPLv3
 Target Icon by Vectors Market
 https://www.flaticon.com/authors/vectors-market</property>
     <property name="logo">icons/icon-128.png</property>
+    <signal name="response" handler="hide_about_dialog" swapped="no"/>
     <child>
       <placeholder/>
     </child>

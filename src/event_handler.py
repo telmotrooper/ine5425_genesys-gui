@@ -48,6 +48,9 @@ class EventHandler:
     self.ui.about_dialog.show_all()
     self.ui.about_dialog.connect("delete-event", lambda w, e: w.hide() or True)
   
+  def hide_about_dialog(self, dialog, value):
+    self.ui.about_dialog.hide()
+
   def show_open_file_chooser(self, button):
     self.ui.open_file_chooser.show_all()
     self.ui.open_file_chooser.connect("delete-event", lambda w, e: w.hide() or True)
