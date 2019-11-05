@@ -40,7 +40,8 @@ class ComponentList:  # Singleton
       self.component_dict[text[0].split("=")[1]] = {
         "name": text[1].split('"')[1],
         "type": component.__class__.__name__,
-        "nextId": nextText[0].split("=")[1]
+        "nextId": nextText[0].split("=")[1],
+        "object": component
       }
 
       # Ask for a redraw to update GUI
