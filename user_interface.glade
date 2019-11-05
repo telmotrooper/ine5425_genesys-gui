@@ -277,10 +277,19 @@ https://www.flaticon.com/authors/vectors-market</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
+                      <object class="GtkMenuItem" id="run_menu">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Run Simulation</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="run_simulation" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkMenuItem" id="clear_menu">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Clear</property>
+                        <property name="label" translatable="yes">Clear Log</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="clear_log" swapped="no"/>
                       </object>

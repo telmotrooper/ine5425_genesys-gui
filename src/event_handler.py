@@ -47,7 +47,10 @@ class EventHandler:
     self.current_simulation.save_to_file("example_one")
 
   def run_simulation(self, button):
-    self.current_simulation.run()
+    if self.current_simulation != None:
+      self.current_simulation.run()
+    else:
+      self.print_to_log("Error: There's no model defined, so a simulation cannot be executed.")
 
   def show_about_dialog(self, button):
     self.ui.about_dialog.show_all()

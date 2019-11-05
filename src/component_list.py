@@ -80,15 +80,18 @@ class ComponentList:  # Singleton
         "shape": "rect",
         "height": ".8",
         "style": "filled",
-        "fillcolor": "#fef6cd",
+        "fillcolor": "#ffc7bf",
         "orientation": "0"
       }
 
       if componentType == "Create":
         visual["shape"] = "cds"
+        visual["fillcolor"] = "#fef6cd"
+
       
       elif componentType == "Dispose":
         visual["shape"] = "cds"
+        visual["fillcolor"] = "#fef6cd"
         visual["orientation"] = "90"
         
       return visual
