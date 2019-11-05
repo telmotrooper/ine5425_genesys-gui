@@ -108,6 +108,5 @@ class EventHandler:
   def edit_component(self, tree_view, path, column):
     tree_selection = tree_view.get_selection()
     selected = tree_selection.get_selected()
-    self.print_to_log(selected[0].get_value(selected[0].get_iter(path), 2))
-    # print(self.cl.component_dict)
-    # print(str(path))
+    component_id = selected[0].get_value(selected[0].get_iter(path), 2)
+    self.print_to_log(self.cl.component_dict.get(component_id)["object"].show())
