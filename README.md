@@ -1,19 +1,7 @@
 # Genesys GUI
 
-### Compiling and running Genesys
+## INSTALL
 
-Go to the Genesys directory:
+All instructions to compile and run **Genesys GUI** can be found by executing the `setup.sh` script in the directory.
 
-`cd genesys`
-
-Clean temporary files (optional - might be needed for subsequent builds):
-
-`make -f Makefile CONF=Debug clean`
-
-Build application:
-
-`make -f Makefile CONF=Debug`
-
-Run the executable:
-
-`dist/Debug/GNU-Linux/20182-ongoing_regenesys_genericexpansiblesystemsimulator`
+After installing, just run `python3 src/main.py` to execute the program.
