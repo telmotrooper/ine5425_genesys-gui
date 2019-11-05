@@ -7,13 +7,14 @@ from examples.example3 import Example3
 import load_simulation
 from display import Display
 from user_interface import UserInterface
-
+from component_list import ComponentList
 
 class EventHandler:
   def __init__(self, builder):
     self.current_simulation = None
     self.current_file = None
     self.ui = UserInterface()
+    self.cl = ComponentList()
     self.display = Display(self.ui.drawing_area)
 
     # Connecting events to UI elements
@@ -104,6 +105,9 @@ class EventHandler:
 
     self.ui.save_file_chooser.hide()
 
-
   def edit_component(self, tree_view, path, column):
-    self.print_to_log(str(path))
+    tree_selection = tree_view.get_selection()
+    selected = tree_selection.get_selected()
+    self.print_to_log(selected[0].get_value(selected[0].get_iter(path), 2))
+    # print(self.cl.component_dict)
+    # print(str(path))
